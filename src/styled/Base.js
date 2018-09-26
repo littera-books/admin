@@ -6,7 +6,7 @@ const App = styled.div`
 
   a {
     color: black;
-    test-decoration: none;
+    text-decoration: none;
     cursor: pointer;
 
     :visited {
