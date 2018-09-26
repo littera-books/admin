@@ -14,6 +14,7 @@ const App = () => (
   <BrowserRouter>
     <StyledBase.App className="App">
       <Switch>
+        <Route path="/dashboard" component={Loadable.Dashboard} />
         <Route path="/sign-in" component={Loadable.SignIn} />
       </Switch>
     </StyledBase.App>

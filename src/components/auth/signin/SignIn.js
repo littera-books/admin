@@ -40,7 +40,7 @@ export class SignIn extends React.Component {
     const { handleSubmit, error } = this.props;
 
     if (redirect) {
-      return <Redirect to="/main" />;
+      return <Redirect to="/dashboard" />;
     }
 
     return (

@@ -12,6 +12,12 @@ const SignIn = Loadable({
   loading: Loading,
 });
 
+const Dashboard = Loadable({
+  loader: () => import('./components/dashboard/Dashboard'),
+  loading: Loading,
+});
+
 export default {
   SignIn,
+  Dashboard,
 };
