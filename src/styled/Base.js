@@ -15,6 +15,22 @@ const App = styled.div`
   }
 `;
 
+const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 60rem;
+  min-height: 100vh;
+  margin: auto;
+`;
+
+const ColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export default {
   App,
+  FlexWrapper,
+  ColumnWrapper,
 };
