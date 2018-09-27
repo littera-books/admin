@@ -20,7 +20,7 @@ function setup() {
 }
 
 describe('App', () => {
-  it('기본 isVisible Props가 visible인가', () => {
+  it('기본 isVisible Props가 hidden인가', () => {
     const { enzymeWrapper } = setup();
     expect(enzymeWrapper.props().isVisible).toBe('hidden');
   });
