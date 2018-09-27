@@ -30,11 +30,11 @@ SignOut.propTypes = {
   logOut: PropTypes.func.isRequired,
 };
 
-export const mapPropsToDispatch = dispatch => ({
+export const mapDispatchToProps = dispatch => ({
   logOut: () => dispatch(signOut()),
 });
 
 export default connect(
   null,
-  mapPropsToDispatch,
+  mapDispatchToProps,
 )(SignOut);
