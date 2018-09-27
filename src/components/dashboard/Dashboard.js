@@ -11,7 +11,7 @@ import Styled from './Dashboard.styled';
 export const Menu = () => (
   <Fragment>
     <Link to="/survey">
-      <Styled.DashboardTitle id="survey">Survey</Styled.DashboardTitle>
+      <Styled.DashboardTitle>Survey</Styled.DashboardTitle>
     </Link>
     <Link to="/sign-out">
       <Styled.DashboardTitle>Sign Out</Styled.DashboardTitle>
