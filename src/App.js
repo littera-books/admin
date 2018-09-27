@@ -15,6 +15,7 @@ const App = () => (
     <StyledBase.App className="App">
       <Switch>
         <Route path="/dashboard" component={Loadable.Dashboard} />
+        <Route path="/sign-out" component={Loadable.SignOut} />
         <Route path="/sign-in" component={Loadable.SignIn} />
       </Switch>
     </StyledBase.App>

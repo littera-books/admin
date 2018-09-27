@@ -12,6 +12,11 @@ const SignIn = Loadable({
   loading: Loading,
 });
 
+const SignOut = Loadable({
+  loader: () => import('./components/auth/signout/SignOut'),
+  loading: Loading,
+});
+
 const Dashboard = Loadable({
   loader: () => import('./components/dashboard/Dashboard'),
   loading: Loading,
@@ -19,5 +24,6 @@ const Dashboard = Loadable({
 
 export default {
   SignIn,
+  SignOut,
   Dashboard,
 };
