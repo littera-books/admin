@@ -20,7 +20,7 @@ const FlexWrapper = styled.div`
   justify-content: center;
   align-items: center;
   max-width: 60rem;
-  min-height: 100vh;
+  min-height: calc(100vh - 4rem);
   margin: auto;
 `;
 

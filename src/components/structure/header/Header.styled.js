@@ -4,7 +4,6 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
-  border: 1px solid black;
 `;
 
 const MenuWrapper = styled.div`
