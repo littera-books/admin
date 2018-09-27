@@ -22,14 +22,14 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "CI=true react-scripts test --env=jsdom",
+    "test": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "prettier": "prettier --single-quote --arrow-parens always --write",
     "lint": "eslint --fix"
   },
   "lint-staged": {
     "src/**/*.{js,jsx}": [
-      "yarn test",
+      "yarn test src/**/?(*.)(spec|test).js",
       "yarn prettier",
       "yarn lint",
       "git add"
