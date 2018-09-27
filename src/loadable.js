@@ -22,8 +22,14 @@ const Dashboard = Loadable({
   loading: Loading,
 });
 
+const Survey = Loadable({
+  loader: () => import('./components/survey/Survey'),
+  loading: Loading,
+});
+
 export default {
   SignIn,
   SignOut,
   Dashboard,
+  Survey,
 };
