@@ -7,6 +7,11 @@ const Loading = () => (
   </div>
 );
 
+const Header = Loadable({
+  loader: () => import('./components/structure/header/Header'),
+  loading: Loading,
+});
+
 const SignIn = Loadable({
   loader: () => import('./components/auth/signin/SignIn'),
   loading: Loading,
@@ -28,6 +33,7 @@ const Survey = Loadable({
 });
 
 export default {
+  Header,
   SignIn,
   SignOut,
   Dashboard,

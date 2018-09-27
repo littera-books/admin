@@ -12,6 +12,7 @@ function setup() {
     logIn: jest.fn(),
     handleSubmit: jest.fn(),
     error: initialState.error,
+    filter: jest.fn(),
   };
 
   const enzymeWrapper = shallow(<SignIn {...props} />);

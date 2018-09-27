@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 // Components
 import Loadable from './loadable';
@@ -29,18 +31,33 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   />
 );
 
-const App = () => (
-  <BrowserRouter>
-    <StyledBase.App className="App">
-      <Switch>
-        <PrivateRoute path="/survey" component={Loadable.Survey} />
-        <PrivateRoute path="/dashboard" component={Loadable.Dashboard} />
-        <Route path="/sign-out" component={Loadable.SignOut} />
-        <Route path="/sign-in" component={Loadable.SignIn} />
-        <Redirect exact from="/" to="/sign-in" />
-      </Switch>
-    </StyledBase.App>
-  </BrowserRouter>
-);
+export class App extends React.PureComponent {
+  render() {
+    const { isVisible } = this.props;
 
-export default App;
+    return (
+      <BrowserRouter>
+        <StyledBase.App className="App">
+          <Loadable.Header visibility={isVisible} />
+          <Switch>
+            <PrivateRoute path="/survey" component={Loadable.Survey} />
+            <PrivateRoute path="/dashboard" component={Loadable.Dashboard} />
+            <Route path="/sign-out" component={Loadable.SignOut} />
+            <Route path="/sign-in" component={Loadable.SignIn} />
+            <Redirect exact from="/" to="/sign-in" />
+          </Switch>
+        </StyledBase.App>
+      </BrowserRouter>
+    );
+  }
+}
+
+App.propTypes = {
+  isVisible: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = state => ({
+  isVisible: state.controlHeader,
+});
+
+export default connect(mapStateToProps)(App);
