@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import dataConfig from '../../../dataConfig';
 
 // Styled
 import Styled from './Header.styled';
@@ -14,7 +15,9 @@ const Menu = () => (
 
 const Header = ({ visibility }) => (
   <Styled.HeaderWrapper style={{ visibility }}>
-    <h1>Littera Admin</h1>
+    <Link to="/dashboard">
+      <h1>{dataConfig.siteTitle}</h1>
+    </Link>
     <Menu />
   </Styled.HeaderWrapper>
 );
