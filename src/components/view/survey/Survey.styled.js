@@ -7,6 +7,7 @@ const SurveyWrapper = styled.div`
 
 const QuestionWrapper = styled.div`
   display: flex;
+  min-height: calc(100vh - 4rem - 2rem);
   border: 1px solid black;
 `;
 
