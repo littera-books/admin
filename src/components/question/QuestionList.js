@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { listQuestion } from '../../reducers/reducer.survey';
 
 // Styled
-import StyledBase from '../../styled/Base';
 import Styled from './Question.styled';
 
 class QuestionList extends React.Component {
@@ -19,10 +18,12 @@ class QuestionList extends React.Component {
     const { items, matchUrl } = this.props;
     return _.map(items, item => (
       <Link to={`${matchUrl}/${item.subject}`} key={item.id}>
-        <StyledBase.ColumnWrapper>
-          <h3>{item.subject}</h3>
-          <p>{item.title}</p>
-        </StyledBase.ColumnWrapper>
+        <Styled.QuestionItem>
+          <h3>
+            주제: <strong>{item.subject}</strong>
+          </h3>
+          <p>{`제목: ${item.title}`}</p>
+        </Styled.QuestionItem>
       </Link>
     ));
   }
@@ -31,7 +32,9 @@ class QuestionList extends React.Component {
     const { length } = this.props;
     return (
       <Styled.ListWrapper>
-        <h2>{length}</h2>
+        <h2>
+          설문 갯수: <strong>{length}</strong>
+        </h2>
         {this.QuestionItem()}
       </Styled.ListWrapper>
     );
