@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import promiseMiddleware from 'redux-promise';
 
-import { App } from './App';
+import ConnectedApp from './App';
 import reducers from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
@@ -14,7 +14,7 @@ const createStoreWithMiddleware = applyMiddleware(promiseMiddleware)(
 
 ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
+    <ConnectedApp />
   </Provider>,
   document.getElementById('root'),
 );
