@@ -2,7 +2,7 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { Survey } from './Survey';
-import { initialState } from '../../reducers/reducer.survey';
+import { initialState } from '../../../reducers/reducer.survey';
 
 Enzyme.configure({ adapter: new Adapter() });
 

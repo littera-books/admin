@@ -2,13 +2,13 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { listQuestion } from '../../reducers/reducer.survey';
+import { listQuestion } from '../../../reducers/reducer.survey';
 
 // Component
-import Helmet from '../helmet/Helmet';
+import Helmet from '../../helmet/Helmet';
 
 // Styled
-import StyledBase from '../../styled/Base';
+import StyledBase from '../../../styled/Base';
 
 export class Survey extends React.Component {
   componentDidMount() {

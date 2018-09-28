@@ -23,12 +23,12 @@ const SignOut = Loadable({
 });
 
 const Dashboard = Loadable({
-  loader: () => import('./components/dashboard/Dashboard'),
+  loader: () => import('./components/view/dashboard/Dashboard'),
   loading: Loading,
 });
 
 const Survey = Loadable({
-  loader: () => import('./components/survey/Survey'),
+  loader: () => import('./components/view/survey/Survey'),
   loading: Loading,
 });
 
