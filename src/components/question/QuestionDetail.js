@@ -1,9 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const QuestionDetail = ({ match }) => <div>{match.params.subject}</div>;
+// Styled
+import Styled from './Question.styled';
 
-QuestionDetail.propTypes = {
+export const DefaultQuestionDetail = () => (
+  <Styled.DetailWrapper>
+    <h1>hello</h1>
+  </Styled.DetailWrapper>
+);
+
+const ActiveQuestionDetail = ({ match }) => (
+  <Styled.DetailWrapper>
+    <h1>{match.params.subject}</h1>
+  </Styled.DetailWrapper>
+);
+
+ActiveQuestionDetail.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
       subject: PropTypes.string.isRequired,
@@ -11,4 +24,4 @@ QuestionDetail.propTypes = {
   }).isRequired,
 };
 
-export default QuestionDetail;
+export default ActiveQuestionDetail;

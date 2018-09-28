@@ -5,20 +5,29 @@ import { Route } from 'react-router-dom';
 // Component
 import Helmet from '../../helmet/Helmet';
 import QuestionList from '../../question/QuestionList';
-import QuestionDetail from '../../question/QuestionDetail';
+import ActiveQuestionDetail, {
+  DefaultQuestionDetail,
+} from '../../question/QuestionDetail';
 
 // Styled
 import StyledBase from '../../../styled/Base';
+import Styled from './Survey.styled';
 
 const Survey = ({ match }) => (
-  <StyledBase.FlexWrapper>
+  <Styled.SurveyWrapper>
     <StyledBase.ColumnWrapper>
       <Helmet pageTitle="Survey" />
       <h1>설문조사 컴포넌트</h1>
-      <QuestionList matchUrl={match.url} />
-      <Route path="/survey/:subject" component={QuestionDetail} />
+      <Styled.QuestionWrapper>
+        <QuestionList matchUrl={match.url} />
+        <Route exact path={`${match.url}`} component={DefaultQuestionDetail} />
+        <Route
+          path={`${match.url}/:subject`}
+          component={ActiveQuestionDetail}
+        />
+      </Styled.QuestionWrapper>
     </StyledBase.ColumnWrapper>
-  </StyledBase.FlexWrapper>
+  </Styled.SurveyWrapper>
 );
 
 Survey.propTypes = {

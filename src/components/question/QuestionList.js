@@ -7,6 +7,7 @@ import { listQuestion } from '../../reducers/reducer.survey';
 
 // Styled
 import StyledBase from '../../styled/Base';
+import Styled from './Question.styled';
 
 class QuestionList extends React.Component {
   componentDidMount() {
@@ -29,10 +30,10 @@ class QuestionList extends React.Component {
   render() {
     const { length } = this.props;
     return (
-      <StyledBase.ColumnWrapper>
+      <Styled.ListWrapper>
         <h2>{length}</h2>
         {this.QuestionItem()}
-      </StyledBase.ColumnWrapper>
+      </Styled.ListWrapper>
     );
   }
 }
