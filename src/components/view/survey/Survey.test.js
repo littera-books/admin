@@ -1,22 +1,14 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Survey } from './Survey';
-import { initialState } from '../../../reducers/reducer.survey';
+import Survey from './Survey';
 
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
-  const props = {
-    getList: jest.fn(),
-    length: initialState.length,
-    items: initialState.items,
-  };
-
-  const enzymeWrapper = shallow(<Survey {...props} />);
+  const enzymeWrapper = shallow(<Survey />);
 
   return {
-    props,
     enzymeWrapper,
   };
 }
