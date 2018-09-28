@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { listQuestion } from '../../reducers/reducer.survey';
 
@@ -14,12 +15,14 @@ class QuestionList extends React.Component {
   }
 
   QuestionItem() {
-    const { items } = this.props;
+    const { items, matchUrl } = this.props;
     return _.map(items, item => (
-      <StyledBase.ColumnWrapper key={item.id}>
-        <h3>{item.subject}</h3>
-        <p>{item.title}</p>
-      </StyledBase.ColumnWrapper>
+      <Link to={`${matchUrl}/${item.subject}`} key={item.id}>
+        <StyledBase.ColumnWrapper>
+          <h3>{item.subject}</h3>
+          <p>{item.title}</p>
+        </StyledBase.ColumnWrapper>
+      </Link>
     ));
   }
 
@@ -35,6 +38,7 @@ class QuestionList extends React.Component {
 }
 
 QuestionList.propTypes = {
+  matchUrl: PropTypes.string.isRequired,
   getList: PropTypes.func.isRequired,
   length: PropTypes.number.isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,

@@ -6,7 +6,13 @@ import Survey from './Survey';
 Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
-  const enzymeWrapper = shallow(<Survey />);
+  const props = {
+    match: {
+      url: '/survey',
+    },
+  };
+
+  const enzymeWrapper = shallow(<Survey {...props} />);
 
   return {
     enzymeWrapper,
