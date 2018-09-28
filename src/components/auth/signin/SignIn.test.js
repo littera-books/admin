@@ -36,19 +36,19 @@ describe('SignIn', () => {
   it('기본 filter 값이 hidden인가', () => {
     const { props } = setup();
     expect(props.filter.mock.calls[0][0]).toEqual(
-      setVisibilityFilter(VisibilityFilters.HIDE_TITLE).filter,
+      setVisibilityFilter(VisibilityFilters.HIDE_HEADER).filter,
     );
   });
 
   it('filter를 호출했을 때 값이 바뀌는가', () => {
     const { props } = setup();
-    mapDispatchToProps(props.filter).filter(VisibilityFilters.SHOW_TITLE);
+    mapDispatchToProps(props.filter).filter(VisibilityFilters.SHOW_HEADER);
     expect(props.filter.mock.calls[1][0].filter).toEqual(
-      setVisibilityFilter(VisibilityFilters.SHOW_TITLE).filter,
+      setVisibilityFilter(VisibilityFilters.SHOW_HEADER).filter,
     );
-    mapDispatchToProps(props.filter).filter(VisibilityFilters.HIDE_TITLE);
+    mapDispatchToProps(props.filter).filter(VisibilityFilters.HIDE_HEADER);
     expect(props.filter.mock.calls[2][0].filter).toEqual(
-      setVisibilityFilter(VisibilityFilters.HIDE_TITLE).filter,
+      setVisibilityFilter(VisibilityFilters.HIDE_HEADER).filter,
     );
   });
 });

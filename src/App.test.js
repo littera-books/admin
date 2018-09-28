@@ -8,7 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
-    isVisible: VisibilityFilters.HIDE_TITLE,
+    isVisible: VisibilityFilters.HIDE_HEADER,
   };
 
   const enzymeWrapper = mount(<App {...props} />);

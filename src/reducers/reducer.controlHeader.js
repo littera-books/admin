@@ -2,8 +2,8 @@
 const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER';
 
 export const VisibilityFilters = {
-  SHOW_TITLE: 'visible',
-  HIDE_TITLE: 'hidden',
+  SHOW_HEADER: 'visible',
+  HIDE_HEADER: 'hidden',
 };
 
 // Action Creators
@@ -15,7 +15,7 @@ export function setVisibilityFilter(filter) {
 }
 
 // Reducer
-export default function reducer(state = VisibilityFilters.SHOW_TITLE, action) {
+export default function reducer(state = VisibilityFilters.SHOW_HEADER, action) {
   switch (action.type) {
     case SET_VISIBILITY_FILTER:
       return action.filter;

@@ -25,12 +25,12 @@ export class SignIn extends React.Component {
   componentDidMount() {
     const { init, filter } = this.props;
     init();
-    filter(VisibilityFilters.HIDE_TITLE);
+    filter(VisibilityFilters.HIDE_HEADER);
   }
 
   componentWillUnmount() {
     const { filter } = this.props;
-    filter(VisibilityFilters.SHOW_TITLE);
+    filter(VisibilityFilters.SHOW_HEADER);
   }
 
   async onSubmit(payload) {
