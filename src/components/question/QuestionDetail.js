@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { detailQuestion } from '../../reducers/reducer.survey';
+import { detailQuestion } from '../../reducers/reducer.question';
 
 // Styled
 import Styled from './Question.styled';
@@ -50,7 +50,7 @@ ActiveQuestionDetail.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  item: state.survey.item,
+  item: state.question.item,
 });
 
 const mapDispatchToProps = dispatch => ({

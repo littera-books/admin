@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { listQuestion } from '../../reducers/reducer.survey';
+import { listQuestion } from '../../reducers/reducer.question';
 
 // Styled
 import Styled from './Question.styled';
@@ -49,8 +49,8 @@ QuestionList.propTypes = {
 };
 
 export const mapStateToProps = state => ({
-  length: state.survey.length,
-  items: state.survey.items,
+  length: state.question.length,
+  items: state.question.items,
 });
 
 export const mapDispatchToProps = dispatch => ({

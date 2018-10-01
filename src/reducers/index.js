@@ -4,13 +4,13 @@ import { reducer as formReducer } from 'redux-form';
 // Reducers
 import controlHeader from './reducer.controlHeader';
 import auth from './reducer.auth';
-import survey from './reducer.survey';
+import question from './reducer.question';
 
 const rootReducer = combineReducers({
   form: formReducer,
   controlHeader,
   auth,
-  survey,
+  question,
 });
 
 export default rootReducer;
