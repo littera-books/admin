@@ -9,7 +9,15 @@ const QuestionItem = styled.div`
   border: 1px solid purple;
 `;
 
-const DetailWrapper = styled.div`
+const DefaultQuestionDetailWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid blue;
+  width: 75vw;
+`;
+
+const ActiveQuestionDetailWrapper = styled.div`
   border: 1px solid blue;
   width: 75vw;
 `;
@@ -17,5 +25,6 @@ const DetailWrapper = styled.div`
 export default {
   ListWrapper,
   QuestionItem,
-  DetailWrapper,
+  DefaultQuestionDetailWrapper,
+  ActiveQuestionDetailWrapper,
 };

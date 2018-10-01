@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import dataConfig from '../../dataConfig';
 import { detailQuestion } from '../../reducers/reducer.question';
 import { listSelection } from '../../reducers/reducer.selection';
 
@@ -9,9 +10,9 @@ import { listSelection } from '../../reducers/reducer.selection';
 import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
-  <Styled.DetailWrapper>
-    <h1>hello</h1>
-  </Styled.DetailWrapper>
+  <Styled.DefaultQuestionDetailWrapper>
+    <h1>{dataConfig.questionDetailText}</h1>
+  </Styled.DefaultQuestionDetailWrapper>
 );
 
 class ActiveQuestionDetail extends React.Component {
@@ -38,12 +39,12 @@ class ActiveQuestionDetail extends React.Component {
     const { item } = this.props;
 
     return (
-      <Styled.DetailWrapper>
+      <Styled.ActiveQuestionDetailWrapper>
         <h1>{item.subject}</h1>
         <p>{item.title}</p>
         <hr />
         {this.selectionList()}
-      </Styled.DetailWrapper>
+      </Styled.ActiveQuestionDetailWrapper>
     );
   }
 }
