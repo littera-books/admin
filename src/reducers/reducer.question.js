@@ -3,6 +3,7 @@ import axiosInstance from './axios.instance';
 // Actions
 const LIST_QUESTION = 'LIST_QUESTION';
 const DETAIL_QUESTION = 'DETAIL_QUESTION';
+const CREATE_QUESTION = 'CREATE_QUESTION';
 
 // Action Creators
 export async function listQuestion() {
@@ -40,6 +41,30 @@ export async function detailQuestion(subject) {
 
   return {
     type: DETAIL_QUESTION,
+    response,
+    error,
+  };
+}
+
+export async function createQuestion(payload) {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: '/survey/question',
+      method: 'post',
+      data: {
+        subject: payload.subject,
+        title: payload.title,
+      },
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: CREATE_QUESTION,
     response,
     error,
   };
@@ -87,6 +112,20 @@ function reducerDetailQuestion(state, action) {
   };
 }
 
+function reducerCreateQuestion(state, action) {
+  if (action.error) {
+    return {
+      ...state,
+      error: action.error.response.data.message,
+    };
+  }
+
+  return {
+    ...state,
+    error: '',
+  };
+}
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -94,6 +133,8 @@ export default function reducer(state = initialState, action) {
       return reducerListQuestion(state, action);
     case DETAIL_QUESTION:
       return reducerDetailQuestion(state, action);
+    case CREATE_QUESTION:
+      return reducerCreateQuestion(state, action);
     default:
       return state;
   }
