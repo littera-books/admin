@@ -5,7 +5,7 @@ import dataConfig from '../../../dataConfig';
 
 // Component
 import Helmet from '../../helmet/Helmet';
-import QuestionList from '../../question/QuestionList';
+import ConnectedQuestionList from '../../question/QuestionList';
 import ActiveQuestionDetail, {
   DefaultQuestionDetail,
 } from '../../question/QuestionDetail';
@@ -22,7 +22,7 @@ const Survey = ({ match }) => (
         <strong>{dataConfig.surveyTitle}</strong>
       </h1>
       <Styled.QuestionWrapper>
-        <QuestionList matchUrl={match.url} />
+        <ConnectedQuestionList matchUrl={match.url} />
         <Route exact path={`${match.url}`} component={DefaultQuestionDetail} />
         <Route
           path={`${match.url}/:subject`}
