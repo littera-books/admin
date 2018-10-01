@@ -8,7 +8,7 @@ import { listQuestion } from '../../reducers/reducer.question';
 // Styled
 import Styled from './Question.styled';
 
-class QuestionList extends React.Component {
+export class QuestionList extends React.Component {
   componentDidMount() {
     const { getList } = this.props;
     getList();
