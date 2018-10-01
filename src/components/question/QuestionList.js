@@ -35,7 +35,8 @@ export class QuestionList extends React.Component {
         createQuestionItem: !state.createQuestionItem,
       }));
       alert('질문이 생성되었습니다');
-      window.location.reload();
+      const { getList } = this.props;
+      getList();
     }
   }
 
