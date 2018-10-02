@@ -4,6 +4,7 @@ import axiosInstance from './axios.instance';
 const LIST_QUESTION = 'LIST_QUESTION';
 const DETAIL_QUESTION = 'DETAIL_QUESTION';
 const CREATE_QUESTION = 'CREATE_QUESTION';
+const UPDATE_QUESTION = 'UPDATE_QUESTION';
 const DESTROY_QUESTION = 'DESTROY_QUESTION';
 
 // Action Creators
@@ -66,6 +67,30 @@ export async function createQuestion(payload) {
 
   return {
     type: CREATE_QUESTION,
+    response,
+    error,
+  };
+}
+
+export async function updateQuestion(payload) {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/survey/question/${payload.subject}`,
+      method: 'put',
+      data: {
+        subject: payload.subject,
+        title: payload.title,
+      },
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: UPDATE_QUESTION,
     response,
     error,
   };
@@ -147,6 +172,20 @@ function reducerCreateQuestion(state, action) {
   };
 }
 
+function reducerUpdateQuestion(state, action) {
+  if (action.error) {
+    return {
+      ...state,
+      error: action.error.response.data.message,
+    };
+  }
+
+  return {
+    ...state,
+    error: '',
+  };
+}
+
 function reducerDestroyQuestion(state, action) {
   if (action.error) {
     return {
@@ -170,6 +209,8 @@ export default function reducer(state = initialState, action) {
       return reducerDetailQuestion(state, action);
     case CREATE_QUESTION:
       return reducerCreateQuestion(state, action);
+    case UPDATE_QUESTION:
+      return reducerUpdateQuestion(state, action);
     case DESTROY_QUESTION:
       return reducerDestroyQuestion(state, action);
     default:

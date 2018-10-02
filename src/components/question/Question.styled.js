@@ -33,10 +33,15 @@ const ActiveQuestionDetailWrapper = styled.div`
   padding: 1rem;
 `;
 
+const QuestionButtonGroup = styled(StyledBase.BetweenWrapper)`
+  width: 10rem;
+`;
+
 export default {
   ListWrapper,
   QuestionSubmitButton,
   QuestionItem,
   DefaultQuestionDetailWrapper,
   ActiveQuestionDetailWrapper,
+  QuestionButtonGroup,
 };
