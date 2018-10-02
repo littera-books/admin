@@ -6,6 +6,7 @@ import controlHeader from './reducer.controlHeader';
 import auth from './reducer.auth';
 import question from './reducer.question';
 import selection from './reducer.selection';
+import popup from './reducer.popup';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   auth,
   question,
   selection,
+  popup,
 });
 
 export default rootReducer;
