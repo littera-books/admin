@@ -10,7 +10,7 @@ import StyledBase from '../../../styled/Base';
 const Dashboard = () => (
   <StyledBase.FlexWrapper>
     <Helmet pageTitle="Dashboard" />
-    <h1>{dataConfig.dashboardText}</h1>
+    <h4>{dataConfig.dashboardText}</h4>
   </StyledBase.FlexWrapper>
 );
 

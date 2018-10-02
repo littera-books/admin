@@ -4,7 +4,6 @@ const FormWrapper = styled.form`
   input,
   button {
     font-family: 'Nanum Myeongjo', serif;
-    font-size: 1.25rem;
     border: none;
   }
 
@@ -26,11 +25,6 @@ const FormWrapper = styled.form`
   input::placeholder {
     font-family: 'Nanum Myeongjo', serif;
     color: black;
-  }
-
-  small {
-    font-size: 0.5rem;
-    color: red;
   }
 `;
 

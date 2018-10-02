@@ -13,6 +13,23 @@ const App = styled.div`
       color: black;
     }
   }
+
+  small {
+    font-size: 0.5rem;
+    color: red;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
+  }
 `;
 
 const FlexWrapper = styled.div`

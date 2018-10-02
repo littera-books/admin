@@ -21,6 +21,6 @@ function setup() {
 describe('SignOut', () => {
   it('올바로 렌더링되었는가', () => {
     const { enzymeWrapper } = setup();
-    expect(enzymeWrapper.find('h1').text()).toBe('로그아웃되었습니다.');
+    expect(enzymeWrapper.find('h4').text()).toBe('로그아웃되었습니다.');
   });
 });

@@ -17,7 +17,7 @@ export class SignOut extends React.Component {
     return (
       <StyledBase.FlexWrapper>
         <StyledBase.ColumnWrapper>
-          <h1>로그아웃되었습니다.</h1>
+          <h4>로그아웃되었습니다.</h4>
           <br />
           <Link to="/sign-in">다시 로그인하기</Link>
         </StyledBase.ColumnWrapper>

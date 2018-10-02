@@ -18,9 +18,9 @@ const Survey = ({ match }) => (
   <Styled.SurveyWrapper>
     <StyledBase.ColumnWrapper>
       <Helmet pageTitle="Survey" />
-      <h1>
+      <h4>
         <strong>{dataConfig.surveyTitle}</strong>
-      </h1>
+      </h4>
       <Styled.QuestionWrapper>
         <ConnectedQuestionList matchUrl={match.url} />
         <Route exact path={`${match.url}`} component={DefaultQuestionDetail} />

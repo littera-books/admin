@@ -34,7 +34,6 @@ export class QuestionList extends React.Component {
       this.setState(state => ({
         createQuestionItem: !state.createQuestionItem,
       }));
-      alert('질문이 생성되었습니다');
       const { getList } = this.props;
       getList();
     }
@@ -50,9 +49,9 @@ export class QuestionList extends React.Component {
     const { handleSubmit, error } = this.props;
     return (
       <Styled.QuestionItem>
-        <h3>
+        <h4>
           <strong>새 질문 만들기</strong>
-        </h3>
+        </h4>
         <form action="post" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             type="text"
@@ -62,7 +61,7 @@ export class QuestionList extends React.Component {
           />
           <Field type="text" name="title" label="제목" component={FormField} />
           <div>
-            <small style={{ color: 'red' }}>{error}</small>
+            <small>{error}</small>
           </div>
           <Styled.QuestionSubmitButton type="submit">
             Create
@@ -77,9 +76,9 @@ export class QuestionList extends React.Component {
     return _.map(items, item => (
       <Link to={`${matchUrl}/${item.subject}`} key={item.id}>
         <Styled.QuestionItem>
-          <h3>
+          <h4>
             주제: <strong>{item.subject}</strong>
-          </h3>
+          </h4>
           <p>{`제목: ${item.title}`}</p>
         </Styled.QuestionItem>
       </Link>
@@ -93,12 +92,12 @@ export class QuestionList extends React.Component {
     return (
       <Styled.ListWrapper>
         <Styled.QuestionState>
-          <h2>
-            설문 갯수: <strong>{length}</strong>
-          </h2>
+          <h4>
+            질문 갯수: <strong>{length}</strong>
+          </h4>
           <Styled.QuestionCreateButton type="button" onClick={this.handleClick}>
             &nbsp;
-            {createQuestionItem ? '-' : '+'}
+            <strong>{createQuestionItem ? '-' : '+'}</strong>
             &nbsp;
           </Styled.QuestionCreateButton>
         </Styled.QuestionState>

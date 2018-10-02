@@ -27,6 +27,6 @@ function setup() {
 describe('QuestionList', () => {
   it('올바로 렌더링되었는가', () => {
     const { props, enzymeWrapper } = setup();
-    expect(enzymeWrapper.find('h2').text()).toBe(`설문 갯수: ${props.length}`);
+    expect(enzymeWrapper.find('h4').text()).toBe(`질문 갯수: ${props.length}`);
   });
 });

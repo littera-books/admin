@@ -37,9 +37,9 @@ class Popup extends React.Component {
       <Styled.PopupBackground style={{ visibility }}>
         <Styled.PopupWrapper>
           <Styled.PopupHeader>
-            <h1>
+            <h3>
               <strong>{header}</strong>
-            </h1>
+            </h3>
             <button type="button" onClick={this.cancelPopup}>
               <strong>&times;</strong>
               &nbsp;

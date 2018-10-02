@@ -22,7 +22,7 @@ import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
   <Styled.DefaultQuestionDetailWrapper>
-    <h1>{dataConfig.questionDetailText}</h1>
+    <p>{dataConfig.questionDetailText}</p>
   </Styled.DefaultQuestionDetailWrapper>
 );
 
@@ -66,10 +66,12 @@ class ActiveQuestionDetail extends React.Component {
 
     return (
       <Styled.ActiveQuestionDetailWrapper>
-        <h1>{item.subject}</h1>
+        <h2>
+          <strong>{item.subject}</strong>
+        </h2>
         <p>{item.title}</p>
         <button type="button" onClick={this.onDestroyQuestion}>
-          질문 삭제
+          {dataConfig.popup.destroyQuestionHeader}
         </button>
         <hr />
         {this.selectionList()}

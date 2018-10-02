@@ -16,7 +16,7 @@ const Menu = () => (
 const Header = ({ visibility }) => (
   <Styled.HeaderWrapper style={{ visibility }}>
     <Link to="/dashboard">
-      <h1>{dataConfig.siteTitle}</h1>
+      <h4>{dataConfig.siteTitle}</h4>
     </Link>
     <Menu />
   </Styled.HeaderWrapper>

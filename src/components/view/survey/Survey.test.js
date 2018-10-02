@@ -23,6 +23,6 @@ function setup() {
 describe('Survey', () => {
   it('올바로 렌더링되었는가', () => {
     const { enzymeWrapper } = setup();
-    expect(enzymeWrapper.find('h1').text()).toBe(dataConfig.surveyTitle);
+    expect(enzymeWrapper.find('h4').text()).toBe(dataConfig.surveyTitle);
   });
 });

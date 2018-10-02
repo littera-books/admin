@@ -22,7 +22,6 @@ const PopupWrapper = styled.div`
 `;
 
 const PopupHeader = styled.div`
-  font-size: 1.5rem;
   line-height: 1;
   display: flex;
   justify-content: space-between;
@@ -50,7 +49,6 @@ const PopupBody = styled.div`
 `;
 
 const PopupFooter = styled.div`
-  font-size: 1.5rem;
   line-height: 1;
   display: flex;
   justify-content: flex-end;
