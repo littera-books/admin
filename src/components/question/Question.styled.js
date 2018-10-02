@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import StyledBase from '../../styled/Base';
 
 const ListWrapper = styled.div`
   border: 1px solid pink;
@@ -12,25 +13,10 @@ const QuestionState = styled.div`
   justify-content: space-between;
 `;
 
-const QuestionCreateButton = styled.button`
-  border: 1px solid black;
-  cursor: pointer;
-
-  :focus {
-    outline: none;
-  }
-`;
-
-const QuestionSubmitButton = styled.button`
+const QuestionSubmitButton = styled(StyledBase.BasicButton)`
   display: block;
   margin-top: 1rem;
   margin-left: auto;
-  border: 1px solid black;
-  cursor: pointer;
-
-  :focus {
-    outline: none;
-  }
 `;
 
 const QuestionItem = styled.div`
@@ -49,12 +35,12 @@ const DefaultQuestionDetailWrapper = styled.div`
 const ActiveQuestionDetailWrapper = styled.div`
   border: 1px solid blue;
   width: 75vw;
+  padding: 1rem;
 `;
 
 export default {
   ListWrapper,
   QuestionState,
-  QuestionCreateButton,
   QuestionSubmitButton,
   QuestionItem,
   DefaultQuestionDetailWrapper,

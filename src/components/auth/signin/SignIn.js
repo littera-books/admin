@@ -57,6 +57,7 @@ export class SignIn extends React.Component {
       <StyledBase.FlexWrapper>
         <Helmet pageTitle="SignIn" />
         <StyledBase.ColumnWrapper>
+          <h3>Sign In</h3>
           <Styled.FormWrapper
             action="post"
             onSubmit={handleSubmit(this.onSubmit.bind(this))}
@@ -76,7 +77,7 @@ export class SignIn extends React.Component {
             <div>
               <small>{error}</small>
             </div>
-            <button type="submit">Sign In</button>
+            <Styled.SignInButton type="submit">Sign In</Styled.SignInButton>
           </Styled.FormWrapper>
           <p>Not a member yet?</p>
           <p>Forgot your password?</p>

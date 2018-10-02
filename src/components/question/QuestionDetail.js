@@ -18,6 +18,7 @@ import {
 import Loadable from '../../loadable';
 
 // Styled
+import StyledBase from '../../styled/Base';
 import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
@@ -69,10 +70,10 @@ class ActiveQuestionDetail extends React.Component {
         <h2>
           <strong>{item.subject}</strong>
         </h2>
-        <p>{item.title}</p>
-        <button type="button" onClick={this.onDestroyQuestion}>
+        <StyledBase.BasicButton type="button" onClick={this.onDestroyQuestion}>
           {dataConfig.popup.destroyQuestionHeader}
-        </button>
+        </StyledBase.BasicButton>
+        <p>{item.title}</p>
         <hr />
         {this.selectionList()}
         <Loadable.Popup

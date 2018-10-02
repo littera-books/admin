@@ -30,7 +30,7 @@ function setup() {
 describe('SignIn', () => {
   it('올바로 렌더링되었는가', () => {
     const { enzymeWrapper } = setup();
-    expect(enzymeWrapper.find('button').text()).toBe('Sign In');
+    expect(enzymeWrapper.find('h3').text()).toBe('Sign In');
   });
 
   it('기본 filter 값이 hidden인가', () => {

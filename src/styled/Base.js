@@ -46,8 +46,20 @@ const ColumnWrapper = styled.div`
   flex-direction: column;
 `;
 
+const BasicButton = styled.button`
+  color: black;
+  cursor: pointer;
+  font-size: 0.8rem;
+  border: 1px solid black;
+
+  :focus {
+    outline: none;
+  }
+`;
+
 export default {
   App,
   FlexWrapper,
   ColumnWrapper,
+  BasicButton,
 };

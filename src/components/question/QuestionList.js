@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { listQuestion, createQuestion } from '../../reducers/reducer.question';
+import FormField from './FormField';
 
 // Styled
+import StyledBase from '../../styled/Base';
 import Styled from './Question.styled';
-import FormField from './FormField';
 
 export class QuestionList extends React.Component {
   constructor(props) {
@@ -95,11 +96,11 @@ export class QuestionList extends React.Component {
           <h4>
             질문 갯수: <strong>{length}</strong>
           </h4>
-          <Styled.QuestionCreateButton type="button" onClick={this.handleClick}>
+          <StyledBase.BasicButton type="button" onClick={this.handleClick}>
             &nbsp;
             <strong>{createQuestionItem ? '-' : '+'}</strong>
             &nbsp;
-          </Styled.QuestionCreateButton>
+          </StyledBase.BasicButton>
         </Styled.QuestionState>
         {createQuestionItem ? this.createQuestion() : null}
         {this.QuestionItem()}

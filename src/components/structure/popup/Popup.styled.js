@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import StyledBase from '../../../styled/Base';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -26,17 +27,12 @@ const PopupHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
 
-  button {
-    font-size: 1.5rem;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-
-    :focus {
-      outline: none;
-    }
-  }
+const PopupCloseButton = styled(StyledBase.BasicButton)`
+  font-size: 1.5rem;
+  border: none;
+  padding: 0;
 `;
 
 const PopupBody = styled.div`
@@ -52,24 +48,20 @@ const PopupFooter = styled.div`
   line-height: 1;
   display: flex;
   justify-content: flex-end;
+`;
 
-  button {
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-left: 1rem;
-
-    :focus {
-      outline: none;
-    }
-  }
+const PopupChoiceButton = styled(StyledBase.BasicButton)`
+  font-size: 1rem;
+  border: none;
+  margin-left: 1rem;
 `;
 
 export default {
   PopupBackground,
   PopupWrapper,
   PopupHeader,
+  PopupCloseButton,
   PopupBody,
   PopupFooter,
+  PopupChoiceButton,
 };

@@ -40,21 +40,21 @@ class Popup extends React.Component {
             <h3>
               <strong>{header}</strong>
             </h3>
-            <button type="button" onClick={this.cancelPopup}>
+            <Styled.PopupCloseButton type="button" onClick={this.cancelPopup}>
               <strong>&times;</strong>
               &nbsp;
-            </button>
+            </Styled.PopupCloseButton>
           </Styled.PopupHeader>
           <Styled.PopupBody>
             <p>{message}</p>
           </Styled.PopupBody>
           <Styled.PopupFooter>
-            <button type="button" onClick={this.cancelPopup}>
+            <Styled.PopupChoiceButton type="button" onClick={this.cancelPopup}>
               Cancel
-            </button>
-            <button type="button" onClick={this.confirmPopup}>
+            </Styled.PopupChoiceButton>
+            <Styled.PopupChoiceButton type="button" onClick={this.confirmPopup}>
               Confirm
-            </button>
+            </Styled.PopupChoiceButton>
           </Styled.PopupFooter>
         </Styled.PopupWrapper>
       </Styled.PopupBackground>

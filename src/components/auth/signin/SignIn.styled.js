@@ -1,33 +1,26 @@
 import styled from 'styled-components';
+import StyledBase from '../../../styled/Base';
 
 const FormWrapper = styled.form`
-  input,
-  button {
-    font-family: 'Nanum Myeongjo', serif;
+  input {
     border: none;
-  }
 
-  input:focus,
-  button:focus {
-    outline: none;
+    :focus {
+      outline: none;
+    }
+    ::placeholder {
+      color: black;
+    }
   }
+`;
 
-  button {
-    background-color: white;
-    padding: 0;
-    margin: 2rem 0;
-  }
-
-  button:hover {
-    cursor: pointer;
-  }
-
-  input::placeholder {
-    font-family: 'Nanum Myeongjo', serif;
-    color: black;
-  }
+const SignInButton = styled(StyledBase.BasicButton)`
+  border: none;
+  padding: 0;
+  margin: 2rem 0;
 `;
 
 export default {
   FormWrapper,
+  SignInButton,
 };
