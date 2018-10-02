@@ -46,6 +46,11 @@ const ColumnWrapper = styled.div`
   flex-direction: column;
 `;
 
+const BetweenWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const BasicButton = styled.button`
   color: black;
   cursor: pointer;
@@ -57,9 +62,15 @@ const BasicButton = styled.button`
   }
 `;
 
+const BasicHr = styled.hr`
+  margin: 1rem 0;
+`;
+
 export default {
   App,
   FlexWrapper,
   ColumnWrapper,
+  BetweenWrapper,
   BasicButton,
+  BasicHr,
 };

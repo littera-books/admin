@@ -67,14 +67,19 @@ class ActiveQuestionDetail extends React.Component {
 
     return (
       <Styled.ActiveQuestionDetailWrapper>
-        <h2>
-          <strong>{item.subject}</strong>
-        </h2>
-        <StyledBase.BasicButton type="button" onClick={this.onDestroyQuestion}>
-          {dataConfig.popup.destroyQuestionHeader}
-        </StyledBase.BasicButton>
+        <StyledBase.BetweenWrapper>
+          <h2>
+            <strong>{item.subject}</strong>
+          </h2>
+          <StyledBase.BasicButton
+            type="button"
+            onClick={this.onDestroyQuestion}
+          >
+            {dataConfig.popup.destroyQuestionHeader}
+          </StyledBase.BasicButton>
+        </StyledBase.BetweenWrapper>
         <p>{item.title}</p>
-        <hr />
+        <StyledBase.BasicHr />
         {this.selectionList()}
         <Loadable.Popup
           visibility={filter}

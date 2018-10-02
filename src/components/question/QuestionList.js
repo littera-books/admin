@@ -92,7 +92,7 @@ export class QuestionList extends React.Component {
 
     return (
       <Styled.ListWrapper>
-        <Styled.QuestionState>
+        <StyledBase.BetweenWrapper>
           <h4>
             질문 갯수: <strong>{length}</strong>
           </h4>
@@ -101,7 +101,7 @@ export class QuestionList extends React.Component {
             <strong>{createQuestionItem ? '-' : '+'}</strong>
             &nbsp;
           </StyledBase.BasicButton>
-        </Styled.QuestionState>
+        </StyledBase.BetweenWrapper>
         {createQuestionItem ? this.createQuestion() : null}
         {this.QuestionItem()}
       </Styled.ListWrapper>

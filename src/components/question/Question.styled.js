@@ -8,11 +8,6 @@ const ListWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-const QuestionState = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const QuestionSubmitButton = styled(StyledBase.BasicButton)`
   display: block;
   margin-top: 1rem;
@@ -40,7 +35,6 @@ const ActiveQuestionDetailWrapper = styled.div`
 
 export default {
   ListWrapper,
-  QuestionState,
   QuestionSubmitButton,
   QuestionItem,
   DefaultQuestionDetailWrapper,
