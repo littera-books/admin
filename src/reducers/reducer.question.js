@@ -4,6 +4,7 @@ import axiosInstance from './axios.instance';
 const LIST_QUESTION = 'LIST_QUESTION';
 const DETAIL_QUESTION = 'DETAIL_QUESTION';
 const CREATE_QUESTION = 'CREATE_QUESTION';
+const DESTROY_QUESTION = 'DESTROY_QUESTION';
 
 // Action Creators
 export async function listQuestion() {
@@ -70,6 +71,26 @@ export async function createQuestion(payload) {
   };
 }
 
+export async function destroyQuestion(payload) {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/survey/question/${payload}`,
+      method: 'delete',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: DESTROY_QUESTION,
+    response,
+    error,
+  };
+}
+
 // Initial State
 export const initialState = {
   length: 0,
@@ -126,6 +147,20 @@ function reducerCreateQuestion(state, action) {
   };
 }
 
+function reducerDestroyQuestion(state, action) {
+  if (action.error) {
+    return {
+      ...state,
+      error: action.error.response.data.message,
+    };
+  }
+
+  return {
+    ...state,
+    error: '',
+  };
+}
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -135,6 +170,8 @@ export default function reducer(state = initialState, action) {
       return reducerDetailQuestion(state, action);
     case CREATE_QUESTION:
       return reducerCreateQuestion(state, action);
+    case DESTROY_QUESTION:
+      return reducerDestroyQuestion(state, action);
     default:
       return state;
   }
