@@ -8,10 +8,12 @@ Enzyme.configure({ adapter: new Adapter() });
 
 function setup() {
   const props = {
+    handleSubmit: jest.fn(),
     matchUrl: '/survey',
     getList: jest.fn(),
     length: initialState.length,
     items: initialState.items,
+    error: initialState.error,
   };
 
   const enzymeWrapper = shallow(<QuestionList {...props} />);
