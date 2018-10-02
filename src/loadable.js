@@ -32,10 +32,16 @@ const Survey = Loadable({
   loading: Loading,
 });
 
+const Popup = Loadable({
+  loader: () => import('./components/structure/popup/Popup'),
+  loading: Loading,
+});
+
 export default {
   Header,
   SignIn,
   SignOut,
   Dashboard,
   Survey,
+  Popup,
 };

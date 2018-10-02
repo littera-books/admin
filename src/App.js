@@ -46,6 +46,7 @@ export class App extends React.PureComponent {
             <Route path="/sign-in" component={Loadable.SignIn} />
             <Redirect exact from="/" to="/sign-in" />
           </Switch>
+          <Loadable.Popup />
         </StyledBase.App>
       </BrowserRouter>
     );
