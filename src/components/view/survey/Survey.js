@@ -6,9 +6,7 @@ import dataConfig from '../../../dataConfig';
 // Component
 import Helmet from '../../helmet/Helmet';
 import Loadable from '../../../loadable';
-import ActiveQuestionDetail, {
-  DefaultQuestionDetail,
-} from '../../question/QuestionDetail';
+import { DefaultQuestionDetail } from '../../question/QuestionDetail';
 
 // Styled
 import StyledBase from '../../../styled/Base';
@@ -26,7 +24,7 @@ const Survey = ({ match }) => (
         <Route exact path={`${match.url}`} component={DefaultQuestionDetail} />
         <Route
           path={`${match.url}/:subject`}
-          component={ActiveQuestionDetail}
+          component={Loadable.QuestionDetail}
         />
       </Styled.QuestionWrapper>
     </StyledBase.ColumnWrapper>
