@@ -4,6 +4,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { listSelection } from '../../reducers/reducer.selection';
 
+// Styled
+import Styled from './Selection.styled';
+
+// Assets
+import Pencil from '../../assets/images/pencil-alt-solid.svg';
+
 class SelectionList extends React.Component {
   state = {
     subject: '',
@@ -19,7 +25,14 @@ class SelectionList extends React.Component {
 
   render() {
     const { items } = this.props;
-    return _.map(items, item => <div key={item.id}>{item.select}</div>);
+    return _.map(items, item => (
+      <div key={item.id}>
+        <Styled.UpdateSelectionButton>
+          <img src={Pencil} alt="update-selection-button" />
+        </Styled.UpdateSelectionButton>
+        <span style={{ marginLeft: '0.5rem' }}>{item.select}</span>
+      </div>
+    ));
   }
 }
 
