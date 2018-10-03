@@ -63,9 +63,6 @@ class ActiveQuestionDetail extends React.Component {
 
     const { error } = this.props;
     if (!error) {
-      this.setState(state => ({
-        updateForm: !state.updateForm,
-      }));
       history.replace('/survey');
       window.location.reload();
     }
