@@ -32,6 +32,16 @@ const Survey = Loadable({
   loading: Loading,
 });
 
+const QuestionList = Loadable({
+  loader: () => import('./components/question/QuestionList'),
+  loading: Loading,
+});
+
+const SelectionList = Loadable({
+  loader: () => import('./components/selection/SelectionList'),
+  loading: Loading,
+});
+
 const Popup = Loadable({
   loader: () => import('./components/structure/popup/Popup'),
   loading: Loading,
@@ -43,5 +53,7 @@ export default {
   SignOut,
   Dashboard,
   Survey,
+  QuestionList,
+  SelectionList,
   Popup,
 };

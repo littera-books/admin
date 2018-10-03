@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
@@ -10,7 +9,6 @@ import {
   updateQuestion,
   destroyQuestion,
 } from '../../reducers/reducer.question';
-import { listSelection } from '../../reducers/reducer.selection';
 import {
   callPopupFilter,
   setHeaderProperty,
@@ -47,7 +45,6 @@ class ActiveQuestionDetail extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.subject !== nextProps.match.params.subject) {
       nextProps.getDetail(nextProps.match.params.subject);
-      nextProps.getList(nextProps.match.params.subject);
       return { subject: nextProps.match.params.subject };
     }
     return null;
@@ -86,14 +83,10 @@ class ActiveQuestionDetail extends React.Component {
     });
   }
 
-  selectionList() {
-    const { items } = this.props;
-    return _.map(items, item => <div key={item.id}>{item.select}</div>);
-  }
-
   render() {
     const { subject, updateForm } = this.state;
     const {
+      match,
       item,
       filter,
       destroyDetail,
@@ -145,7 +138,7 @@ class ActiveQuestionDetail extends React.Component {
           <StyledBase.BasicButton type="submit">update</StyledBase.BasicButton>
         </form>
         <StyledBase.BasicHr />
-        {this.selectionList()}
+        <Loadable.SelectionList subject={match.params.subject} />
         <Loadable.Popup
           visibility={filter}
           method={destroyDetail}
@@ -174,7 +167,6 @@ ActiveQuestionDetail.propTypes = {
     title: PropTypes.string.isRequired,
   }).isRequired,
   error: PropTypes.string.isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
   putDetail: PropTypes.func.isRequired,
   destroyDetail: PropTypes.func.isRequired,
   filter: PropTypes.string.isRequired,
@@ -186,7 +178,6 @@ ActiveQuestionDetail.propTypes = {
 const mapStateToProps = state => ({
   item: state.question.item,
   error: state.question.error,
-  items: state.selection.items,
   filter: state.popup.filter,
   message: state.popup.message,
 });
@@ -195,7 +186,6 @@ const mapDispatchToProps = dispatch => ({
   getDetail: subject => dispatch(detailQuestion(subject)),
   putDetail: payload => dispatch(updateQuestion(payload)),
   destroyDetail: subject => dispatch(destroyQuestion(subject)),
-  getList: subject => dispatch(listSelection(subject)),
   callPopup: () => dispatch(callPopupFilter()),
   setHeader: header => dispatch(setHeaderProperty(header)),
   setMessage: message => dispatch(setMessageProperty(message)),
