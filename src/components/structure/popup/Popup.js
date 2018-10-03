@@ -68,7 +68,8 @@ Popup.propTypes = {
   message: PropTypes.string.isRequired,
   initialize: PropTypes.func.isRequired,
   method: PropTypes.func.isRequired,
-  argument: PropTypes.string.isRequired,
+  argument: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    .isRequired,
   replace: PropTypes.func.isRequired,
   destination: PropTypes.string.isRequired,
 };
