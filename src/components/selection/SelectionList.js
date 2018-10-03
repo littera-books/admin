@@ -10,7 +10,6 @@ import {
   destroySelecton,
 } from '../../reducers/reducer.selection';
 import {
-  callPopupFilter,
   setHeaderProperty,
   setMessageProperty,
 } from '../../reducers/reducer.popup';
@@ -34,6 +33,7 @@ class SelectionList extends React.Component {
     this.state = {
       id: 0,
       index: 0,
+      popupFilter: false,
       createForm: false,
       updateForm: false,
       subject: '',
@@ -81,10 +81,10 @@ class SelectionList extends React.Component {
 
   async onDestroySelection() {
     const { index } = this.state;
-    const { callPopup, setHeader, setMessage } = this.props;
+    const { setHeader, setMessage } = this.props;
     setHeader(`${index + 1}번 선택지 삭제`);
     setMessage(`${index + 1}번 선택지를 삭제하시겠습니까?`);
-    callPopup();
+    this.setState({ popupFilter: true });
   }
 
   openCreateSelectionForm() {
@@ -142,14 +142,10 @@ class SelectionList extends React.Component {
 
   render() {
     const {
-      id, index, createForm, updateForm,
+      id, index, createForm, updateForm, popupFilter,
     } = this.state;
     const {
-      filter,
-      destroyDetail,
-      history,
-      handleSubmit,
-      subject,
+      destroyDetail, history, handleSubmit, subject,
     } = this.props;
     const payload = { id, subject };
 
@@ -219,13 +215,14 @@ class SelectionList extends React.Component {
             </Styled.SelectionButtonGroup>
           </form>
         </div>
-        <Loadable.Popup
-          visibility={filter}
-          method={destroyDetail}
-          argument={payload}
-          replace={history.replace}
-          destination={`/survey/${subject}`}
-        />
+        {popupFilter ? (
+          <Loadable.Popup
+            method={destroyDetail}
+            argument={payload}
+            replace={history.replace}
+            destination={`/survey/${subject}`}
+          />
+        ) : null}
       </div>
     );
   }
@@ -240,15 +237,12 @@ SelectionList.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   subject: PropTypes.string.isRequired,
   destroyDetail: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  callPopup: PropTypes.func.isRequired,
   setHeader: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   items: state.selection.items,
-  filter: state.popup.filter,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -256,7 +250,6 @@ const mapDispatchToProps = dispatch => ({
   create: payload => dispatch(createSelection(payload)),
   putDetail: payload => dispatch(updateSelection(payload)),
   destroyDetail: payload => dispatch(destroySelecton(payload)),
-  callPopup: () => dispatch(callPopupFilter()),
   setHeader: header => dispatch(setHeaderProperty(header)),
   setMessage: message => dispatch(setMessageProperty(message)),
 });

@@ -10,7 +10,6 @@ import {
   destroyQuestion,
 } from '../../reducers/reducer.question';
 import {
-  callPopupFilter,
   setHeaderProperty,
   setMessageProperty,
 } from '../../reducers/reducer.popup';
@@ -33,6 +32,7 @@ class ActiveQuestionDetail extends React.Component {
     super(props);
 
     this.state = {
+      popupFilter: false,
       updateForm: false,
       subject: '',
     };
@@ -54,10 +54,10 @@ class ActiveQuestionDetail extends React.Component {
   }
 
   async onDestroyQuestion() {
-    const { callPopup, setHeader, setMessage } = this.props;
+    const { setHeader, setMessage } = this.props;
     setHeader(dataConfig.popup.destroyQuestionHeader);
     setMessage(dataConfig.popup.destroyQuestionText);
-    callPopup();
+    this.setState({ popupFilter: true });
   }
 
   async onUpdateQuestion(payload) {
@@ -84,11 +84,10 @@ class ActiveQuestionDetail extends React.Component {
   }
 
   render() {
-    const { subject, updateForm } = this.state;
+    const { subject, updateForm, popupFilter } = this.state;
     const {
       match,
       item,
-      filter,
       destroyDetail,
       history,
       handleSubmit,
@@ -142,13 +141,14 @@ class ActiveQuestionDetail extends React.Component {
           history={history}
           subject={match.params.subject}
         />
-        <Loadable.Popup
-          visibility={filter}
-          method={destroyDetail}
-          argument={subject}
-          replace={history.replace}
-          destination="/survey"
-        />
+        {popupFilter ? (
+          <Loadable.Popup
+            method={destroyDetail}
+            argument={subject}
+            replace={history.replace}
+            destination="/survey"
+          />
+        ) : null}
       </Styled.ActiveQuestionDetailWrapper>
     );
   }
@@ -172,8 +172,6 @@ ActiveQuestionDetail.propTypes = {
   error: PropTypes.string.isRequired,
   putDetail: PropTypes.func.isRequired,
   destroyDetail: PropTypes.func.isRequired,
-  filter: PropTypes.string.isRequired,
-  callPopup: PropTypes.func.isRequired,
   setHeader: PropTypes.func.isRequired,
   setMessage: PropTypes.func.isRequired,
 };
@@ -181,7 +179,6 @@ ActiveQuestionDetail.propTypes = {
 const mapStateToProps = state => ({
   item: state.question.item,
   error: state.question.error,
-  filter: state.popup.filter,
   message: state.popup.message,
 });
 
@@ -189,7 +186,6 @@ const mapDispatchToProps = dispatch => ({
   getDetail: subject => dispatch(detailQuestion(subject)),
   putDetail: payload => dispatch(updateQuestion(payload)),
   destroyDetail: subject => dispatch(destroyQuestion(subject)),
-  callPopup: () => dispatch(callPopupFilter()),
   setHeader: header => dispatch(setHeaderProperty(header)),
   setMessage: message => dispatch(setMessageProperty(message)),
 });

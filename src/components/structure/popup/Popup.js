@@ -31,10 +31,10 @@ class Popup extends React.Component {
   }
 
   render() {
-    const { visibility, header, message } = this.props;
+    const { header, message } = this.props;
 
     return (
-      <Styled.PopupBackground style={{ visibility }}>
+      <Styled.PopupBackground>
         <Styled.PopupWrapper>
           <Styled.PopupHeader>
             <h3>
@@ -63,7 +63,6 @@ class Popup extends React.Component {
 }
 
 Popup.propTypes = {
-  visibility: PropTypes.string.isRequired,
   header: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
   initialize: PropTypes.func.isRequired,
