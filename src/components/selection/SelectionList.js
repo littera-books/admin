@@ -6,7 +6,16 @@ import { connect } from 'react-redux';
 import {
   listSelection,
   updateSelection,
+  destroySelecton,
 } from '../../reducers/reducer.selection';
+import {
+  callPopupFilter,
+  setHeaderProperty,
+  setMessageProperty,
+} from '../../reducers/reducer.popup';
+
+// Components
+import Loadable from '../../loadable';
 
 // Styled
 import StyledBase from '../../styled/Base';
@@ -21,16 +30,20 @@ class SelectionList extends React.Component {
     super(props);
 
     this.state = {
+      id: 0,
       index: 0,
       updateForm: false,
       subject: '',
     };
+
+    this.onDestroySelection = this.onDestroySelection.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.subject !== nextProps.subject) {
       nextProps.getList(nextProps.subject);
       return {
+        id: 0,
         index: 0,
         updateForm: false,
         subject: nextProps.subject,
@@ -45,13 +58,17 @@ class SelectionList extends React.Component {
 
     const { error } = this.props;
     if (!error) {
-      this.setState(state => ({
-        updateForm: !state.updateForm,
-        index: 0,
-      }));
       history.replace(`/survey/${payload.subject}`);
       window.location.reload();
     }
+  }
+
+  async onDestroySelection() {
+    const { index } = this.state;
+    const { callPopup, setHeader, setMessage } = this.props;
+    setHeader(`${index + 1}번 선택지 삭제`);
+    setMessage(`${index + 1}번 선택지를 삭제하시겠습니까?`);
+    callPopup();
   }
 
   openUpdateSelectionForm(id) {
@@ -67,11 +84,13 @@ class SelectionList extends React.Component {
     const { index, updateForm } = this.state;
     if (index !== selectedIndex && updateForm === true) {
       this.setState({
+        id,
         index: selectedIndex,
       });
     } else {
       this.setState(state => ({
         updateForm: !state.updateForm,
+        id,
         index: selectedIndex,
       }));
     }
@@ -93,8 +112,15 @@ class SelectionList extends React.Component {
   }
 
   render() {
-    const { index, updateForm } = this.state;
-    const { handleSubmit } = this.props;
+    const { id, index, updateForm } = this.state;
+    const {
+      filter,
+      destroyDetail,
+      history,
+      handleSubmit,
+      subject,
+    } = this.props;
+    const payload = { id, subject };
 
     return (
       <div>
@@ -121,12 +147,22 @@ class SelectionList extends React.Component {
               <StyledBase.BasicButton type="submit">
                 update
               </StyledBase.BasicButton>
-              <StyledBase.BasicButton type="button">
+              <StyledBase.BasicButton
+                type="button"
+                onClick={this.onDestroySelection}
+              >
                 delete
               </StyledBase.BasicButton>
             </Styled.SelectionButtonGroup>
           </form>
         </div>
+        <Loadable.Popup
+          visibility={filter}
+          method={destroyDetail}
+          argument={payload}
+          replace={history.replace}
+          destination={`/survey/${subject}`}
+        />
       </div>
     );
   }
@@ -140,15 +176,25 @@ SelectionList.propTypes = {
   }).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   subject: PropTypes.string.isRequired,
+  destroyDetail: PropTypes.func.isRequired,
+  filter: PropTypes.string.isRequired,
+  callPopup: PropTypes.func.isRequired,
+  setHeader: PropTypes.func.isRequired,
+  setMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   items: state.selection.items,
+  filter: state.popup.filter,
 });
 
 const mapDispatchToProps = dispatch => ({
   getList: subject => dispatch(listSelection(subject)),
   putDetail: payload => dispatch(updateSelection(payload)),
+  destroyDetail: payload => dispatch(destroySelecton(payload)),
+  callPopup: () => dispatch(callPopupFilter()),
+  setHeader: header => dispatch(setHeaderProperty(header)),
+  setMessage: message => dispatch(setMessageProperty(message)),
 });
 
 export default reduxForm({

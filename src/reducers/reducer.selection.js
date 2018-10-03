@@ -3,6 +3,7 @@ import AxiosInstance from './axios.instance';
 // Actions
 const LIST_SELECTION = 'LIST_SELECTION';
 const UPDATE_SELECTION = 'UPDATE_SELECTION';
+const DESTROY_SELECTION = 'DESTROY_SELECTION';
 
 // Action Creators
 export async function listSelection(subject) {
@@ -48,6 +49,26 @@ export async function updateSelection(payload) {
   };
 }
 
+export async function destroySelecton(payload) {
+  let response;
+  let error;
+
+  try {
+    response = await AxiosInstance({
+      url: `/survey/question/${payload.subject}/selection/${payload.id}`,
+      method: 'delete',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: DESTROY_SELECTION,
+    response,
+    error,
+  };
+}
+
 // Initial State
 export const initialState = {
   length: 0,
@@ -87,6 +108,20 @@ function reducerUpdateSelection(state, action) {
   };
 }
 
+function reducerDestroySelection(action, state) {
+  if (action.error) {
+    return {
+      ...state,
+      error: action.error,
+    };
+  }
+
+  return {
+    ...state,
+    error: '',
+  };
+}
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -94,6 +129,8 @@ export default function reducer(state = initialState, action) {
       return reducerListSelection(state, action);
     case UPDATE_SELECTION:
       return reducerUpdateSelection(state, action);
+    case DESTROY_SELECTION:
+      return reducerDestroySelection(state, action);
     default:
       return state;
   }
