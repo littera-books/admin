@@ -3,7 +3,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { listSelection } from '../../reducers/reducer.selection';
+import {
+  listSelection,
+  updateSelection,
+} from '../../reducers/reducer.selection';
 
 // Styled
 import StyledBase from '../../styled/Base';
@@ -37,17 +40,28 @@ class SelectionList extends React.Component {
   }
 
   async onUpdateSelection(payload) {
-    console.log(payload);
-    console.log(this.props);
+    const { putDetail, history } = this.props;
+    await putDetail(payload);
+
+    const { error } = this.props;
+    if (!error) {
+      this.setState(state => ({
+        updateForm: !state.updateForm,
+        index: 0,
+      }));
+      history.replace(`/survey/${payload.subject}`);
+      window.location.reload();
+    }
   }
 
   openUpdateSelectionForm(id) {
-    const { items, initialize } = this.props;
+    const { items, initialize, subject } = this.props;
     const selectedItem = _.find(items, o => o.id === id);
     const selectedIndex = _.findIndex(items, o => o.id === id);
     initialize({
       select: selectedItem.select,
       id,
+      subject,
     });
 
     const { index, updateForm } = this.state;
@@ -103,7 +117,6 @@ class SelectionList extends React.Component {
               label="선택지"
               component={FormField}
             />
-            <input type="hidden" name="id" />
             <Styled.SelectionButtonGroup>
               <StyledBase.BasicButton type="submit">
                 update
@@ -122,7 +135,11 @@ class SelectionList extends React.Component {
 SelectionList.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
+  }).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  subject: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -131,6 +148,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getList: subject => dispatch(listSelection(subject)),
+  putDetail: payload => dispatch(updateSelection(payload)),
 });
 
 export default reduxForm({

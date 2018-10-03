@@ -138,7 +138,10 @@ class ActiveQuestionDetail extends React.Component {
           <StyledBase.BasicButton type="submit">update</StyledBase.BasicButton>
         </form>
         <StyledBase.BasicHr />
-        <Loadable.SelectionList subject={match.params.subject} />
+        <Loadable.SelectionList
+          history={history}
+          subject={match.params.subject}
+        />
         <Loadable.Popup
           visibility={filter}
           method={destroyDetail}
