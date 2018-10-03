@@ -23,6 +23,7 @@ import Styled from './Selection.styled';
 
 // Assets
 import Pencil from '../../assets/images/pencil-alt-solid.svg';
+import Plus from '../../assets/images/plus-circle-solid.svg';
 import FormField from '../question/FormField';
 
 class SelectionList extends React.Component {
@@ -32,11 +33,13 @@ class SelectionList extends React.Component {
     this.state = {
       id: 0,
       index: 0,
+      createForm: false,
       updateForm: false,
       subject: '',
     };
 
     this.onDestroySelection = this.onDestroySelection.bind(this);
+    this.openCreateSelectionForm = this.openCreateSelectionForm.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -45,11 +48,17 @@ class SelectionList extends React.Component {
       return {
         id: 0,
         index: 0,
+        createForm: false,
         updateForm: false,
         subject: nextProps.subject,
       };
     }
     return null;
+  }
+
+  async onCreateSelection(payload) {
+    console.log(payload);
+    console.log(this);
   }
 
   async onUpdateSelection(payload) {
@@ -71,6 +80,17 @@ class SelectionList extends React.Component {
     callPopup();
   }
 
+  openCreateSelectionForm() {
+    const { initialize, subject } = this.props;
+    this.setState(state => ({
+      createForm: !state.createForm,
+      updateForm: false,
+    }));
+    initialize({
+      subject,
+    });
+  }
+
   openUpdateSelectionForm(id) {
     const { items, initialize, subject } = this.props;
     const selectedItem = _.find(items, o => o.id === id);
@@ -84,11 +104,13 @@ class SelectionList extends React.Component {
     const { index, updateForm } = this.state;
     if (index !== selectedIndex && updateForm === true) {
       this.setState({
+        createForm: false,
         id,
         index: selectedIndex,
       });
     } else {
       this.setState(state => ({
+        createForm: false,
         updateForm: !state.updateForm,
         id,
         index: selectedIndex,
@@ -112,7 +134,9 @@ class SelectionList extends React.Component {
   }
 
   render() {
-    const { id, index, updateForm } = this.state;
+    const {
+      id, index, createForm, updateForm,
+    } = this.state;
     const {
       filter,
       destroyDetail,
@@ -128,6 +152,38 @@ class SelectionList extends React.Component {
           <strong>선택지 편집</strong>
         </h4>
         {this.renderItems()}
+        <Styled.CreateSelectionGroup>
+          <Styled.UpdateSelectionButton
+            type="button"
+            onClick={this.openCreateSelectionForm}
+          >
+            <img src={Plus} alt="create-selection-button" />
+          </Styled.UpdateSelectionButton>
+          <div
+            style={{
+              marginLeft: '0.5rem',
+              visibility: createForm ? 'visible' : 'hidden',
+              height: createForm ? '100%' : '2rem',
+            }}
+          >
+            <form
+              action="post"
+              onSubmit={handleSubmit(this.onCreateSelection.bind(this))}
+            >
+              <Styled.CreateSelectionGroup>
+                <Field
+                  type="text"
+                  name="createSelect"
+                  label="선택지"
+                  component={FormField}
+                />
+                <StyledBase.BasicButton type="submit">
+                  create
+                </StyledBase.BasicButton>
+              </Styled.CreateSelectionGroup>
+            </form>
+          </div>
+        </Styled.CreateSelectionGroup>
         <StyledBase.BasicHr />
         <div style={{ visibility: updateForm ? 'visible' : 'hidden' }}>
           <h5>

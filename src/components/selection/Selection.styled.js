@@ -1,6 +1,12 @@
 import styled from 'styled-components';
 import SytledBase from '../../styled/Base';
 
+const CreateSelectionGroup = styled(SytledBase.BetweenWrapper)`
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+`;
+
 const UpdateSelectionButton = styled(SytledBase.BasicButton)`
   width: 1rem;
   height: 1rem;
@@ -14,6 +20,7 @@ const SelectionButtonGroup = styled(SytledBase.BetweenWrapper)`
 `;
 
 export default {
+  CreateSelectionGroup,
   UpdateSelectionButton,
   SelectionButtonGroup,
 };
