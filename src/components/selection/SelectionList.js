@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import {
   listSelection,
+  createSelection,
   updateSelection,
   destroySelecton,
 } from '../../reducers/reducer.selection';
@@ -57,8 +58,14 @@ class SelectionList extends React.Component {
   }
 
   async onCreateSelection(payload) {
-    console.log(payload);
-    console.log(this);
+    const { create, history } = this.props;
+    await create(payload);
+
+    const { error } = this.props;
+    if (!error) {
+      history.replace(`/survey/${payload.subject}`);
+      window.location.reload();
+    }
   }
 
   async onUpdateSelection(payload) {
@@ -246,6 +253,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getList: subject => dispatch(listSelection(subject)),
+  create: payload => dispatch(createSelection(payload)),
   putDetail: payload => dispatch(updateSelection(payload)),
   destroyDetail: payload => dispatch(destroySelecton(payload)),
   callPopup: () => dispatch(callPopupFilter()),

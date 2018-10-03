@@ -2,6 +2,7 @@ import AxiosInstance from './axios.instance';
 
 // Actions
 const LIST_SELECTION = 'LIST_SELECTION';
+const CREATE_SELECTION = 'CREATE_SELECTION';
 const UPDATE_SELECTION = 'UPDATE_SELECTION';
 const DESTROY_SELECTION = 'DESTROY_SELECTION';
 
@@ -21,6 +22,29 @@ export async function listSelection(subject) {
 
   return {
     type: LIST_SELECTION,
+    response,
+    error,
+  };
+}
+
+export async function createSelection(payload) {
+  let response;
+  let error;
+
+  try {
+    response = await AxiosInstance({
+      url: `/survey/question/${payload.subject}/selection`,
+      method: 'post',
+      data: {
+        select: payload.createSelect,
+      },
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: CREATE_SELECTION,
     response,
     error,
   };
@@ -94,6 +118,20 @@ function reducerListSelection(state, action) {
   };
 }
 
+function reducerCreateSelection(state, action) {
+  if (action.error) {
+    return {
+      ...state,
+      error: action.error,
+    };
+  }
+
+  return {
+    ...state,
+    error: '',
+  };
+}
+
 function reducerUpdateSelection(state, action) {
   if (action.error) {
     return {
@@ -127,6 +165,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LIST_SELECTION:
       return reducerListSelection(state, action);
+    case CREATE_SELECTION:
+      return reducerCreateSelection(state, action);
     case UPDATE_SELECTION:
       return reducerUpdateSelection(state, action);
     case DESTROY_SELECTION:
