@@ -45,7 +45,10 @@ class ActiveQuestionDetail extends React.Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.subject !== nextProps.match.params.subject) {
       nextProps.getDetail(nextProps.match.params.subject);
-      return { subject: nextProps.match.params.subject };
+      return {
+        updateForm: false,
+        subject: nextProps.match.params.subject,
+      };
     }
     return null;
   }
