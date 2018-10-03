@@ -30,6 +30,10 @@ const App = styled.div`
   h3 {
     font-size: 1.5rem;
   }
+
+  h4 {
+    font-size: 1.25rem;
+  }
 `;
 
 const FlexWrapper = styled.div`

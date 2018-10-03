@@ -50,9 +50,9 @@ export class QuestionList extends React.Component {
     const { handleSubmit, error } = this.props;
     return (
       <Styled.QuestionItem>
-        <h4>
+        <h5>
           <strong>새 질문 만들기</strong>
-        </h4>
+        </h5>
         <form action="post" onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             type="text"
@@ -77,9 +77,9 @@ export class QuestionList extends React.Component {
     return _.map(items, item => (
       <Link to={`${matchUrl}/${item.subject}`} key={item.id}>
         <Styled.QuestionItem>
-          <h4>
+          <h5>
             주제: <strong>{item.subject}</strong>
-          </h4>
+          </h5>
           <p>{`제목: ${item.title}`}</p>
         </Styled.QuestionItem>
       </Link>
@@ -93,9 +93,9 @@ export class QuestionList extends React.Component {
     return (
       <Styled.ListWrapper>
         <StyledBase.BetweenWrapper>
-          <h4>
+          <h5>
             질문 갯수: <strong>{length}</strong>
-          </h4>
+          </h5>
           <StyledBase.BasicButton type="button" onClick={this.handleClick}>
             &nbsp;
             <strong>{createQuestionItem ? '-' : '+'}</strong>
