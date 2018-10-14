@@ -5,6 +5,7 @@ import axiosInstance from './axios.instance';
 const LIST_PRODUCT = 'LIST_PRODUCT';
 const DETAIL_PRODUCT = 'DETAIL_PRODUCT';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
+const DESTROY_PRODUCT = 'DESTROY_PRODUCT';
 
 // Action Creators
 export const ListProduct = async () => {
@@ -67,6 +68,26 @@ export const createProduct = async (payload) => {
 
   return {
     type: CREATE_PRODUCT,
+    response,
+    error,
+  };
+};
+
+export const destroyProduct = async (productId) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/product/${productId}`,
+      method: 'delete',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: DESTROY_PRODUCT,
     response,
     error,
   };
@@ -139,6 +160,8 @@ export default function reducer(state = initialState, action) {
     case DETAIL_PRODUCT:
       return reducerDetailProduct(state, action);
     case CREATE_PRODUCT:
+      return reducerCRUDProduct(state, action);
+    case DESTROY_PRODUCT:
       return reducerCRUDProduct(state, action);
     default:
       return state;

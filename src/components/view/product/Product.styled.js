@@ -16,8 +16,13 @@ const ProductItem = styled(Wrapper.ColumnWrapper)`
   border: 1px solid brown;
 `;
 
+const ButtonGroup = styled(Wrapper.BetweenWrapper)`
+  width: 10rem;
+`;
+
 export default {
   ProductWrapper,
   ProductInnerWrapper,
   ProductItem,
+  ButtonGroup,
 };
