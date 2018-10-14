@@ -47,8 +47,13 @@ const SelectionList = Loadable({
   loading: Loading,
 });
 
-const Popup = Loadable({
-  loader: () => import('./components/structure/popup/Popup'),
+const SimplePopup = Loadable({
+  loader: () => import('./components/structure/popup/SimplePopup'),
+  loading: Loading,
+});
+
+const ConfirmPopup = Loadable({
+  loader: () => import('./components/structure/popup/ConfirmPopup'),
   loading: Loading,
 });
 
@@ -61,5 +66,6 @@ export default {
   QuestionList,
   QuestionDetail,
   SelectionList,
-  Popup,
+  SimplePopup,
+  ConfirmPopup,
 };
