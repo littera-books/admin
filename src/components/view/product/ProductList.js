@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getProductList } from '../../../reducers/reducer.product';
+import { ListProduct } from '../../../reducers/reducer.product';
 
 // Styled
 import Wrapper from '../../../styled_base/Wrapper';
@@ -57,7 +57,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getList: () => dispatch(getProductList()),
+  getList: () => dispatch(ListProduct()),
 });
 
 export default connect(

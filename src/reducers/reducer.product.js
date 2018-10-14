@@ -2,10 +2,10 @@ import _ from 'lodash';
 import axiosInstance from './axios.instance';
 
 // Actions
-const GET_PRODUCT_LIST = 'GET_PRODUCT_LIST';
+const LIST_PRODUCT = 'LIST_PRODUCT';
 
 // Action Creators
-export const getProductList = async () => {
+export const ListProduct = async () => {
   let response;
   let error;
 
@@ -19,7 +19,7 @@ export const getProductList = async () => {
   }
 
   return {
-    type: GET_PRODUCT_LIST,
+    type: LIST_PRODUCT,
     response,
     error,
   };
@@ -34,7 +34,7 @@ const initialState = {
 };
 
 // Reducer Functions
-const reducerGetProductList = (state, action) => {
+const reducerListProduct = (state, action) => {
   if (action.error) {
     return _.assign({}, state, {
       ...state,
@@ -53,8 +53,8 @@ const reducerGetProductList = (state, action) => {
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
-    case GET_PRODUCT_LIST:
-      return reducerGetProductList(state, action);
+    case LIST_PRODUCT:
+      return reducerListProduct(state, action);
     default:
       return state;
   }
