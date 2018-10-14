@@ -4,12 +4,13 @@ import {
   BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import './utils/webfontloader';
 
 // Components
 import Loadable from './loadable';
 
 // Styled
-import Wrapper from './styled/Wrapper';
+import Wrapper from './styled_base/Wrapper';
 
 // Minireset.css
 import '../node_modules/minireset.css/minireset.min.css';
