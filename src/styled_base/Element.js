@@ -29,7 +29,8 @@ const AlignRightButton = styled(BasicButton)`
 const BasicInput = styled.input`
   font-family: 'Silk Remington', 'Nanum Myeongjo';
   font-size: 0.75rem;
-  line-height: 3;
+  line-height: 2;
+  width: 22rem;
   border: none;
 
   :focus {

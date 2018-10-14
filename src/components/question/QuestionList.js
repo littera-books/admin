@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { listQuestion, createQuestion } from '../../reducers/reducer.question';
-import FormField from './FormField';
+
+// Components
+import BasicFormField from '../../form/FormField';
+import Validation from '../../form/Validation';
 
 // Styled
 import Wrapper from '../../styled_base/Wrapper';
@@ -58,10 +61,17 @@ export class QuestionList extends React.Component {
           <Field
             type="text"
             name="subject"
-            label="주제"
-            component={FormField}
+            placeholder="주제"
+            component={BasicFormField.PlaceholderFormField}
+            validate={Validation.required}
           />
-          <Field type="text" name="title" label="제목" component={FormField} />
+          <Field
+            type="text"
+            name="title"
+            placeholder="제목"
+            component={BasicFormField.PlaceholderFormField}
+            validate={Validation.required}
+          />
           <div>
             <small>{error}</small>
           </div>

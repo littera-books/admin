@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import dataConfig from '../../dataConfig';
-import FormField from './FormField';
 import {
   detailQuestion,
   updateQuestion,
@@ -16,6 +15,8 @@ import {
 
 // Components
 import Loadable from '../../loadable';
+import BasicFormField from '../../form/FormField';
+import Validation from '../../form/Validation';
 
 // Styled
 import Wrapper from '../../styled_base/Wrapper';
@@ -130,10 +131,17 @@ class ActiveQuestionDetail extends React.Component {
           <Field
             type="text"
             name="subject"
-            label="주제"
-            component={FormField}
+            placeholder="주제"
+            component={BasicFormField.PlaceholderFormField}
+            validate={Validation.required}
           />
-          <Field type="text" name="title" label="제목" component={FormField} />
+          <Field
+            type="text"
+            name="title"
+            placeholder="제목"
+            component={BasicFormField.PlaceholderFormField}
+            validate={Validation.required}
+          />
           <div>
             <small>{error}</small>
           </div>

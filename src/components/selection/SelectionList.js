@@ -17,6 +17,8 @@ import dataConfig from '../../dataConfig';
 
 // Components
 import Loadable from '../../loadable';
+import BasicFormField from '../../form/FormField';
+import Validation from '../../form/Validation';
 
 // Styled
 import Element from '../../styled_base/Element';
@@ -25,7 +27,6 @@ import Styled from './Selection.styled';
 // Assets
 import Pencil from '../../assets/images/pencil-alt-solid.svg';
 import Plus from '../../assets/images/plus-circle-solid.svg';
-import FormField from '../question/FormField';
 
 class SelectionList extends React.Component {
   constructor(props) {
@@ -186,8 +187,9 @@ class SelectionList extends React.Component {
                 <Field
                   type="text"
                   name="createSelect"
-                  label="선택지"
-                  component={FormField}
+                  placeholder="선택지"
+                  component={BasicFormField.PlaceholderFormField}
+                  validate={Validation.required}
                 />
                 <Element.BasicButton type="submit">create</Element.BasicButton>
               </Styled.CreateSelectionGroup>
@@ -206,8 +208,9 @@ class SelectionList extends React.Component {
             <Field
               type="text"
               name="select"
-              label="선택지"
-              component={FormField}
+              placeholder="선택지"
+              component={BasicFormField.PlaceholderFormField}
+              validate={Validation.required}
             />
             <Styled.SelectionButtonGroup>
               <Element.BasicButton type="submit">update</Element.BasicButton>
