@@ -8,6 +8,10 @@ Enzyme.configure({ adapter: new Adapter() });
 function setup() {
   const props = {
     logOut: jest.fn(),
+    setPopup: jest.fn(),
+    history: {
+      replace: jest.fn(),
+    },
   };
 
   const enzymeWrapper = shallow(<SignOut {...props} />);
