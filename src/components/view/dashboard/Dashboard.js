@@ -5,13 +5,13 @@ import dataConfig from '../../../dataConfig';
 import Helmet from '../../helmet/Helmet';
 
 // Styled
-import StyledBase from '../../../styled/Wrapper';
+import Wrapper from '../../../styled_base/Wrapper';
 
 const Dashboard = () => (
-  <StyledBase.FlexWrapper>
+  <Wrapper.FlexWrapper>
     <Helmet pageTitle="Dashboard" />
     <h4>{dataConfig.dashboardText}</h4>
-  </StyledBase.FlexWrapper>
+  </Wrapper.FlexWrapper>
 );
 
 export default Dashboard;

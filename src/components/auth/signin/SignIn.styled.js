@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Element from '../../../styled/Element';
+import Element from '../../../styled_base/Element';
 
 const FormWrapper = styled.form`
   input {

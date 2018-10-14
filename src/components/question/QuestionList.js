@@ -8,8 +8,8 @@ import { listQuestion, createQuestion } from '../../reducers/reducer.question';
 import FormField from './FormField';
 
 // Styled
-import Wrapper from '../../styled/Wrapper';
-import Element from '../../styled/Element';
+import Wrapper from '../../styled_base/Wrapper';
+import Element from '../../styled_base/Element';
 import Styled from './Question.styled';
 
 export class QuestionList extends React.Component {

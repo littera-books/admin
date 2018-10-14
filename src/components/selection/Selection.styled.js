@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import Wrapper from '../../styled/Wrapper';
-import Element from '../../styled/Element';
+import Wrapper from '../../styled_base/Wrapper';
+import Element from '../../styled_base/Element';
 
 const CreateSelectionGroup = styled(Wrapper.BetweenWrapper)`
   justify-content: flex-start;

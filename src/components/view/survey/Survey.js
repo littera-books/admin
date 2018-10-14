@@ -9,12 +9,12 @@ import Loadable from '../../../loadable';
 import { DefaultQuestionDetail } from '../../question/QuestionDetail';
 
 // Styled
-import StyledBase from '../../../styled/Wrapper';
+import Wrapper from '../../../styled_base/Wrapper';
 import Styled from './Survey.styled';
 
 const Survey = ({ match }) => (
   <Styled.SurveyWrapper>
-    <StyledBase.ColumnWrapper>
+    <Wrapper.ColumnWrapper>
       <Helmet pageTitle="Survey" />
       <h5>
         <strong>{dataConfig.surveyTitle}</strong>
@@ -27,7 +27,7 @@ const Survey = ({ match }) => (
           component={Loadable.QuestionDetail}
         />
       </Styled.QuestionWrapper>
-    </StyledBase.ColumnWrapper>
+    </Wrapper.ColumnWrapper>
   </Styled.SurveyWrapper>
 );
 
