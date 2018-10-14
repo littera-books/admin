@@ -21,6 +21,11 @@ const BasicButton = styled.button`
   }
 `;
 
+const AlignRightButton = styled(BasicButton)`
+  margin-left: auto;
+  margin-top: 1rem;
+`;
+
 const BasicInput = styled.input`
   font-family: 'Silk Remington', 'Nanum Myeongjo';
   font-size: 0.75rem;
@@ -44,6 +49,7 @@ const BasicHr = styled.hr`
 export default {
   BasicSmall,
   BasicButton,
+  AlignRightButton,
   BasicInput,
   BasicHr,
 };
