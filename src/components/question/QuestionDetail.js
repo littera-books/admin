@@ -122,8 +122,7 @@ class ActiveQuestionDetail extends React.Component {
         <p>{item.title}</p>
         <form
           style={{
-            visibility: updateForm ? 'visible' : 'hidden',
-            height: updateForm ? '6rem' : '0',
+            display: updateForm ? 'block' : 'none',
           }}
           action="post"
           onSubmit={handleSubmit(this.onUpdateQuestion.bind(this))}
