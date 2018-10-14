@@ -9,6 +9,7 @@ const CreateSelectionGroup = styled(Wrapper.BetweenWrapper)`
 `;
 
 const UpdateSelectionButton = styled(Element.BasicButton)`
+  display: inline;
   width: 1rem;
   height: 1rem;
   border: none;
