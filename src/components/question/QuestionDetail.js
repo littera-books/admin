@@ -24,7 +24,7 @@ import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
   <Wrapper.DefaultDetailWrapper>
-    <p>{dataConfig.questionDetailText}</p>
+    <p>{dataConfig.defaultDetailText}</p>
   </Wrapper.DefaultDetailWrapper>
 );
 
