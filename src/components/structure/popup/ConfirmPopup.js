@@ -15,13 +15,16 @@ class ConfirmPopup extends React.Component {
   }
 
   async confirmPopup() {
-    const { initialize, method, argument } = this.props;
+    const {
+      initialize, method, argument, replace, destination,
+    } = this.props;
 
     await method(argument);
 
     const { error } = this.props;
     if (!error) {
       initialize();
+      replace(destination);
       window.location.reload();
     }
   }
@@ -73,6 +76,8 @@ ConfirmPopup.propTypes = {
   argument: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
     .isRequired,
   error: PropTypes.string.isRequired,
+  replace: PropTypes.func.isRequired,
+  destination: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({

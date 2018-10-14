@@ -154,7 +154,7 @@ class SelectionList extends React.Component {
       id, index, createForm, updateForm, popupFilter,
     } = this.state;
     const {
-      destroyDetail, handleSubmit, subject, error,
+      history, destroyDetail, handleSubmit, subject, error,
     } = this.props;
     const payload = { id, subject };
 
@@ -226,6 +226,8 @@ class SelectionList extends React.Component {
             argument={payload}
             error={error}
             cancelPopup={this.cancelPopup}
+            replace={history.replace}
+            destination="/survey"
           />
         ) : null}
       </div>

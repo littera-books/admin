@@ -150,6 +150,8 @@ class ActiveQuestionDetail extends React.Component {
             argument={subject}
             error={error}
             cancelPopup={this.cancelPopup}
+            replace={history.replace}
+            destination="/survey"
           />
         ) : null}
       </Wrapper.ActiveDetailWrapper>
