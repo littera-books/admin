@@ -92,7 +92,7 @@ export class QuestionList extends React.Component {
     const { length } = this.props;
 
     return (
-      <Styled.ListWrapper>
+      <Wrapper.ListWrapper>
         <Wrapper.BetweenWrapper>
           <h5>
             질문 갯수: <strong>{length}</strong>
@@ -105,7 +105,7 @@ export class QuestionList extends React.Component {
         </Wrapper.BetweenWrapper>
         {createQuestionItem ? this.createQuestion() : null}
         {this.QuestionItem()}
-      </Styled.ListWrapper>
+      </Wrapper.ListWrapper>
     );
   }
 }

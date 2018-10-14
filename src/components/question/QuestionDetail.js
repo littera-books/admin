@@ -23,9 +23,9 @@ import Element from '../../styled_base/Element';
 import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
-  <Styled.DefaultQuestionDetailWrapper>
+  <Wrapper.DefaultDetailWrapper>
     <p>{dataConfig.questionDetailText}</p>
-  </Styled.DefaultQuestionDetailWrapper>
+  </Wrapper.DefaultDetailWrapper>
 );
 
 class ActiveQuestionDetail extends React.Component {
@@ -101,7 +101,7 @@ class ActiveQuestionDetail extends React.Component {
     } = this.props;
 
     return (
-      <Styled.ActiveQuestionDetailWrapper>
+      <Wrapper.ActiveDetailWrapper>
         <Wrapper.BetweenWrapper>
           <h2>
             <strong>{item.subject}</strong>
@@ -152,7 +152,7 @@ class ActiveQuestionDetail extends React.Component {
             cancelPopup={this.cancelPopup}
           />
         ) : null}
-      </Styled.ActiveQuestionDetailWrapper>
+      </Wrapper.ActiveDetailWrapper>
     );
   }
 }
