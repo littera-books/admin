@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { PrivateRoute } from '../../../App';
 import dataConfig from '../../../dataConfig';
 
 // Component
@@ -21,8 +21,12 @@ const Survey = ({ match }) => (
       </h5>
       <Styled.QuestionWrapper>
         <Loadable.QuestionList matchUrl={match.url} />
-        <Route exact path={`${match.url}`} component={DefaultQuestionDetail} />
-        <Route
+        <PrivateRoute
+          exact
+          path={`${match.url}`}
+          component={DefaultQuestionDetail}
+        />
+        <PrivateRoute
           path={`${match.url}/:subject`}
           component={Loadable.QuestionDetail}
         />

@@ -15,7 +15,7 @@ import Wrapper from './styled_base/Wrapper';
 // Minireset.css
 import '../node_modules/minireset.css/minireset.min.css';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
+export const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
     render={props => (sessionStorage.getItem('adminToken') ? (
