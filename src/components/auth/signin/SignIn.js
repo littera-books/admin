@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import {
@@ -8,18 +7,23 @@ import {
   setVisibilityFilter,
 } from '../../../reducers/reducer.controlHeader';
 import { initialize, signIn } from '../../../reducers/reducer.auth';
+import { setPopupHeaderMessage } from '../../../reducers/reducer.popup';
+import dataConfig from '../../../dataConfig';
 
 // Components
+import Loadable from '../../../loadable';
+import BasicFormField from '../../../form/FormField';
+import Validation from '../../../form/Validation';
 import Helmet from '../../helmet/Helmet';
-import FormField from '../FormField';
 
 // Styled
-import Wrapper from '../../../styled/Wrapper';
+import Wrapper from '../../../styled_base/Wrapper';
+import Element from '../../../styled_base/Element';
 import Styled from './SignIn.styled';
 
 export class SignIn extends React.Component {
   state = {
-    redirect: false,
+    popupFilter: false,
   };
 
   componentDidMount() {
@@ -37,21 +41,18 @@ export class SignIn extends React.Component {
     const { logIn } = this.props;
     await logIn(payload);
 
-    const { error } = this.props;
+    const { error, setPopup } = this.props;
     if (!error) {
+      setPopup(dataConfig.popupMessage.signIn);
       await this.setState({
-        redirect: true,
+        popupFilter: true,
       });
     }
   }
 
   render() {
-    const { redirect } = this.state;
-    const { handleSubmit, error } = this.props;
-
-    if (redirect) {
-      return <Redirect to="/dashboard" />;
-    }
+    const { popupFilter } = this.state;
+    const { handleSubmit, error, history } = this.props;
 
     return (
       <Wrapper.FlexWrapper>
@@ -65,23 +66,30 @@ export class SignIn extends React.Component {
             <Field
               type="text"
               name="username"
-              label="IDENTIFICATION _"
-              component={FormField}
+              placeholder="Identification"
+              component={BasicFormField.PlaceholderFormField}
+              validate={Validation.required}
             />
             <Field
               type="password"
               name="password"
-              label="PASSWORD _"
-              component={FormField}
+              placeholder="Password"
+              component={BasicFormField.PlaceholderFormField}
+              validate={Validation.required}
             />
             <div>
-              <small>{error}</small>
+              <Element.BasicSmall>{error}</Element.BasicSmall>
             </div>
             <Styled.SignInButton type="submit">Sign In</Styled.SignInButton>
           </Styled.FormWrapper>
-          <p>Not a member yet?</p>
           <p>Forgot your password?</p>
         </Wrapper.ColumnWrapper>
+        {popupFilter ? (
+          <Loadable.SimplePopup
+            replace={history.replace}
+            destination="/dashboard"
+          />
+        ) : null}
       </Wrapper.FlexWrapper>
     );
   }
@@ -93,6 +101,10 @@ SignIn.propTypes = {
   logIn: PropTypes.func.isRequired,
   error: PropTypes.string.isRequired,
   filter: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
+  }).isRequired,
+  setPopup: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = state => ({
@@ -103,6 +115,7 @@ export const mapDispatchToProps = dispatch => ({
   init: () => dispatch(initialize()),
   logIn: payload => dispatch(signIn(payload)),
   filter: filter => dispatch(setVisibilityFilter(filter)),
+  setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
 });
 
 export default reduxForm({
