@@ -10,16 +10,16 @@ import {
   destroyQuestion,
 } from '../../reducers/reducer.question';
 import {
-  setHeaderProperty,
-  setMessageProperty,
+  setPopupHeaderMessage,
+  setPopupButtons,
 } from '../../reducers/reducer.popup';
 
 // Components
 import Loadable from '../../loadable';
 
 // Styled
-import Wrapper from '../../styled/Wrapper';
-import Element from '../../styled/Element';
+import Wrapper from '../../styled_base/Wrapper';
+import Element from '../../styled_base/Element';
 import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
@@ -38,6 +38,7 @@ class ActiveQuestionDetail extends React.Component {
       subject: '',
     };
 
+    this.cancelPopup = this.cancelPopup.bind(this);
     this.openUpdateQuestionForm = this.openUpdateQuestionForm.bind(this);
     this.onUpdateQuestion = this.onUpdateQuestion.bind(this);
     this.onDestroyQuestion = this.onDestroyQuestion.bind(this);
@@ -55,9 +56,9 @@ class ActiveQuestionDetail extends React.Component {
   }
 
   async onDestroyQuestion() {
-    const { setHeader, setMessage } = this.props;
-    setHeader(dataConfig.popup.destroyQuestionHeader);
-    setMessage(dataConfig.popup.destroyQuestionText);
+    const { setPopup, setButtons } = this.props;
+    setPopup(dataConfig.popupMessage.destroyQuestion);
+    setButtons(dataConfig.popupMessage.destroyConfirm);
     this.setState({ popupFilter: true });
   }
 
@@ -82,6 +83,10 @@ class ActiveQuestionDetail extends React.Component {
       subject: item.subject,
       title: item.title,
     });
+  }
+
+  cancelPopup() {
+    this.setState({ popupFilter: false });
   }
 
   render() {
@@ -109,7 +114,7 @@ class ActiveQuestionDetail extends React.Component {
               질문 수정
             </Element.BasicButton>
             <Element.BasicButton type="button" onClick={this.onDestroyQuestion}>
-              {dataConfig.popup.destroyQuestionHeader}
+              질문 삭제
             </Element.BasicButton>
           </Styled.QuestionButtonGroup>
         </Wrapper.BetweenWrapper>
@@ -140,11 +145,11 @@ class ActiveQuestionDetail extends React.Component {
           subject={match.params.subject}
         />
         {popupFilter ? (
-          <Loadable.Popup
+          <Loadable.ConfirmPopup
             method={destroyDetail}
             argument={subject}
-            replace={history.replace}
-            destination="/survey"
+            error={error}
+            cancelPopup={this.cancelPopup}
           />
         ) : null}
       </Styled.ActiveQuestionDetailWrapper>
@@ -170,8 +175,8 @@ ActiveQuestionDetail.propTypes = {
   error: PropTypes.string.isRequired,
   putDetail: PropTypes.func.isRequired,
   destroyDetail: PropTypes.func.isRequired,
-  setHeader: PropTypes.func.isRequired,
-  setMessage: PropTypes.func.isRequired,
+  setPopup: PropTypes.func.isRequired,
+  setButtons: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -184,8 +189,8 @@ const mapDispatchToProps = dispatch => ({
   getDetail: subject => dispatch(detailQuestion(subject)),
   putDetail: payload => dispatch(updateQuestion(payload)),
   destroyDetail: subject => dispatch(destroyQuestion(subject)),
-  setHeader: header => dispatch(setHeaderProperty(header)),
-  setMessage: message => dispatch(setMessageProperty(message)),
+  setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
+  setButtons: payload => dispatch(setPopupButtons(payload)),
 });
 
 export default reduxForm({

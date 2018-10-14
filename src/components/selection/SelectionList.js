@@ -7,18 +7,19 @@ import {
   listSelection,
   createSelection,
   updateSelection,
-  destroySelecton,
+  destroySelection,
 } from '../../reducers/reducer.selection';
 import {
-  setHeaderProperty,
-  setMessageProperty,
+  setPopupHeaderMessage,
+  setPopupButtons,
 } from '../../reducers/reducer.popup';
+import dataConfig from '../../dataConfig';
 
 // Components
 import Loadable from '../../loadable';
 
 // Styled
-import Element from '../../styled/Element';
+import Element from '../../styled_base/Element';
 import Styled from './Selection.styled';
 
 // Assets
@@ -39,6 +40,7 @@ class SelectionList extends React.Component {
       subject: '',
     };
 
+    this.cancelPopup = this.cancelPopup.bind(this);
     this.onDestroySelection = this.onDestroySelection.bind(this);
     this.openCreateSelectionForm = this.openCreateSelectionForm.bind(this);
   }
@@ -58,32 +60,35 @@ class SelectionList extends React.Component {
   }
 
   async onCreateSelection(payload) {
-    const { create, history } = this.props;
+    const { create, getList } = this.props;
     await create(payload);
 
     const { error } = this.props;
     if (!error) {
-      history.replace(`/survey/${payload.subject}`);
-      window.location.reload();
+      getList(payload.subject);
+      this.setState({ createForm: false });
     }
   }
 
   async onUpdateSelection(payload) {
-    const { putDetail, history } = this.props;
+    const { putDetail, getList } = this.props;
     await putDetail(payload);
 
     const { error } = this.props;
     if (!error) {
-      history.replace(`/survey/${payload.subject}`);
-      window.location.reload();
+      getList(payload.subject);
+      this.setState({ updateForm: false });
     }
   }
 
-  async onDestroySelection() {
+  onDestroySelection() {
     const { index } = this.state;
-    const { setHeader, setMessage } = this.props;
-    setHeader(`${index + 1}번 선택지 삭제`);
-    setMessage(`${index + 1}번 선택지를 삭제하시겠습니까?`);
+    const { setPopup, setButtons } = this.props;
+    setPopup({
+      header: `${index + 1}번 선택지 삭제`,
+      message: `${index + 1}번 선택지를 삭제하시겠습니까?`,
+    });
+    setButtons(dataConfig.popupMessage.destroyConfirm);
     this.setState({ popupFilter: true });
   }
 
@@ -125,6 +130,10 @@ class SelectionList extends React.Component {
     }
   }
 
+  cancelPopup() {
+    this.setState({ popupFilter: false });
+  }
+
   renderItems() {
     const { items } = this.props;
     return _.map(items, item => (
@@ -145,7 +154,7 @@ class SelectionList extends React.Component {
       id, index, createForm, updateForm, popupFilter,
     } = this.state;
     const {
-      destroyDetail, history, handleSubmit, subject,
+      destroyDetail, handleSubmit, subject, error,
     } = this.props;
     const payload = { id, subject };
 
@@ -212,11 +221,11 @@ class SelectionList extends React.Component {
           </form>
         </div>
         {popupFilter ? (
-          <Loadable.Popup
+          <Loadable.ConfirmPopup
             method={destroyDetail}
             argument={payload}
-            replace={history.replace}
-            destination={`/survey/${subject}`}
+            error={error}
+            cancelPopup={this.cancelPopup}
           />
         ) : null}
       </div>
@@ -232,22 +241,25 @@ SelectionList.propTypes = {
   }).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
   subject: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+  getList: PropTypes.func.isRequired,
   destroyDetail: PropTypes.func.isRequired,
-  setHeader: PropTypes.func.isRequired,
-  setMessage: PropTypes.func.isRequired,
+  setPopup: PropTypes.func.isRequired,
+  setButtons: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   items: state.selection.items,
+  error: state.selection.error,
 });
 
 const mapDispatchToProps = dispatch => ({
   getList: subject => dispatch(listSelection(subject)),
   create: payload => dispatch(createSelection(payload)),
   putDetail: payload => dispatch(updateSelection(payload)),
-  destroyDetail: payload => dispatch(destroySelecton(payload)),
-  setHeader: header => dispatch(setHeaderProperty(header)),
-  setMessage: message => dispatch(setMessageProperty(message)),
+  destroyDetail: payload => dispatch(destroySelection(payload)),
+  setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
+  setButtons: payload => dispatch(setPopupButtons(payload)),
 });
 
 export default reduxForm({

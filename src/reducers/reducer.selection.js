@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import AxiosInstance from './axios.instance';
 
 // Actions
@@ -73,7 +74,7 @@ export async function updateSelection(payload) {
   };
 }
 
-export async function destroySelecton(payload) {
+export async function destroySelection(payload) {
   let response;
   let error;
 
@@ -104,60 +105,32 @@ export const initialState = {
 // Reducer Functions
 function reducerListSelection(state, action) {
   if (action.error) {
-    return {
+    return _.assign({}, state, {
       ...state,
       error: action.error,
-    };
+    });
   }
 
-  return {
+  return _.assign({}, state, {
     ...state,
     length: action.response.data.length,
     items: action.response.data.items,
     error: '',
-  };
+  });
 }
 
-function reducerCreateSelection(state, action) {
+function reducerCRUDSelection(state, action) {
   if (action.error) {
-    return {
+    return _.assign({}, state, {
       ...state,
       error: action.error,
-    };
+    });
   }
 
-  return {
+  return _.assign({}, state, {
     ...state,
     error: '',
-  };
-}
-
-function reducerUpdateSelection(state, action) {
-  if (action.error) {
-    return {
-      ...state,
-      error: action.error,
-    };
-  }
-
-  return {
-    ...state,
-    error: '',
-  };
-}
-
-function reducerDestroySelection(action, state) {
-  if (action.error) {
-    return {
-      ...state,
-      error: action.error,
-    };
-  }
-
-  return {
-    ...state,
-    error: '',
-  };
+  });
 }
 
 // Reducer
@@ -166,11 +139,11 @@ export default function reducer(state = initialState, action) {
     case LIST_SELECTION:
       return reducerListSelection(state, action);
     case CREATE_SELECTION:
-      return reducerCreateSelection(state, action);
+      return reducerCRUDSelection(state, action);
     case UPDATE_SELECTION:
-      return reducerUpdateSelection(state, action);
+      return reducerCRUDSelection(state, action);
     case DESTROY_SELECTION:
-      return reducerDestroySelection(state, action);
+      return reducerCRUDSelection(state, action);
     default:
       return state;
   }
