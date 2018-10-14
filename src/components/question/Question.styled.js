@@ -10,7 +10,7 @@ const QuestionSubmitButton = styled(Element.BasicButton)`
 
 const QuestionItem = styled(Wrapper.ColumnWrapper)`
   padding: 1rem;
-  border: 1px solid purple;
+  border: 1px solid lightgray;
 `;
 
 const QuestionButtonGroup = styled(Wrapper.BetweenWrapper)`

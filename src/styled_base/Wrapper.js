@@ -65,21 +65,21 @@ const BetweenWrapper = styled(BasicFlexWrapper)`
 `;
 
 const ListWrapper = styled(BasicBlockWrapper)`
-  border: 1px solid pink;
+  border: 1px solid lightgray;
   width: 25vw;
   height: calc(100vh - 4rem - 2rem);
   overflow-y: scroll;
 `;
 
 const DefaultDetailWrapper = styled(BasicFlexWrapper)`
+  border: 1px solid lightgray;
   justify-content: center;
   align-items: center;
-  border: 1px solid blue;
   width: 75vw;
 `;
 
 const ActiveDetailWrapper = styled(ColumnWrapper)`
-  border: 1px solid blue;
+  border: 1px solid lightgray;
   width: 75vw;
   padding: 1rem;
 `;

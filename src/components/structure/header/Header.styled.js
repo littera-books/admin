@@ -4,6 +4,8 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem;
+  border-bottom: 1px solid lightgray;
+  height: 4rem;
 `;
 
 const MenuWrapper = styled.div`
