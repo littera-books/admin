@@ -11,7 +11,13 @@ const ProductInnerWrapper = styled(Wrapper.BasicFlexWrapper)`
   border: 1px solid black;
 `;
 
+const ProductItem = styled(Wrapper.ColumnWrapper)`
+  padding: 1rem;
+  border: 1px solid brown;
+`;
+
 export default {
   ProductWrapper,
   ProductInnerWrapper,
+  ProductItem,
 };

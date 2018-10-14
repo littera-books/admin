@@ -6,6 +6,7 @@ import controlHeader from './reducer.controlHeader';
 import auth from './reducer.auth';
 import question from './reducer.question';
 import selection from './reducer.selection';
+import product from './reducer.product';
 import popup from './reducer.popup';
 
 const rootReducer = combineReducers({
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   auth,
   question,
   selection,
+  product,
   popup,
 });
 
