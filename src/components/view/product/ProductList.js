@@ -41,12 +41,7 @@ class ProductList extends React.Component {
 
 ProductList.propTypes = {
   matchUrl: PropTypes.string.isRequired,
-  items: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    months: PropTypes.number.isRequired,
-    price: PropTypes.number.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
+  items: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   length: PropTypes.number.isRequired,
   getList: PropTypes.func.isRequired,
 };
