@@ -18,11 +18,15 @@ const Product = ({ match }) => (
       <strong>{dataConfig.productTitle}</strong>
     </h5>
     <Styled.ProductInnerWrapper>
-      <Loadable.ProductList />
+      <Loadable.ProductList matchUrl={match.url} />
       <PrivateRoute
         exact
         path={`${match.url}`}
         component={DefaultProductDetail}
+      />
+      <PrivateRoute
+        path={`${match.url}/:productId`}
+        component={Loadable.ProductDetail}
       />
     </Styled.ProductInnerWrapper>
   </Styled.ProductWrapper>

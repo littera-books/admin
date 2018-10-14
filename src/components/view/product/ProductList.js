@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getProductList } from '../../../reducers/reducer.product';
 
@@ -15,12 +16,14 @@ class ProductList extends React.Component {
   }
 
   renderItems() {
-    const { items } = this.props;
+    const { items, matchUrl } = this.props;
     return _.map(items, item => (
       <Styled.ProductItem key={item.id}>
-        <p>{`개월: ${item.months}`}</p>
-        <p>{`가격: ${item.price}`}</p>
-        <p>{`설명: ${item.description}`}</p>
+        <Link to={`${matchUrl}/${item.id}`}>
+          <p>{`개월: ${item.months}`}</p>
+          <p>{`가격: ${item.price}`}</p>
+          <p>{`설명: ${item.description}`}</p>
+        </Link>
       </Styled.ProductItem>
     ));
   }
@@ -37,6 +40,7 @@ class ProductList extends React.Component {
 }
 
 ProductList.propTypes = {
+  matchUrl: PropTypes.string.isRequired,
   items: PropTypes.shape({
     id: PropTypes.number.isRequired,
     months: PropTypes.number.isRequired,
