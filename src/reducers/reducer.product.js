@@ -7,6 +7,7 @@ const DETAIL_PRODUCT = 'DETAIL_PRODUCT';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DESTROY_PRODUCT = 'DESTROY_PRODUCT';
+const CLEAR_ERROR = 'CLEAR_ERROR';
 
 // Action Creators
 export const ListProduct = async () => {
@@ -119,6 +120,10 @@ export const destroyProduct = async (productId) => {
   };
 };
 
+export const clearError = () => ({
+  type: CLEAR_ERROR,
+});
+
 // Initial State
 const initialState = {
   length: 0,
@@ -168,7 +173,7 @@ const reducerCRUDProduct = (state, action) => {
   if (action.error) {
     return _.assign({}, state, {
       ...state,
-      error: action.error,
+      error: action.error.response.data.message,
     });
   }
 
@@ -177,6 +182,11 @@ const reducerCRUDProduct = (state, action) => {
     error: '',
   });
 };
+
+const reducerClearError = state => _.assign({}, state, {
+  ...state,
+  error: '',
+});
 
 // Reducer
 export default function reducer(state = initialState, action) {
@@ -191,6 +201,8 @@ export default function reducer(state = initialState, action) {
       return reducerCRUDProduct(state, action);
     case DESTROY_PRODUCT:
       return reducerCRUDProduct(state, action);
+    case CLEAR_ERROR:
+      return reducerClearError(state);
     default:
       return state;
   }

@@ -6,6 +6,7 @@ import {
   detailProduct,
   updateProduct,
   destroyProduct,
+  clearError,
 } from '../../../reducers/reducer.product';
 import {
   setPopupHeaderMessage,
@@ -68,10 +69,11 @@ class ActiveProductDetail extends React.Component {
   }
 
   onDestroyProduct() {
-    const { setPopup, setButtons } = this.props;
+    const { setPopup, setButtons, clear } = this.props;
     setPopup(dataConfig.popupMessage.destroyProduct);
     setButtons(dataConfig.popupMessage.destroyConfirm);
-    this.setState({ popupFilter: true });
+    clear();
+    this.setState({ popupFilter: true, updateForm: false });
   }
 
   openUpdateProductForm() {
@@ -144,6 +146,9 @@ class ActiveProductDetail extends React.Component {
             component={BasicFormField.PlaceholderFormField}
             validate={Validation.required}
           />
+          <div>
+            <Element.BasicSmall>{error}</Element.BasicSmall>
+          </div>
           <Element.AlignLeftButton type="submit">
             update
           </Element.AlignLeftButton>
@@ -176,6 +181,7 @@ ActiveProductDetail.propTypes = {
   error: PropTypes.string.isRequired,
   update: PropTypes.func.isRequired,
   destroy: PropTypes.func.isRequired,
+  clear: PropTypes.func.isRequired,
   setPopup: PropTypes.func.isRequired,
   setButtons: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
@@ -191,6 +197,7 @@ const mapDispatchToProps = dispatch => ({
   getDetail: productId => dispatch(detailProduct(productId)),
   update: payload => dispatch(updateProduct(payload)),
   destroy: productId => dispatch(destroyProduct(productId)),
+  clear: () => dispatch(clearError()),
   setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
   setButtons: payload => dispatch(setPopupButtons(payload)),
 });

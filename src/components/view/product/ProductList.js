@@ -51,7 +51,7 @@ class ProductList extends React.Component {
   }
 
   createProduct() {
-    const { handleSubmit } = this.props;
+    const { handleSubmit, error } = this.props;
     return (
       <Styled.ProductItem>
         <h5>
@@ -82,6 +82,9 @@ class ProductList extends React.Component {
             component={BasicFormField.PlaceholderFormField}
             validate={Validation.required}
           />
+          <div>
+            <Element.BasicSmall>{error}</Element.BasicSmall>
+          </div>
           <Element.AlignRightButton type="submit">
             Create
           </Element.AlignRightButton>
@@ -131,6 +134,7 @@ ProductList.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
   items: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  error: PropTypes.string.isRequired,
   length: PropTypes.number.isRequired,
   getList: PropTypes.func.isRequired,
   create: PropTypes.func.isRequired,
