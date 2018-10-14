@@ -8,6 +8,7 @@ import Styled from './Header.styled';
 
 const Menu = () => (
   <Styled.MenuWrapper>
+    <Link to="/product">Product</Link>
     <Link to="/survey">Survey</Link>
     <Link to="/sign-out">Sign Out</Link>
   </Styled.MenuWrapper>
