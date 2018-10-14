@@ -76,14 +76,14 @@ export class QuestionList extends React.Component {
   QuestionItem() {
     const { items, matchUrl } = this.props;
     return _.map(items, item => (
-      <Link to={`${matchUrl}/${item.subject}`} key={item.id}>
-        <Styled.QuestionItem>
+      <Styled.QuestionItem key={item.id}>
+        <Link to={`${matchUrl}/${item.subject}`}>
           <h5>
             주제: <strong>{item.subject}</strong>
           </h5>
           <p>{`제목: ${item.title}`}</p>
-        </Styled.QuestionItem>
-      </Link>
+        </Link>
+      </Styled.QuestionItem>
     ));
   }
 
