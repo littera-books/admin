@@ -5,6 +5,7 @@ import axiosInstance from './axios.instance';
 const LIST_PRODUCT = 'LIST_PRODUCT';
 const DETAIL_PRODUCT = 'DETAIL_PRODUCT';
 const CREATE_PRODUCT = 'CREATE_PRODUCT';
+const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 const DESTROY_PRODUCT = 'DESTROY_PRODUCT';
 
 // Action Creators
@@ -68,6 +69,31 @@ export const createProduct = async (payload) => {
 
   return {
     type: CREATE_PRODUCT,
+    response,
+    error,
+  };
+};
+
+export const updateProduct = async (payload) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/product/${payload.productId}`,
+      method: 'put',
+      data: {
+        months: payload.months,
+        price: payload.price,
+        description: payload.description,
+      },
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: UPDATE_PRODUCT,
     response,
     error,
   };
@@ -160,6 +186,8 @@ export default function reducer(state = initialState, action) {
     case DETAIL_PRODUCT:
       return reducerDetailProduct(state, action);
     case CREATE_PRODUCT:
+      return reducerCRUDProduct(state, action);
+    case UPDATE_PRODUCT:
       return reducerCRUDProduct(state, action);
     case DESTROY_PRODUCT:
       return reducerCRUDProduct(state, action);
