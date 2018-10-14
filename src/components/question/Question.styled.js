@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Wrapper from '../../styled_base/Wrapper';
 import Element from '../../styled_base/Element';
 
-const ListWrapper = styled.div`
+const ListWrapper = styled(Wrapper.BasicBlockWrapper)`
   border: 1px solid pink;
   width: 25vw;
   height: calc(100vh - 4rem - 2rem);
@@ -15,20 +15,19 @@ const QuestionSubmitButton = styled(Element.BasicButton)`
   margin-left: auto;
 `;
 
-const QuestionItem = styled.div`
+const QuestionItem = styled(Wrapper.ColumnWrapper)`
   padding: 1rem;
   border: 1px solid purple;
 `;
 
-const DefaultQuestionDetailWrapper = styled.div`
-  display: flex;
+const DefaultQuestionDetailWrapper = styled(Wrapper.BasicFlexWrapper)`
   justify-content: center;
   align-items: center;
   border: 1px solid blue;
   width: 75vw;
 `;
 
-const ActiveQuestionDetailWrapper = styled.div`
+const ActiveQuestionDetailWrapper = styled(Wrapper.ColumnWrapper)`
   border: 1px solid blue;
   width: 75vw;
   padding: 1rem;

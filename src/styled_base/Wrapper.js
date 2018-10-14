@@ -56,13 +56,11 @@ const FlexWrapper = styled(BasicFlexWrapper)`
   margin: auto;
 `;
 
-const ColumnWrapper = styled.div`
-  display: flex;
+const ColumnWrapper = styled(BasicFlexWrapper)`
   flex-direction: column;
 `;
 
-const BetweenWrapper = styled.div`
-  display: flex;
+const BetweenWrapper = styled(BasicFlexWrapper)`
   justify-content: space-between;
 `;
 
