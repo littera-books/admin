@@ -144,7 +144,9 @@ class ActiveProductDetail extends React.Component {
             component={BasicFormField.PlaceholderFormField}
             validate={Validation.required}
           />
-          <Element.BasicButton type="submit">update</Element.BasicButton>
+          <Element.AlignLeftButton type="submit">
+            update
+          </Element.AlignLeftButton>
         </form>
         <Element.BasicHr />
         {popupFilter && (

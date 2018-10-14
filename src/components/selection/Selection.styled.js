@@ -18,7 +18,7 @@ const UpdateSelectionButton = styled(Element.BasicButton)`
 
 const SelectionButtonGroup = styled(Wrapper.BetweenWrapper)`
   margin-top: 0.5rem;
-  width: 8rem;
+  width: 10rem;
 `;
 
 export default {

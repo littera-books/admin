@@ -176,7 +176,6 @@ class SelectionList extends React.Component {
             style={{
               marginLeft: '0.5rem',
               visibility: createForm ? 'visible' : 'hidden',
-              height: createForm ? '100%' : '2rem',
             }}
           >
             <form

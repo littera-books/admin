@@ -21,6 +21,11 @@ const BasicButton = styled.button`
   }
 `;
 
+const AlignLeftButton = styled(BasicButton)`
+  margin-right: auto;
+  margin-top: 1rem;
+`;
+
 const AlignRightButton = styled(BasicButton)`
   margin-left: auto;
   margin-top: 1rem;
@@ -50,6 +55,7 @@ const BasicHr = styled.hr`
 export default {
   BasicSmall,
   BasicButton,
+  AlignLeftButton,
   AlignRightButton,
   BasicInput,
   BasicHr,

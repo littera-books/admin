@@ -144,7 +144,9 @@ class ActiveQuestionDetail extends React.Component {
           <div>
             <small>{error}</small>
           </div>
-          <Element.BasicButton type="submit">update</Element.BasicButton>
+          <Element.AlignLeftButton type="submit">
+            update
+          </Element.AlignLeftButton>
         </form>
         <Element.BasicHr />
         <Loadable.SelectionList
