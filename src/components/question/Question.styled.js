@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import StyledBase from '../../styled/Base';
+import Wrapper from '../../styled/Wrapper';
+import Element from '../../styled/Element';
 
 const ListWrapper = styled.div`
   border: 1px solid pink;
@@ -8,7 +9,7 @@ const ListWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-const QuestionSubmitButton = styled(StyledBase.BasicButton)`
+const QuestionSubmitButton = styled(Element.BasicButton)`
   display: block;
   margin-top: 1rem;
   margin-left: auto;
@@ -33,7 +34,7 @@ const ActiveQuestionDetailWrapper = styled.div`
   padding: 1rem;
 `;
 
-const QuestionButtonGroup = styled(StyledBase.BetweenWrapper)`
+const QuestionButtonGroup = styled(Wrapper.BetweenWrapper)`
   width: 10rem;
 `;
 

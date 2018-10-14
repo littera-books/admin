@@ -14,7 +14,7 @@ import Helmet from '../../helmet/Helmet';
 import FormField from '../FormField';
 
 // Styled
-import StyledBase from '../../../styled/Base';
+import Wrapper from '../../../styled/Wrapper';
 import Styled from './SignIn.styled';
 
 export class SignIn extends React.Component {
@@ -54,9 +54,9 @@ export class SignIn extends React.Component {
     }
 
     return (
-      <StyledBase.FlexWrapper>
+      <Wrapper.FlexWrapper>
         <Helmet pageTitle="SignIn" />
-        <StyledBase.ColumnWrapper>
+        <Wrapper.ColumnWrapper>
           <h3>Sign In</h3>
           <Styled.FormWrapper
             action="post"
@@ -81,8 +81,8 @@ export class SignIn extends React.Component {
           </Styled.FormWrapper>
           <p>Not a member yet?</p>
           <p>Forgot your password?</p>
-        </StyledBase.ColumnWrapper>
-      </StyledBase.FlexWrapper>
+        </Wrapper.ColumnWrapper>
+      </Wrapper.FlexWrapper>
     );
   }
 }

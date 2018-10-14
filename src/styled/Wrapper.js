@@ -55,26 +55,9 @@ const BetweenWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const BasicButton = styled.button`
-  color: black;
-  cursor: pointer;
-  font-size: 0.8rem;
-  border: 1px solid black;
-
-  :focus {
-    outline: none;
-  }
-`;
-
-const BasicHr = styled.hr`
-  margin: 1rem 0;
-`;
-
 export default {
   App,
   FlexWrapper,
   ColumnWrapper,
   BetweenWrapper,
-  BasicButton,
-  BasicHr,
 };

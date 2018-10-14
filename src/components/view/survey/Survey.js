@@ -9,7 +9,7 @@ import Loadable from '../../../loadable';
 import { DefaultQuestionDetail } from '../../question/QuestionDetail';
 
 // Styled
-import StyledBase from '../../../styled/Base';
+import StyledBase from '../../../styled/Wrapper';
 import Styled from './Survey.styled';
 
 const Survey = ({ match }) => (

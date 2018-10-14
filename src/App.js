@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import Loadable from './loadable';
 
 // Styled
-import StyledBase from './styled/Base';
+import Wrapper from './styled/Wrapper';
 
 // Minireset.css
 import '../node_modules/minireset.css/minireset.min.css';
@@ -37,7 +37,7 @@ export class App extends React.PureComponent {
 
     return (
       <BrowserRouter>
-        <StyledBase.App className="App">
+        <Wrapper.App className="App">
           <Loadable.Header visibility={isVisible} />
           <Switch>
             <PrivateRoute path="/survey" component={Loadable.Survey} />
@@ -46,7 +46,7 @@ export class App extends React.PureComponent {
             <Route path="/sign-in" component={Loadable.SignIn} />
             <Redirect exact from="/" to="/sign-in" />
           </Switch>
-        </StyledBase.App>
+        </Wrapper.App>
       </BrowserRouter>
     );
   }

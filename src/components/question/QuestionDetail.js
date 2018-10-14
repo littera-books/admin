@@ -18,7 +18,8 @@ import {
 import Loadable from '../../loadable';
 
 // Styled
-import StyledBase from '../../styled/Base';
+import Wrapper from '../../styled/Wrapper';
+import Element from '../../styled/Element';
 import Styled from './Question.styled';
 
 export const DefaultQuestionDetail = () => (
@@ -96,25 +97,22 @@ class ActiveQuestionDetail extends React.Component {
 
     return (
       <Styled.ActiveQuestionDetailWrapper>
-        <StyledBase.BetweenWrapper>
+        <Wrapper.BetweenWrapper>
           <h2>
             <strong>{item.subject}</strong>
           </h2>
           <Styled.QuestionButtonGroup>
-            <StyledBase.BasicButton
+            <Element.BasicButton
               type="button"
               onClick={this.openUpdateQuestionForm}
             >
               질문 수정
-            </StyledBase.BasicButton>
-            <StyledBase.BasicButton
-              type="button"
-              onClick={this.onDestroyQuestion}
-            >
+            </Element.BasicButton>
+            <Element.BasicButton type="button" onClick={this.onDestroyQuestion}>
               {dataConfig.popup.destroyQuestionHeader}
-            </StyledBase.BasicButton>
+            </Element.BasicButton>
           </Styled.QuestionButtonGroup>
-        </StyledBase.BetweenWrapper>
+        </Wrapper.BetweenWrapper>
         <p>{item.title}</p>
         <form
           style={{
@@ -134,9 +132,9 @@ class ActiveQuestionDetail extends React.Component {
           <div>
             <small>{error}</small>
           </div>
-          <StyledBase.BasicButton type="submit">update</StyledBase.BasicButton>
+          <Element.BasicButton type="submit">update</Element.BasicButton>
         </form>
-        <StyledBase.BasicHr />
+        <Element.BasicHr />
         <Loadable.SelectionList
           history={history}
           subject={match.params.subject}

@@ -1,20 +1,21 @@
 import styled from 'styled-components';
-import SytledBase from '../../styled/Base';
+import Wrapper from '../../styled/Wrapper';
+import Element from '../../styled/Element';
 
-const CreateSelectionGroup = styled(SytledBase.BetweenWrapper)`
+const CreateSelectionGroup = styled(Wrapper.BetweenWrapper)`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
 `;
 
-const UpdateSelectionButton = styled(SytledBase.BasicButton)`
+const UpdateSelectionButton = styled(Element.BasicButton)`
   width: 1rem;
   height: 1rem;
   border: none;
   padding: 0;
 `;
 
-const SelectionButtonGroup = styled(SytledBase.BetweenWrapper)`
+const SelectionButtonGroup = styled(Wrapper.BetweenWrapper)`
   margin-top: 0.5rem;
   width: 8rem;
 `;

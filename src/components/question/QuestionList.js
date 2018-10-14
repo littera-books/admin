@@ -8,7 +8,8 @@ import { listQuestion, createQuestion } from '../../reducers/reducer.question';
 import FormField from './FormField';
 
 // Styled
-import StyledBase from '../../styled/Base';
+import Wrapper from '../../styled/Wrapper';
+import Element from '../../styled/Element';
 import Styled from './Question.styled';
 
 export class QuestionList extends React.Component {
@@ -92,16 +93,16 @@ export class QuestionList extends React.Component {
 
     return (
       <Styled.ListWrapper>
-        <StyledBase.BetweenWrapper>
+        <Wrapper.BetweenWrapper>
           <h5>
             질문 갯수: <strong>{length}</strong>
           </h5>
-          <StyledBase.BasicButton type="button" onClick={this.handleClick}>
+          <Element.BasicButton type="button" onClick={this.handleClick}>
             &nbsp;
             <strong>{createQuestionItem ? '-' : '+'}</strong>
             &nbsp;
-          </StyledBase.BasicButton>
-        </StyledBase.BetweenWrapper>
+          </Element.BasicButton>
+        </Wrapper.BetweenWrapper>
         {createQuestionItem ? this.createQuestion() : null}
         {this.QuestionItem()}
       </Styled.ListWrapper>

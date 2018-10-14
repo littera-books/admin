@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import StyledBase from '../../../styled/Base';
+import Element from '../../../styled/Element';
 
 const PopupBackground = styled.div`
   position: fixed;
@@ -29,7 +29,7 @@ const PopupHeader = styled.div`
   align-items: center;
 `;
 
-const PopupCloseButton = styled(StyledBase.BasicButton)`
+const PopupCloseButton = styled(Element.BasicButton)`
   font-size: 1.5rem;
   border: none;
   padding: 0;
@@ -50,7 +50,7 @@ const PopupFooter = styled.div`
   justify-content: flex-end;
 `;
 
-const PopupChoiceButton = styled(StyledBase.BasicButton)`
+const PopupChoiceButton = styled(Element.BasicButton)`
   font-size: 1rem;
   border: none;
   margin-left: 1rem;

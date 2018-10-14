@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import StyledBase from '../../../styled/Base';
+import Element from '../../../styled/Element';
 
 const FormWrapper = styled.form`
   input {
@@ -14,7 +14,7 @@ const FormWrapper = styled.form`
   }
 `;
 
-const SignInButton = styled(StyledBase.BasicButton)`
+const SignInButton = styled(Element.BasicButton)`
   border: none;
   padding: 0;
   margin: 2rem 0;

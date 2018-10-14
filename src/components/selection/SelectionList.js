@@ -18,7 +18,7 @@ import {
 import Loadable from '../../loadable';
 
 // Styled
-import StyledBase from '../../styled/Base';
+import Element from '../../styled/Element';
 import Styled from './Selection.styled';
 
 // Assets
@@ -180,14 +180,12 @@ class SelectionList extends React.Component {
                   label="선택지"
                   component={FormField}
                 />
-                <StyledBase.BasicButton type="submit">
-                  create
-                </StyledBase.BasicButton>
+                <Element.BasicButton type="submit">create</Element.BasicButton>
               </Styled.CreateSelectionGroup>
             </form>
           </div>
         </Styled.CreateSelectionGroup>
-        <StyledBase.BasicHr />
+        <Element.BasicHr />
         <div style={{ visibility: updateForm ? 'visible' : 'hidden' }}>
           <h5>
             <strong>{`${index + 1}번 선택지 수정`}</strong>
@@ -203,15 +201,13 @@ class SelectionList extends React.Component {
               component={FormField}
             />
             <Styled.SelectionButtonGroup>
-              <StyledBase.BasicButton type="submit">
-                update
-              </StyledBase.BasicButton>
-              <StyledBase.BasicButton
+              <Element.BasicButton type="submit">update</Element.BasicButton>
+              <Element.BasicButton
                 type="button"
                 onClick={this.onDestroySelection}
               >
                 delete
-              </StyledBase.BasicButton>
+              </Element.BasicButton>
             </Styled.SelectionButtonGroup>
           </form>
         </div>

@@ -5,7 +5,7 @@ import dataConfig from '../../../dataConfig';
 import Helmet from '../../helmet/Helmet';
 
 // Styled
-import StyledBase from '../../../styled/Base';
+import StyledBase from '../../../styled/Wrapper';
 
 const Dashboard = () => (
   <StyledBase.FlexWrapper>

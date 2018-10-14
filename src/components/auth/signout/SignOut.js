@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { signOut } from '../../../reducers/reducer.auth';
 
 // Styled
-import StyledBase from '../../../styled/Base';
+import Wrapper from '../../../styled/Wrapper';
 
 export class SignOut extends React.Component {
   componentDidMount() {
@@ -15,13 +15,13 @@ export class SignOut extends React.Component {
 
   render() {
     return (
-      <StyledBase.FlexWrapper>
-        <StyledBase.ColumnWrapper>
+      <Wrapper.FlexWrapper>
+        <Wrapper.ColumnWrapper>
           <h4>로그아웃되었습니다.</h4>
           <br />
           <Link to="/sign-in">다시 로그인하기</Link>
-        </StyledBase.ColumnWrapper>
-      </StyledBase.FlexWrapper>
+        </Wrapper.ColumnWrapper>
+      </Wrapper.FlexWrapper>
     );
   }
 }
