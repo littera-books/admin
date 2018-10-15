@@ -67,6 +67,16 @@ const User = Loadable({
   loading: Loading,
 });
 
+const UserList = Loadable({
+  loader: () => import('./components/view/user/UserList'),
+  loading: Loading,
+});
+
+const UserDetail = Loadable({
+  loader: () => import('./components/view/user/UserDetail'),
+  loading: Loading,
+});
+
 const SimplePopup = Loadable({
   loader: () => import('./components/structure/popup/SimplePopup'),
   loading: Loading,
@@ -90,6 +100,8 @@ export default {
   ProductList,
   ProductDetail,
   User,
+  UserList,
+  UserDetail,
   SimplePopup,
   ConfirmPopup,
 };

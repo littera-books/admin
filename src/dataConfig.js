@@ -6,6 +6,7 @@ export default {
   dashboardText: '상단 헤더의 버튼을 눌러 작업을 시작하세요.',
   surveyTitle: '설문조사 관리',
   productTitle: '상품 관리',
+  userTitle: '유저 관리',
   defaultDetailText: '좌측 리스트를 눌러 작업을 시작하세요.',
   popupMessage: {
     destroyQuestion: {
