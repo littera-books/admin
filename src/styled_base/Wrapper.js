@@ -92,6 +92,15 @@ const ActiveDetailWrapper = styled(ColumnWrapper)`
   padding: 1rem;
 `;
 
+const QuillEditor = styled(BasicBlockWrapper)`
+  .ql-editor {
+    font-family: 'Silk Remington', 'Nanum Myeongjo';
+    font-size: 1rem;
+    line-height: 2;
+    margin-bottom: 1rem;
+  }
+`;
+
 export default {
   App,
   BasicBlockWrapper,
@@ -104,4 +113,5 @@ export default {
   ListWrapper,
   DefaultDetailWrapper,
   ActiveDetailWrapper,
+  QuillEditor,
 };

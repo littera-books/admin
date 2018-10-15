@@ -25,6 +25,12 @@ const Content = styled(Wrapper.BasicBlockWrapper)`
   min-height: 20rem;
 `;
 
+const MarginForm = styled.form`
+  width: 45rem;
+  margin: 3rem 0;
+  height: 30rem;
+`;
+
 const TitleSpan = styled.span`
   margin-left: 3rem;
 `;
@@ -35,5 +41,6 @@ export default {
   LetterDetailWrapper,
   NavigationWrapper,
   Content,
+  MarginForm,
   TitleSpan,
 };
