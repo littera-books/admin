@@ -62,6 +62,11 @@ const ProductDetail = Loadable({
   loading: Loading,
 });
 
+const Promotion = Loadable({
+  loader: () => import('./components/promotion/Promotion'),
+  loading: Loading,
+});
+
 const User = Loadable({
   loader: () => import('./components/view/user/User'),
   loading: Loading,
@@ -114,6 +119,7 @@ export default {
   Product,
   ProductList,
   ProductDetail,
+  Promotion,
   User,
   UserList,
   UserDetail,
