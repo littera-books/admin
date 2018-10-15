@@ -150,7 +150,10 @@ class ActiveQuestionDetail extends React.Component {
           </Element.AlignLeftButton>
         </form>
         <Element.BasicHr />
-        <Loadable.SelectionListSecond questionId={match.params.questionId} />
+        <Loadable.SelectionList
+          history={history}
+          questionId={match.params.questionId}
+        />
         {popupFilter ? (
           <Loadable.ConfirmPopup
             method={destroyDetail}

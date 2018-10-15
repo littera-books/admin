@@ -5,7 +5,6 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import {
   listSelection,
-  createSelection,
   updateSelection,
   destroySelection,
 } from '../../reducers/reducer.selection';
@@ -19,8 +18,10 @@ import dataConfig from '../../dataConfig';
 import Loadable from '../../loadable';
 import BasicFormField from '../../form/FormField';
 import Validation from '../../form/Validation';
+import CreateSelection from './CreateSelection';
 
 // Styled
+import Wrapper from '../../styled_base/Wrapper';
 import Element from '../../styled_base/Element';
 import Styled from './Selection.styled';
 
@@ -34,101 +35,97 @@ class SelectionList extends React.Component {
 
     this.state = {
       id: 0,
-      index: 0,
-      popupFilter: false,
+      questionId: 0,
+      selectionIndex: 0,
       createForm: false,
       updateForm: false,
-      subject: '',
+      popupFilter: false,
     };
 
-    this.cancelPopup = this.cancelPopup.bind(this);
-    this.onDestroySelection = this.onDestroySelection.bind(this);
     this.openCreateSelectionForm = this.openCreateSelectionForm.bind(this);
+    this.openUpdateSelectionForm = this.openUpdateSelectionForm.bind(this);
+    this.openDestroySelectionForm = this.openDestroySelectionForm.bind(this);
+    this.closeCreateForm = this.closeCreateForm.bind(this);
+    this.cancelPopup = this.cancelPopup.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.subject !== nextProps.subject) {
-      nextProps.getList(nextProps.subject);
+    if (prevState.questionId !== nextProps.questionId) {
+      nextProps.getList(nextProps.questionId);
       return {
         id: 0,
-        index: 0,
+        questionId: nextProps.questionId,
+        selectionIndex: 0,
         createForm: false,
         updateForm: false,
-        subject: nextProps.subject,
       };
     }
     return null;
   }
 
-  async onCreateSelection(payload) {
-    const { create, getList } = this.props;
-    await create(payload);
-
-    const { error } = this.props;
-    if (!error) {
-      getList(payload.subject);
-      this.setState({ createForm: false });
-    }
-  }
-
   async onUpdateSelection(payload) {
-    const { putDetail, getList } = this.props;
-    await putDetail(payload);
+    const { update, getList, questionId } = this.props;
+    await update(payload);
 
     const { error } = this.props;
     if (!error) {
-      getList(payload.subject);
+      await getList(questionId);
       this.setState({ updateForm: false });
     }
   }
 
-  onDestroySelection() {
-    const { index } = this.state;
+  openCreateSelectionForm() {
+    const { initialize, questionId } = this.props;
+    initialize({
+      questionId,
+    });
+
+    this.setState(state => ({
+      createForm: !state.createForm,
+      updateForm: false,
+    }));
+  }
+
+  openUpdateSelectionForm(id) {
+    const { initialize, questionId, items } = this.props;
+    const openedItem = _.find(items, o => o.id === id);
+    const openedIndex = _.findIndex(items, o => o.id === id);
+    initialize({
+      id,
+      questionId,
+      select: openedItem.select,
+    });
+
+    const { selectionIndex, updateForm } = this.state;
+    if (openedIndex !== selectionIndex && updateForm === true) {
+      this.setState({
+        id,
+        selectionIndex: openedIndex,
+        createForm: false,
+      });
+    } else {
+      this.setState(state => ({
+        id,
+        selectionIndex: openedIndex,
+        createForm: false,
+        updateForm: !state.updateForm,
+      }));
+    }
+  }
+
+  openDestroySelectionForm() {
+    const { selectionIndex } = this.state;
     const { setPopup, setButtons } = this.props;
     setPopup({
-      header: `${index + 1}번 선택지 삭제`,
-      message: `${index + 1}번 선택지를 삭제하시겠습니까?`,
+      header: `${selectionIndex + 1}번 선택지 삭제`,
+      message: `${selectionIndex + 1}번 선택지를 삭제하시겠습니까?`,
     });
     setButtons(dataConfig.popupMessage.destroyConfirm);
     this.setState({ popupFilter: true });
   }
 
-  openCreateSelectionForm() {
-    const { initialize, subject } = this.props;
-    this.setState(state => ({
-      createForm: !state.createForm,
-      updateForm: false,
-    }));
-    initialize({
-      subject,
-    });
-  }
-
-  openUpdateSelectionForm(id) {
-    const { items, initialize, subject } = this.props;
-    const selectedItem = _.find(items, o => o.id === id);
-    const selectedIndex = _.findIndex(items, o => o.id === id);
-    initialize({
-      select: selectedItem.select,
-      id,
-      subject,
-    });
-
-    const { index, updateForm } = this.state;
-    if (index !== selectedIndex && updateForm === true) {
-      this.setState({
-        createForm: false,
-        id,
-        index: selectedIndex,
-      });
-    } else {
-      this.setState(state => ({
-        createForm: false,
-        updateForm: !state.updateForm,
-        id,
-        index: selectedIndex,
-      }));
-    }
+  closeCreateForm() {
+    this.setState({ createForm: false });
   }
 
   cancelPopup() {
@@ -138,118 +135,103 @@ class SelectionList extends React.Component {
   renderItems() {
     const { items } = this.props;
     return _.map(items, item => (
-      <div key={item.id}>
-        <Styled.UpdateSelectionButton
+      <Wrapper.BasicFlexWrapper key={item.id}>
+        <Styled.SelectionButton
           type="button"
           onClick={e => this.openUpdateSelectionForm(item.id, e)}
         >
           <img src={Pencil} alt="update-selection-button" />
-        </Styled.UpdateSelectionButton>
-        <span style={{ marginLeft: '0.5rem' }}>{item.select}</span>
-      </div>
+        </Styled.SelectionButton>
+        <p>{item.select}</p>
+      </Wrapper.BasicFlexWrapper>
     ));
   }
 
   render() {
     const {
-      id, index, createForm, updateForm, popupFilter,
+      createForm,
+      updateForm,
+      popupFilter,
+      selectionIndex,
+      id,
     } = this.state;
     const {
-      history, destroyDetail, handleSubmit, subject, error,
+      handleSubmit, questionId, history, error, destroy,
     } = this.props;
-    const payload = { id, subject };
-
     return (
-      <div>
+      <Styled.SelectionWrapper>
         <h4>
-          <strong>선택지 편집</strong>
+          <strong>선택지 목록</strong>
         </h4>
         {this.renderItems()}
-        <Styled.CreateSelectionGroup>
-          <Styled.UpdateSelectionButton
+        <Wrapper.BasicFlexWrapper>
+          <Styled.SelectionButton
             type="button"
             onClick={this.openCreateSelectionForm}
           >
             <img src={Plus} alt="create-selection-button" />
-          </Styled.UpdateSelectionButton>
-          <div
-            style={{
-              marginLeft: '0.5rem',
-              visibility: createForm ? 'visible' : 'hidden',
-            }}
-          >
-            <form
-              action="post"
-              onSubmit={handleSubmit(this.onCreateSelection.bind(this))}
-            >
-              <Styled.CreateSelectionGroup>
-                <Field
-                  type="text"
-                  name="createSelect"
-                  placeholder="선택지"
-                  component={BasicFormField.PlaceholderFormField}
-                  validate={Validation.required}
-                />
-                <Element.BasicButton type="submit">create</Element.BasicButton>
-              </Styled.CreateSelectionGroup>
-            </form>
-          </div>
-        </Styled.CreateSelectionGroup>
-        <Element.BasicHr />
-        <div style={{ visibility: updateForm ? 'visible' : 'hidden' }}>
-          <h5>
-            <strong>{`${index + 1}번 선택지 수정`}</strong>
-          </h5>
-          <form
-            action="post"
-            onSubmit={handleSubmit(this.onUpdateSelection.bind(this))}
-          >
-            <Field
-              type="text"
-              name="select"
-              placeholder="선택지"
-              component={BasicFormField.PlaceholderFormField}
-              validate={Validation.required}
+          </Styled.SelectionButton>
+          {createForm && (
+            <CreateSelection
+              questionId={questionId}
+              closeCreateForm={this.closeCreateForm}
             />
-            <Styled.SelectionButtonGroup>
-              <Element.BasicButton type="submit">update</Element.BasicButton>
-              <Element.BasicButton
-                type="button"
-                onClick={this.onDestroySelection}
-              >
-                delete
-              </Element.BasicButton>
-            </Styled.SelectionButtonGroup>
-          </form>
-        </div>
-        {popupFilter ? (
+          )}
+        </Wrapper.BasicFlexWrapper>
+        <Element.BasicHr />
+        <form
+          style={{ display: updateForm ? 'block' : 'none' }}
+          action="post"
+          onSubmit={handleSubmit(this.onUpdateSelection.bind(this))}
+        >
+          <h5>
+            <strong>{`${selectionIndex + 1}번 선택지 편집`}</strong>
+          </h5>
+          <Field
+            type="text"
+            name="select"
+            placeholder="선택지"
+            component={BasicFormField.PlaceholderFormField}
+            validate={Validation.required}
+          />
+          <Styled.SelectionButtonGroup>
+            <Element.BasicButton
+              type="button"
+              onClick={this.openDestroySelectionForm}
+            >
+              delete
+            </Element.BasicButton>
+            <Element.BasicButton type="submit">update</Element.BasicButton>
+          </Styled.SelectionButtonGroup>
+        </form>
+        {popupFilter && (
           <Loadable.ConfirmPopup
-            method={destroyDetail}
-            argument={payload}
+            method={destroy}
+            argument={{ id, questionId }}
             error={error}
             cancelPopup={this.cancelPopup}
             replace={history.replace}
-            destination="/survey"
+            destination={`/survey/${questionId}`}
           />
-        ) : null}
-      </div>
+        )}
+      </Styled.SelectionWrapper>
     );
   }
 }
 
 SelectionList.propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
-  initialize: PropTypes.func.isRequired,
   history: PropTypes.shape({
     replace: PropTypes.func.isRequired,
   }).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  subject: PropTypes.string.isRequired,
-  error: PropTypes.string.isRequired,
-  getList: PropTypes.func.isRequired,
-  destroyDetail: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  initialize: PropTypes.func.isRequired,
   setPopup: PropTypes.func.isRequired,
   setButtons: PropTypes.func.isRequired,
+  update: PropTypes.func.isRequired,
+  destroy: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  questionId: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -258,16 +240,15 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getList: subject => dispatch(listSelection(subject)),
-  create: payload => dispatch(createSelection(payload)),
-  putDetail: payload => dispatch(updateSelection(payload)),
-  destroyDetail: payload => dispatch(destroySelection(payload)),
+  getList: questionId => dispatch(listSelection(questionId)),
+  update: payload => dispatch(updateSelection(payload)),
+  destroy: payload => dispatch(destroySelection(payload)),
   setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
   setButtons: payload => dispatch(setPopupButtons(payload)),
 });
 
 export default reduxForm({
-  form: 'SelectionForm',
+  form: 'SelectionCRUDForm',
 })(
   connect(
     mapStateToProps,

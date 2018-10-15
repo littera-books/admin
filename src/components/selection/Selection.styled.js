@@ -2,27 +2,24 @@ import styled from 'styled-components';
 import Wrapper from '../../styled_base/Wrapper';
 import Element from '../../styled_base/Element';
 
-const CreateSelectionGroup = styled(Wrapper.BetweenWrapper)`
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
+const SelectionWrapper = styled(Wrapper.ColumnWrapper)`
+  padding: 1rem;
+  border: 1px solid lightgray;
 `;
 
-const UpdateSelectionButton = styled(Element.BasicButton)`
-  display: inline;
+const SelectionButton = styled(Element.BasicButton)`
   width: 1rem;
-  height: 1rem;
-  border: none;
-  padding: 0;
+  height: 2rem;
+  margin-right: 0.5rem;
 `;
 
 const SelectionButtonGroup = styled(Wrapper.BetweenWrapper)`
-  margin-top: 0.5rem;
+  margin-top: 1rem;
   width: 10rem;
 `;
 
 export default {
-  CreateSelectionGroup,
-  UpdateSelectionButton,
+  SelectionWrapper,
+  SelectionButton,
   SelectionButtonGroup,
 };
