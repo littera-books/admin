@@ -8,6 +8,7 @@ import question from './reducer.question';
 import selection from './reducer.selection';
 import product from './reducer.product';
 import user from './reducer.user';
+import letter from './reducer.letter';
 import popup from './reducer.popup';
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   selection,
   product,
   user,
+  letter,
   popup,
 });
 

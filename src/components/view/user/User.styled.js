@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Wrapper from '../../../styled_base/Wrapper';
+import Element from '../../../styled_base/Element';
 
 const UserItem = styled(Wrapper.ColumnWrapper)`
   padding: 1rem;
@@ -17,10 +18,15 @@ const UserSectionWrapper = styled(Wrapper.ColumnWrapper)`
   min-height: 20rem;
   border-radius: 0.5rem;
   border: 1px solid lightgray;
+  box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2);
 `;
 
 const NameWrapper = styled(Wrapper.BetweenWrapper)`
   width: 10rem;
+`;
+
+const ReadMoreButton = styled(Element.AlignRightButton)`
+  margin-top: auto;
 `;
 
 export default {
@@ -28,4 +34,5 @@ export default {
   UserDashboardWrapper,
   UserSectionWrapper,
   NameWrapper,
+  ReadMoreButton,
 };
