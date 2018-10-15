@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Quill from 'quill';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { detailLetter } from '../../reducers/reducer.letter';
 
@@ -36,7 +37,7 @@ class LetterBoxDetail extends React.Component {
   }
 
   render() {
-    const { item, history } = this.props;
+    const { item, history, match } = this.props;
     const time = moment.unix(item.created_at).format('YYYY.M.D');
     return (
       <Wrapper.FlexWrapper>
@@ -49,7 +50,9 @@ class LetterBoxDetail extends React.Component {
             <Element.BasicButton type="button" onClick={history.goBack}>
               ←
             </Element.BasicButton>
-            <p>reply</p>
+            <Link to={`/user/${match.params.userId}/letter-box/send`}>
+              reply
+            </Link>
           </Styled.NavigationWrapper>
         </Styled.LetterDetailWrapper>
       </Wrapper.FlexWrapper>
@@ -65,6 +68,11 @@ LetterBoxDetail.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      userId: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   getDetail: PropTypes.func.isRequired,
 };

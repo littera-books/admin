@@ -45,6 +45,7 @@ class LetterBox extends React.Component {
   }
 
   render() {
+    const { userId } = this.state;
     const { length } = this.props;
     return (
       <Wrapper.FlexWrapper>
@@ -54,7 +55,7 @@ class LetterBox extends React.Component {
             {this.renderItems()}
           </Styled.LetterItemWrapper>
           <Styled.NavigationWrapper>
-            <p>Send Letter</p>
+            <Link to={`/user/${userId}/letter-box/send`}>Send Letter</Link>
             <p>{`You have ${length} letters.`}</p>
           </Styled.NavigationWrapper>
         </Styled.LetterBoxWrapper>
