@@ -18,7 +18,7 @@ const User = ({ match }) => (
       <strong>{dataConfig.userTitle}</strong>
     </h5>
     <Wrapper.SectionInnerWrapper>
-      <Loadable.UserList />
+      <Loadable.UserList matchUrl={match.url} />
       <PrivateRoute exact path={`${match.url}`} component={DefaultUserDetail} />
       <PrivateRoute
         path={`${match.url}/:userId`}
