@@ -58,13 +58,15 @@ class ActiveProductDetail extends React.Component {
 
   async onUpdateProduct(payload) {
     const { productId } = this.state;
-    const { update, getDetail } = this.props;
+    const { update, getDetail, history } = this.props;
     await update(payload);
 
     const { error } = this.props;
     if (!error) {
       this.setState({ updateForm: false });
       getDetail(productId);
+      history.replace('/product');
+      window.location.reload();
     }
   }
 
