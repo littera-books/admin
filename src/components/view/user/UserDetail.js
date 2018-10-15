@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { detailUser } from '../../../reducers/reducer.user';
 import { listLetter } from '../../../reducers/reducer.letter';
@@ -76,7 +77,15 @@ class ActiveUserDetail extends React.Component {
               <strong>Letter Box</strong>
             </h3>
             {this.renderLetterItems()}
-            <Styled.ReadMoreButton type="button">더 보기</Styled.ReadMoreButton>
+            <Link
+              style={{
+                marginLeft: 'auto',
+                marginTop: 'auto',
+              }}
+              to={`/letter-box/${item.id}`}
+            >
+              더 보기
+            </Link>
           </Styled.UserSectionWrapper>
         </Styled.UserDashboardWrapper>
       </Wrapper.ActiveDetailWrapper>

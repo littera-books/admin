@@ -77,6 +77,11 @@ const UserDetail = Loadable({
   loading: Loading,
 });
 
+const LetterBox = Loadable({
+  loader: () => import('./components/letter/LetterBox'),
+  loading: Loading,
+});
+
 const SimplePopup = Loadable({
   loader: () => import('./components/structure/popup/SimplePopup'),
   loading: Loading,
@@ -102,6 +107,7 @@ export default {
   User,
   UserList,
   UserDetail,
+  LetterBox,
   SimplePopup,
   ConfirmPopup,
 };
