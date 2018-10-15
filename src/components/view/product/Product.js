@@ -9,15 +9,15 @@ import Loadable from '../../../loadable';
 import { DefaultProductDetail } from './ProductDetail';
 
 // Styled
-import Styled from './Product.styled';
+import Wrapper from '../../../styled_base/Wrapper';
 
 const Product = ({ match }) => (
-  <Styled.ProductWrapper>
+  <Wrapper.SectionWrapper>
     <Helmet pageTitle="Product" />
     <h5>
       <strong>{dataConfig.productTitle}</strong>
     </h5>
-    <Styled.ProductInnerWrapper>
+    <Wrapper.SectionInnerWrapper>
       <Loadable.ProductList matchUrl={match.url} />
       <PrivateRoute
         exact
@@ -28,8 +28,8 @@ const Product = ({ match }) => (
         path={`${match.url}/:productId`}
         component={Loadable.ProductDetail}
       />
-    </Styled.ProductInnerWrapper>
-  </Styled.ProductWrapper>
+    </Wrapper.SectionInnerWrapper>
+  </Wrapper.SectionWrapper>
 );
 
 Product.propTypes = {

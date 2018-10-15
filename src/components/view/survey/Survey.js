@@ -10,16 +10,15 @@ import { DefaultQuestionDetail } from '../../question/QuestionDetail';
 
 // Styled
 import Wrapper from '../../../styled_base/Wrapper';
-import Styled from './Survey.styled';
 
 const Survey = ({ match }) => (
-  <Styled.SurveyWrapper>
+  <Wrapper.SectionWrapper>
     <Wrapper.ColumnWrapper>
       <Helmet pageTitle="Survey" />
       <h5>
         <strong>{dataConfig.surveyTitle}</strong>
       </h5>
-      <Styled.QuestionWrapper>
+      <Wrapper.SectionInnerWrapper>
         <Loadable.QuestionList matchUrl={match.url} />
         <PrivateRoute
           exact
@@ -30,9 +29,9 @@ const Survey = ({ match }) => (
           path={`${match.url}/:questionId`}
           component={Loadable.QuestionDetail}
         />
-      </Styled.QuestionWrapper>
+      </Wrapper.SectionInnerWrapper>
     </Wrapper.ColumnWrapper>
-  </Styled.SurveyWrapper>
+  </Wrapper.SectionWrapper>
 );
 
 Survey.propTypes = {

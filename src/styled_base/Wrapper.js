@@ -64,6 +64,14 @@ const BetweenWrapper = styled(BasicFlexWrapper)`
   justify-content: space-between;
 `;
 
+const SectionWrapper = styled(ColumnWrapper)`
+  height: calc(100vh - 4rem);
+`;
+
+const SectionInnerWrapper = styled(BasicFlexWrapper)`
+  min-height: calc(100vh - 4rem - 2rem);
+`;
+
 const ListWrapper = styled(BasicBlockWrapper)`
   border: 1px solid lightgray;
   width: 25vw;
@@ -91,6 +99,8 @@ export default {
   FlexWrapper,
   ColumnWrapper,
   BetweenWrapper,
+  SectionWrapper,
+  SectionInnerWrapper,
   ListWrapper,
   DefaultDetailWrapper,
   ActiveDetailWrapper,
