@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { listLetter } from '../../reducers/reducer.letter';
 
@@ -10,7 +11,7 @@ import Helmet from '../helmet/Helmet';
 
 // Stylec
 import Wrapper from '../../styled_base/Wrapper';
-import Styled from './Letter.styled';
+import Styled from './LetterBox.styled';
 
 class LetterBox extends React.Component {
   state = {
@@ -26,6 +27,7 @@ class LetterBox extends React.Component {
   }
 
   renderItems() {
+    const { userId } = this.state;
     const { items } = this.props;
     return _.map(items, (item) => {
       const time = moment.unix(item.created_at).format('YYYY.M.D');
@@ -34,10 +36,10 @@ class LetterBox extends React.Component {
       const firstLine = rawBody.ops[0].insert;
       const truncatedLine = firstLine.substr(0, 30);
       return (
-        <div key={item.id}>
+        <Link to={`/user/${userId}/letter-box/${item.id}`} key={item.id}>
           <span>{time}</span>
           <Styled.TitleSpan>{`${truncatedLine} ...`}</Styled.TitleSpan>
-        </div>
+        </Link>
       );
     });
   }

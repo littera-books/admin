@@ -34,6 +34,7 @@ class ActiveUserDetail extends React.Component {
   }
 
   renderLetterItems() {
+    const { userId } = this.state;
     const { items } = this.props;
     return _.map(items, (item) => {
       const time = moment.unix(item.created_at).format('YYYY.M.D');
@@ -42,10 +43,10 @@ class ActiveUserDetail extends React.Component {
       const firstLine = rawBody.ops[0].insert;
       const truncatedLine = firstLine.substr(0, 10);
       return (
-        <div key={item.id}>
+        <Link to={`/user/${userId}/letter-box/${item.id}`} key={item.id}>
           <span>{time}</span>
           <Styled.TitleSpan>{truncatedLine}</Styled.TitleSpan>
-        </div>
+        </Link>
       );
     });
   }

@@ -42,6 +42,10 @@ export class App extends React.PureComponent {
           <Loadable.Header visibility={isVisible} />
           <Switch>
             <PrivateRoute
+              path="/user/:userId/letter-box/:letterId"
+              component={Loadable.LetterBoxDetail}
+            />
+            <PrivateRoute
               path="/user/:userId/letter-box"
               component={Loadable.LetterBox}
             />
