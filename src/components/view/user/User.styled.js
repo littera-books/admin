@@ -29,10 +29,15 @@ const ReadMoreButton = styled(Element.AlignRightButton)`
   margin-top: auto;
 `;
 
+const TitleSpan = styled.span`
+  margin-left: 3rem;
+`;
+
 export default {
   UserItem,
   UserDashboardWrapper,
   UserSectionWrapper,
   NameWrapper,
   ReadMoreButton,
+  TitleSpan,
 };

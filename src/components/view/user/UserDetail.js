@@ -43,10 +43,8 @@ class ActiveUserDetail extends React.Component {
       const truncatedLine = firstLine.substr(0, 10);
       return (
         <div key={item.id}>
-          <Wrapper.BetweenWrapper>
-            <p>{time}</p>
-            <p>{truncatedLine}</p>
-          </Wrapper.BetweenWrapper>
+          <span>{time}</span>
+          <Styled.TitleSpan>{truncatedLine}</Styled.TitleSpan>
         </div>
       );
     });
@@ -82,7 +80,7 @@ class ActiveUserDetail extends React.Component {
                 marginLeft: 'auto',
                 marginTop: 'auto',
               }}
-              to={`/letter-box/${item.id}`}
+              to={`/user/${item.id}/letter-box`}
             >
               더 보기
             </Link>

@@ -1,16 +1,81 @@
+import _ from 'lodash';
 import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import { connect } from 'react-redux';
+import { listLetter } from '../../reducers/reducer.letter';
 
 // Components
 import Helmet from '../helmet/Helmet';
 
 // Stylec
 import Wrapper from '../../styled_base/Wrapper';
+import Styled from './Letter.styled';
 
-const LetterBox = () => (
-  <Wrapper.SectionWrapper>
-    <Helmet pageTitle="Letter Box" />
-    <p>letterbox</p>
-  </Wrapper.SectionWrapper>
-);
+class LetterBox extends React.Component {
+  state = {
+    userId: 0,
+  };
 
-export default LetterBox;
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.userId !== nextProps.match.params.userId) {
+      nextProps.getListLetter(nextProps.match.params.userId);
+      return { userId: nextProps.match.params.userId };
+    }
+    return null;
+  }
+
+  renderItems() {
+    const { items } = this.props;
+    return _.map(items, (item) => {
+      const time = moment.unix(item.created_at).format('YYYY.M.D');
+
+      const rawBody = JSON.parse(item.body);
+      const firstLine = rawBody.ops[0].insert;
+      const truncatedLine = firstLine.substr(0, 30);
+      return (
+        <div key={item.id}>
+          <span>{time}</span>
+          <Styled.TitleSpan>{`${truncatedLine} ...`}</Styled.TitleSpan>
+        </div>
+      );
+    });
+  }
+
+  render() {
+    const { length } = this.props;
+    return (
+      <Wrapper.FlexWrapper>
+        <Helmet pageTitle="Letter Box" />
+        <Styled.LetterBoxWrapper>
+          <Styled.LetterItemWrapper>
+            {this.renderItems()}
+          </Styled.LetterItemWrapper>
+          <Styled.NavigationWrapper>
+            <p>Send Letter</p>
+            <p>{`You have ${length} letters.`}</p>
+          </Styled.NavigationWrapper>
+        </Styled.LetterBoxWrapper>
+      </Wrapper.FlexWrapper>
+    );
+  }
+}
+
+LetterBox.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  length: PropTypes.number.isRequired,
+};
+
+const mapStateToProps = state => ({
+  items: state.letter.items,
+  length: state.letter.length,
+});
+
+const mapDispatchToProps = dispatch => ({
+  getListLetter: userId => dispatch(listLetter(userId)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(LetterBox);
