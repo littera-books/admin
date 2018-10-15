@@ -7,6 +7,11 @@ const PromotionWrapper = styled(Wrapper.ColumnWrapper)`
   border: 1px solid lightgray;
 `;
 
+const PromotionButtonGroup = styled(Wrapper.BetweenWrapper)`
+  margin-top: 1rem;
+  width: 10rem;
+`;
+
 const PromotionButton = styled(Element.BasicButton)`
   width: 1rem;
   height: 2rem;
@@ -15,5 +20,6 @@ const PromotionButton = styled(Element.BasicButton)`
 
 export default {
   PromotionWrapper,
+  PromotionButtonGroup,
   PromotionButton,
 };

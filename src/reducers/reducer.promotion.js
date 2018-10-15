@@ -3,6 +3,7 @@ import axiosInstance from './axios.instance';
 
 // Actions
 const DETAIL_PROMOTION = 'DETAIL_PROMOTION';
+const UPDATE_PROMOTION = 'UPDATE_PROMOTION';
 
 // Action Creators
 export const detailPromotion = async (productId) => {
@@ -20,6 +21,29 @@ export const detailPromotion = async (productId) => {
 
   return {
     type: DETAIL_PROMOTION,
+    response,
+    error,
+  };
+};
+
+export const updatePromotion = async (payload) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/product/${payload.productId}/promotion`,
+      method: 'put',
+      data: {
+        code: payload.code,
+      },
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: UPDATE_PROMOTION,
     response,
     error,
   };
@@ -50,11 +74,28 @@ const reducerDetailPromotion = (state, action) => {
   });
 };
 
+const reducerUpdatePromotion = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.response.data.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    item: action.response.data,
+    error: '',
+  });
+};
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case DETAIL_PROMOTION:
       return reducerDetailPromotion(state, action);
+    case UPDATE_PROMOTION:
+      return reducerUpdatePromotion(state, action);
     default:
       return state;
   }
