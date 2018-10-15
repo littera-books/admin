@@ -12,6 +12,7 @@ import BasicFormField from '../../form/FormField';
 import Validation from '../../form/Validation';
 
 // Styled
+import Wrapper from '../../styled_base/Wrapper';
 import Element from '../../styled_base/Element';
 
 class CreateSelection extends React.Component {
@@ -38,14 +39,16 @@ class CreateSelection extends React.Component {
         action="post"
         onSubmit={handleSubmit(this.onCreateSelection.bind(this))}
       >
-        <Field
-          type="text"
-          name="createSelect"
-          placeholder="선택지"
-          component={BasicFormField.PlaceholderFormField}
-          validate={Validation.required}
-        />
-        <Element.BasicButton type="submit">create</Element.BasicButton>
+        <Wrapper.BasicFlexWrapper>
+          <Field
+            type="text"
+            name="createSelect"
+            placeholder="선택지"
+            component={BasicFormField.PlaceholderFormField}
+            validate={Validation.required}
+          />
+          <Element.BasicButton type="submit">create</Element.BasicButton>
+        </Wrapper.BasicFlexWrapper>
       </form>
     );
   }
