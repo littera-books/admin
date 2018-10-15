@@ -4,11 +4,16 @@ import { connect } from 'react-redux';
 import { detailPromotion } from '../../reducers/reducer.promotion';
 
 // Styled
+import Wrapper from '../../styled_base/Wrapper';
 import Styled from './Promotion.styled';
+
+// Assets
+import Pencil from '../../assets/images/pencil-alt-solid.svg';
 
 class Promotion extends React.Component {
   state = {
     productId: 0,
+    promotionFilter: false,
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -16,17 +21,32 @@ class Promotion extends React.Component {
       nextProps.getDetail(nextProps.productId);
       return { productId: nextProps.productId };
     }
+    if (nextProps.item.id !== 0) {
+      return { promotionFilter: true };
+    }
     return null;
   }
 
-  render() {
+  renderItem() {
     const { item } = this.props;
+    return (
+      <Wrapper.BasicFlexWrapper>
+        <Styled.PromotionButton type="button">
+          <img src={Pencil} alt="update-promotion-button" />
+        </Styled.PromotionButton>
+        <p>{item.code}</p>
+      </Wrapper.BasicFlexWrapper>
+    );
+  }
+
+  render() {
+    const { promotionFilter } = this.state;
     return (
       <Styled.PromotionWrapper>
         <h4>
           <strong>프로모션</strong>
         </h4>
-        <p>{item.code}</p>
+        {promotionFilter && this.renderItem()}
       </Styled.PromotionWrapper>
     );
   }
@@ -34,6 +54,7 @@ class Promotion extends React.Component {
 
 Promotion.propTypes = {
   item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     code: PropTypes.string.isRequired,
   }).isRequired,
 };
