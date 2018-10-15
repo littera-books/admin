@@ -36,7 +36,7 @@ class ActiveQuestionDetail extends React.Component {
     this.state = {
       popupFilter: false,
       updateForm: false,
-      subject: '',
+      questionId: 0,
     };
 
     this.cancelPopup = this.cancelPopup.bind(this);
@@ -46,11 +46,11 @@ class ActiveQuestionDetail extends React.Component {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.subject !== nextProps.match.params.subject) {
-      nextProps.getDetail(nextProps.match.params.subject);
+    if (prevState.questionId !== nextProps.match.params.questionId) {
+      nextProps.getDetail(nextProps.match.params.questionId);
       return {
         updateForm: false,
-        subject: nextProps.match.params.subject,
+        questionId: nextProps.match.params.questionId,
       };
     }
     return null;
@@ -79,8 +79,9 @@ class ActiveQuestionDetail extends React.Component {
       updateForm: !state.updateForm,
     }));
 
-    const { item, initialize } = this.props;
+    const { item, initialize, match } = this.props;
     initialize({
+      questionId: match.params.questionId,
       subject: item.subject,
       title: item.title,
     });
@@ -91,7 +92,7 @@ class ActiveQuestionDetail extends React.Component {
   }
 
   render() {
-    const { subject, updateForm, popupFilter } = this.state;
+    const { questionId, updateForm, popupFilter } = this.state;
     const {
       match,
       item,
@@ -142,21 +143,18 @@ class ActiveQuestionDetail extends React.Component {
             validate={Validation.required}
           />
           <div>
-            <small>{error}</small>
+            <Element.BasicSmall>{error}</Element.BasicSmall>
           </div>
           <Element.AlignLeftButton type="submit">
             update
           </Element.AlignLeftButton>
         </form>
         <Element.BasicHr />
-        <Loadable.SelectionList
-          history={history}
-          subject={match.params.subject}
-        />
+        <Loadable.SelectionListSecond questionId={match.params.questionId} />
         {popupFilter ? (
           <Loadable.ConfirmPopup
             method={destroyDetail}
-            argument={subject}
+            argument={questionId}
             error={error}
             cancelPopup={this.cancelPopup}
             replace={history.replace}
@@ -173,7 +171,7 @@ ActiveQuestionDetail.propTypes = {
   initialize: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      subject: PropTypes.string.isRequired,
+      questionId: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
   history: PropTypes.shape({
@@ -197,9 +195,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getDetail: subject => dispatch(detailQuestion(subject)),
+  getDetail: questionId => dispatch(detailQuestion(questionId)),
   putDetail: payload => dispatch(updateQuestion(payload)),
-  destroyDetail: subject => dispatch(destroyQuestion(subject)),
+  destroyDetail: questionId => dispatch(destroyQuestion(questionId)),
   setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
   setButtons: payload => dispatch(setPopupButtons(payload)),
 });

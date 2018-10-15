@@ -27,7 +27,7 @@ const Survey = ({ match }) => (
           component={DefaultQuestionDetail}
         />
         <PrivateRoute
-          path={`${match.url}/:subject`}
+          path={`${match.url}/:questionId`}
           component={Loadable.QuestionDetail}
         />
       </Styled.QuestionWrapper>

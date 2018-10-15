@@ -73,7 +73,7 @@ export class QuestionList extends React.Component {
             validate={Validation.required}
           />
           <div>
-            <small>{error}</small>
+            <Element.BasicSmall>{error}</Element.BasicSmall>
           </div>
           <Styled.QuestionSubmitButton type="submit">
             Create
@@ -87,7 +87,7 @@ export class QuestionList extends React.Component {
     const { items, matchUrl } = this.props;
     return _.map(items, item => (
       <Styled.QuestionItem key={item.id}>
-        <Link to={`${matchUrl}/${item.subject}`}>
+        <Link to={`${matchUrl}/${item.id}`}>
           <h5>
             주제: <strong>{item.subject}</strong>
           </h5>

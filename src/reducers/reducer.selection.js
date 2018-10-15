@@ -8,13 +8,13 @@ const UPDATE_SELECTION = 'UPDATE_SELECTION';
 const DESTROY_SELECTION = 'DESTROY_SELECTION';
 
 // Action Creators
-export async function listSelection(subject) {
+export async function listSelection(questionId) {
   let response;
   let error;
 
   try {
     response = await AxiosInstance({
-      url: `/survey/question/${subject}/selection`,
+      url: `/survey/question/${questionId}/selection`,
       method: 'get',
     });
   } catch (e) {
@@ -34,7 +34,7 @@ export async function createSelection(payload) {
 
   try {
     response = await AxiosInstance({
-      url: `/survey/question/${payload.subject}/selection`,
+      url: `/survey/question/${payload.questionId}/selection`,
       method: 'post',
       data: {
         select: payload.createSelect,
@@ -57,7 +57,7 @@ export async function updateSelection(payload) {
 
   try {
     response = await AxiosInstance({
-      url: `/survey/question/${payload.subject}/selection/${payload.id}`,
+      url: `/survey/question/${payload.questionId}/selection/${payload.id}`,
       method: 'put',
       data: {
         select: payload.select,
@@ -80,7 +80,7 @@ export async function destroySelection(payload) {
 
   try {
     response = await AxiosInstance({
-      url: `/survey/question/${payload.subject}/selection/${payload.id}`,
+      url: `/survey/question/${payload.questionId}/selection/${payload.id}`,
       method: 'delete',
     });
   } catch (e) {

@@ -28,13 +28,13 @@ export async function listQuestion() {
   };
 }
 
-export async function detailQuestion(subject) {
+export async function detailQuestion(questionId) {
   let response;
   let error;
 
   try {
     response = await axiosInstance({
-      url: `/survey/question/${subject}`,
+      url: `/survey/question/${questionId}`,
       method: 'get',
     });
   } catch (e) {
@@ -78,7 +78,7 @@ export async function updateQuestion(payload) {
 
   try {
     response = await axiosInstance({
-      url: `/survey/question/${payload.subject}`,
+      url: `/survey/question/${payload.questionId}`,
       method: 'put',
       data: {
         subject: payload.subject,
@@ -96,13 +96,13 @@ export async function updateQuestion(payload) {
   };
 }
 
-export async function destroyQuestion(payload) {
+export async function destroyQuestion(questionId) {
   let response;
   let error;
 
   try {
     response = await axiosInstance({
-      url: `/survey/question/${payload}`,
+      url: `/survey/question/${questionId}`,
       method: 'delete',
     });
   } catch (e) {
