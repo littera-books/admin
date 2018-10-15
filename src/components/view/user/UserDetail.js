@@ -93,7 +93,9 @@ class ActiveUserDetail extends React.Component {
 }
 
 ActiveUserDetail.propTypes = {
-  item: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  item: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  ).isRequired,
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
