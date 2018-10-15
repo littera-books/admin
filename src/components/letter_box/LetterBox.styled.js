@@ -11,8 +11,18 @@ const LetterItemWrapper = styled(Wrapper.ColumnWrapper)`
   margin-right: auto;
 `;
 
+const LetterDetailWrapper = styled(Wrapper.ColumnWrapper)`
+  margin: 10rem 0;
+`;
+
 const NavigationWrapper = styled(Wrapper.BetweenWrapper)`
   margin-top: auto;
+`;
+
+const Content = styled(Wrapper.BasicBlockWrapper)`
+  margin: 3rem 0;
+  width: 45rem;
+  min-height: 20rem;
 `;
 
 const TitleSpan = styled.span`
@@ -22,6 +32,8 @@ const TitleSpan = styled.span`
 export default {
   LetterBoxWrapper,
   LetterItemWrapper,
+  LetterDetailWrapper,
   NavigationWrapper,
+  Content,
   TitleSpan,
 };
