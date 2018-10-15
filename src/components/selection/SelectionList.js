@@ -94,6 +94,7 @@ class SelectionList extends React.Component {
       id,
       questionId,
       select: openedItem.select,
+      isAccepted: !openedItem.is_accepted,
     });
 
     const { selectionIndex, updateForm } = this.state;
@@ -193,6 +194,12 @@ class SelectionList extends React.Component {
             placeholder="선택지"
             component={BasicFormField.PlaceholderFormField}
             validate={Validation.required}
+          />
+          <Field
+            type="checkbox"
+            name="isAccepted"
+            placeholder="거절 설문"
+            component={BasicFormField.CheckboxFormField}
           />
           <Styled.SelectionButtonGroup>
             <Element.BasicButton

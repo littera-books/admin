@@ -61,6 +61,7 @@ export async function updateSelection(payload) {
       method: 'put',
       data: {
         select: payload.select,
+        is_accepted: !payload.isAccepted,
       },
     });
   } catch (e) {

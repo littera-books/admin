@@ -10,6 +10,23 @@ const BasicFormField = ({ input, type, meta: { touched, error } }) => (
   </div>
 );
 
+const CheckboxFormField = ({
+  input, type, name, placeholder,
+}) => (
+  <div>
+    <label
+      style={{
+        fontSize: '0.75rem',
+        marginRight: '0.5rem',
+      }}
+      htmlFor={name}
+    >
+      {placeholder}
+    </label>
+    <Element.BasicInput type={type} {...input} />
+  </div>
+);
+
 const PlaceholderFormField = ({
   input,
   type,
@@ -29,5 +46,6 @@ const PlaceholderFormField = ({
 
 export default {
   BasicFormField,
+  CheckboxFormField,
   PlaceholderFormField,
 };
