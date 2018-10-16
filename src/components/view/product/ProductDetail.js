@@ -156,7 +156,7 @@ class ActiveProductDetail extends React.Component {
           </Element.AlignLeftButton>
         </form>
         <Element.BasicHr />
-        <Loadable.Promotion productId={productId} />
+        <Loadable.Promotion history={history} productId={productId} />
         {popupFilter && (
           <Loadable.ConfirmPopup
             method={destroy}

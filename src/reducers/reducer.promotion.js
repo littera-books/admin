@@ -4,6 +4,7 @@ import axiosInstance from './axios.instance';
 // Actions
 const DETAIL_PROMOTION = 'DETAIL_PROMOTION';
 const UPDATE_PROMOTION = 'UPDATE_PROMOTION';
+const DESTROY_PROMOTION = 'DESTROY_PROMOTION';
 
 // Action Creators
 export const detailPromotion = async (productId) => {
@@ -49,6 +50,26 @@ export const updatePromotion = async (payload) => {
   };
 };
 
+export const destroyPromotion = async (productId) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/product/${productId}/promotion`,
+      method: 'delete',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: DESTROY_PROMOTION,
+    response,
+    error,
+  };
+};
+
 // Initial State
 const initialState = {
   item: {
@@ -89,6 +110,20 @@ const reducerUpdatePromotion = (state, action) => {
   });
 };
 
+const reducerDestroyPromotion = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    error: '',
+  });
+};
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -96,6 +131,8 @@ export default function reducer(state = initialState, action) {
       return reducerDetailPromotion(state, action);
     case UPDATE_PROMOTION:
       return reducerUpdatePromotion(state, action);
+    case DESTROY_PROMOTION:
+      return reducerDestroyPromotion(state, action);
     default:
       return state;
   }

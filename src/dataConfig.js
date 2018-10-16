@@ -19,6 +19,10 @@ export default {
       message:
         '상품을 삭제하면 이 질문에 연결된 유저들의 결제 정보도 모두 삭제됩니다. 계속하시겠습니까?',
     },
+    destroyPromotion: {
+      header: '프로모션 삭제',
+      message: '이 상품에 대한 프로모션 코드를 삭제하시겠습니까?',
+    },
     signIn: {
       header: 'Sign In',
       message: 'Welcome Aboard!',

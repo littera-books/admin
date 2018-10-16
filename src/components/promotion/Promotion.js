@@ -5,9 +5,16 @@ import { connect } from 'react-redux';
 import {
   detailPromotion,
   updatePromotion,
+  destroyPromotion,
 } from '../../reducers/reducer.promotion';
+import {
+  setPopupHeaderMessage,
+  setPopupButtons,
+} from '../../reducers/reducer.popup';
+import dataConfig from '../../dataConfig';
 
 // Components
+import Loadable from '../../loadable';
 import BasicFormField from '../../form/FormField';
 import Validation from '../../form/Validation';
 
@@ -27,9 +34,12 @@ class Promotion extends React.Component {
       productId: 0,
       promotionFilter: false,
       updateForm: false,
+      popupFilter: false,
     };
 
     this.openUpdatePromotionForm = this.openUpdatePromotionForm.bind(this);
+    this.openDestroyPromotionForm = this.openDestroyPromotionForm.bind(this);
+    this.cancelPopup = this.cancelPopup.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -67,6 +77,17 @@ class Promotion extends React.Component {
     this.setState(state => ({ updateForm: !state.updateForm }));
   }
 
+  openDestroyPromotionForm() {
+    const { setPopup, setButtons } = this.props;
+    setPopup(dataConfig.popupMessage.destroyPromotion);
+    setButtons(dataConfig.popupMessage.destroyConfirm);
+    this.setState({ popupFilter: true });
+  }
+
+  cancelPopup() {
+    this.setState({ popupFilter: false });
+  }
+
   renderItem() {
     const { item } = this.props;
     return (
@@ -83,8 +104,10 @@ class Promotion extends React.Component {
   }
 
   render() {
-    const { promotionFilter, updateForm } = this.state;
-    const { handleSubmit } = this.props;
+    const { promotionFilter, updateForm, popupFilter } = this.state;
+    const {
+      handleSubmit, error, productId, history, destroy,
+    } = this.props;
     return (
       <Styled.PromotionWrapper>
         <h4>
@@ -108,10 +131,25 @@ class Promotion extends React.Component {
             validate={[Validation.required, Validation.maxLength20]}
           />
           <Styled.PromotionButtonGroup>
-            <Element.BasicButton type="button">delete</Element.BasicButton>
+            <Element.BasicButton
+              type="button"
+              onClick={this.openDestroyPromotionForm}
+            >
+              delete
+            </Element.BasicButton>
             <Element.BasicButton type="submit">update</Element.BasicButton>
           </Styled.PromotionButtonGroup>
         </form>
+        {popupFilter && (
+          <Loadable.ConfirmPopup
+            method={destroy}
+            argument={productId}
+            error={error}
+            cancelPopup={this.cancelPopup}
+            replace={history.replace}
+            destination={`/product/${productId}`}
+          />
+        )}
       </Styled.PromotionWrapper>
     );
   }
@@ -123,9 +161,16 @@ Promotion.propTypes = {
     code: PropTypes.string.isRequired,
   }).isRequired,
   productId: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
+  }).isRequired,
   handleSubmit: PropTypes.func.isRequired,
   initialize: PropTypes.func.isRequired,
+  setPopup: PropTypes.func.isRequired,
+  setButtons: PropTypes.func.isRequired,
   update: PropTypes.func.isRequired,
+  destroy: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -136,6 +181,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getDetail: productId => dispatch(detailPromotion(productId)),
   update: payload => dispatch(updatePromotion(payload)),
+  destroy: productId => dispatch(destroyPromotion(productId)),
+  setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
+  setButtons: payload => dispatch(setPopupButtons(payload)),
 });
 
 export default reduxForm({
