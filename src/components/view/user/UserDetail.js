@@ -86,6 +86,12 @@ class ActiveUserDetail extends React.Component {
               더 보기
             </Link>
           </Styled.UserSectionWrapper>
+          <Styled.UserSectionWrapper>
+            <h3>
+              <strong>Subscription</strong>
+            </h3>
+            <p>{`구독 중인 상품: ${item.subscription}`}</p>
+          </Styled.UserSectionWrapper>
         </Styled.UserDashboardWrapper>
       </Wrapper.ActiveDetailWrapper>
     );
