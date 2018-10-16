@@ -2,11 +2,36 @@ import _ from 'lodash';
 import axiosInstance from './axios.instance';
 
 // Actions
+const CREATE_PROMOTION = 'CREATE_PROMOTION';
 const DETAIL_PROMOTION = 'DETAIL_PROMOTION';
 const UPDATE_PROMOTION = 'UPDATE_PROMOTION';
 const DESTROY_PROMOTION = 'DESTROY_PROMOTION';
 
 // Action Creators
+export const createPromotion = async (payload) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: '/promotion',
+      method: 'post',
+      data: {
+        product_id: payload.productId,
+        code: payload.code,
+      },
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: CREATE_PROMOTION,
+    response,
+    error,
+  };
+};
+
 export const detailPromotion = async (productId) => {
   let response;
   let error;
@@ -80,6 +105,20 @@ const initialState = {
 };
 
 // Reducer Functions
+const reducerCreatePromotion = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    item: action.response.data,
+    error: '',
+  });
+};
 const reducerDetailPromotion = (state, action) => {
   if (action.error) {
     return _.assign({}, state, {
@@ -127,6 +166,8 @@ const reducerDestroyPromotion = (state, action) => {
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case CREATE_PROMOTION:
+      return reducerCreatePromotion(state, action);
     case DETAIL_PROMOTION:
       return reducerDetailPromotion(state, action);
     case UPDATE_PROMOTION:

@@ -17,6 +17,7 @@ import dataConfig from '../../dataConfig';
 import Loadable from '../../loadable';
 import BasicFormField from '../../form/FormField';
 import Validation from '../../form/Validation';
+import CreatePromotion from './CreatePromotion';
 
 // Styled
 import Wrapper from '../../styled_base/Wrapper';
@@ -25,6 +26,7 @@ import Styled from './Promotion.styled';
 
 // Assets
 import Pencil from '../../assets/images/pencil-alt-solid.svg';
+import Plus from '../../assets/images/plus-circle-solid.svg';
 
 class Promotion extends React.Component {
   constructor(props) {
@@ -37,8 +39,10 @@ class Promotion extends React.Component {
       popupFilter: false,
     };
 
+    this.openCreatePromotionForm = this.openCreatePromotionForm.bind(this);
     this.openUpdatePromotionForm = this.openUpdatePromotionForm.bind(this);
     this.openDestroyPromotionForm = this.openDestroyPromotionForm.bind(this);
+    this.closeCreateForm = this.closeCreateForm.bind(this);
     this.cancelPopup = this.cancelPopup.bind(this);
   }
 
@@ -48,6 +52,7 @@ class Promotion extends React.Component {
       return {
         productId: nextProps.productId,
         promotionFilter: false,
+        createForm: false,
         updateForm: false,
       };
     }
@@ -68,13 +73,24 @@ class Promotion extends React.Component {
     }
   }
 
+  openCreatePromotionForm() {
+    this.setState(state => ({
+      createForm: !state.createForm,
+      updateForm: false,
+    }));
+  }
+
   openUpdatePromotionForm() {
     const { item, productId, initialize } = this.props;
     initialize({
       productId,
       code: item.code,
     });
-    this.setState(state => ({ updateForm: !state.updateForm }));
+
+    this.setState(state => ({
+      createForm: false,
+      updateForm: !state.updateForm,
+    }));
   }
 
   openDestroyPromotionForm() {
@@ -82,6 +98,10 @@ class Promotion extends React.Component {
     setPopup(dataConfig.popupMessage.destroyPromotion);
     setButtons(dataConfig.popupMessage.destroyConfirm);
     this.setState({ popupFilter: true });
+  }
+
+  closeCreateForm() {
+    this.setState({ createForm: false });
   }
 
   cancelPopup() {
@@ -104,9 +124,16 @@ class Promotion extends React.Component {
   }
 
   render() {
-    const { promotionFilter, updateForm, popupFilter } = this.state;
     const {
-      handleSubmit, error, productId, history, destroy,
+      promotionFilter, createForm, updateForm, popupFilter,
+    } = this.state;
+    const {
+      handleSubmit,
+      error,
+      productId,
+      history,
+      destroy,
+      item,
     } = this.props;
     return (
       <Styled.PromotionWrapper>
@@ -114,6 +141,22 @@ class Promotion extends React.Component {
           <strong>프로모션 코드</strong>
         </h4>
         {promotionFilter && this.renderItem()}
+        {item.id === 0 ? (
+          <Wrapper.BasicFlexWrapper>
+            <Styled.PromotionButton
+              type="button"
+              onClick={this.openCreatePromotionForm}
+            >
+              <img src={Plus} alt="create-promotion-button" />
+            </Styled.PromotionButton>
+            {createForm && (
+              <CreatePromotion
+                productId={productId}
+                closeCreateForm={this.closeCreateForm}
+              />
+            )}
+          </Wrapper.BasicFlexWrapper>
+        ) : null}
         <Element.BasicHr />
         <form
           style={{ display: updateForm ? 'block' : 'none' }}
