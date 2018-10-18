@@ -90,6 +90,7 @@ const ActiveDetailWrapper = styled(ColumnWrapper)`
   border: 1px solid lightgray;
   width: 75vw;
   padding: 1rem;
+  overflow-y: scroll;
 `;
 
 const QuillEditor = styled(BasicBlockWrapper)`
