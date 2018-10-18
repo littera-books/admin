@@ -6,6 +6,7 @@ import controlHeader from './reducer.controlHeader';
 import auth from './reducer.auth';
 import question from './reducer.question';
 import selection from './reducer.selection';
+import surveyResult from './reducer.surveyResult';
 import product from './reducer.product';
 import promotion from './reducer.promotion';
 import user from './reducer.user';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   auth,
   question,
   selection,
+  surveyResult,
   product,
   promotion,
   user,

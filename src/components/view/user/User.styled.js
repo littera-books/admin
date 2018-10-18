@@ -33,6 +33,11 @@ const TitleSpan = styled.span`
   margin-left: 3rem;
 `;
 
+const SurveyResultUL = styled.ul`
+  margin-left: 1.5rem;
+  list-style: decimal;
+`;
+
 export default {
   UserItem,
   UserDashboardWrapper,
@@ -40,4 +45,5 @@ export default {
   NameWrapper,
   ReadMoreButton,
   TitleSpan,
+  SurveyResultUL,
 };

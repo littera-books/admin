@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { detailUser } from '../../../reducers/reducer.user';
 import { listLetter } from '../../../reducers/reducer.letter';
+import { listResult } from '../../../reducers/reducer.surveyResult';
 import dataConfig from '../../../dataConfig';
 
 // Styled
@@ -28,6 +29,7 @@ class ActiveUserDetail extends React.Component {
     if (prevState.userId !== nextProps.match.params.userId) {
       nextProps.getDetail(nextProps.match.params.userId);
       nextProps.getListLetter(nextProps.match.params.userId);
+      nextProps.getListResult(nextProps.match.params.userId);
       return { userId: nextProps.match.params.userId };
     }
     return null;
@@ -35,8 +37,8 @@ class ActiveUserDetail extends React.Component {
 
   renderLetterItems() {
     const { userId } = this.state;
-    const { items } = this.props;
-    return _.map(items, (item) => {
+    const { itemsLetter } = this.props;
+    return _.map(itemsLetter, (item) => {
       const time = moment.unix(item.created_at).format('YYYY.M.D');
 
       const rawBody = JSON.parse(item.body);
@@ -49,6 +51,15 @@ class ActiveUserDetail extends React.Component {
         </Link>
       );
     });
+  }
+
+  renderSurveyItems() {
+    const { itemsResult } = this.props;
+    return _.map(itemsResult, item => (
+      <li key={item.id}>
+        <span>{item.select}</span>
+      </li>
+    ));
   }
 
   render() {
@@ -92,6 +103,14 @@ class ActiveUserDetail extends React.Component {
             </h3>
             <p>{`구독 중인 상품: ${item.subscription}`}</p>
           </Styled.UserSectionWrapper>
+          <Styled.UserSectionWrapper>
+            <h3>
+              <strong>Survey Result</strong>
+            </h3>
+            <Styled.SurveyResultUL>
+              {this.renderSurveyItems()}
+            </Styled.SurveyResultUL>
+          </Styled.UserSectionWrapper>
         </Styled.UserDashboardWrapper>
       </Wrapper.ActiveDetailWrapper>
     );
@@ -102,17 +121,20 @@ ActiveUserDetail.propTypes = {
   item: PropTypes.objectOf(
     PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ).isRequired,
-  items: PropTypes.arrayOf(PropTypes.object).isRequired,
+  itemsLetter: PropTypes.arrayOf(PropTypes.object).isRequired,
+  itemsResult: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const mapStateToProps = state => ({
   item: state.user.item,
-  items: state.letter.items,
+  itemsLetter: state.letter.items,
+  itemsResult: state.surveyResult.items,
 });
 
 const mapDispatchToProps = dispatch => ({
   getDetail: userId => dispatch(detailUser(userId)),
   getListLetter: userId => dispatch(listLetter(userId)),
+  getListResult: userId => dispatch(listResult(userId)),
 });
 
 export default connect(
