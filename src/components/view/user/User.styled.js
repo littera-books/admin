@@ -14,7 +14,7 @@ const UserDashboardWrapper = styled(Wrapper.BasicFlexWrapper)`
 const UserSectionWrapper = styled(Wrapper.ColumnWrapper)`
   padding: 1rem;
   margin: 1rem;
-  width: 23rem;
+  width: 22.5rem;
   min-height: 20rem;
   border-radius: 0.5rem;
   border: 1px solid lightgray;
