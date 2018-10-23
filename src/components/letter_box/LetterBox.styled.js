@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Wrapper from '../../styled_base/Wrapper';
+import Element from '../../styled_base/Element';
 
 const LetterBoxWrapper = styled(Wrapper.ColumnWrapper)`
   width: 35rem;
@@ -35,6 +36,15 @@ const TitleSpan = styled.span`
   margin-left: 3rem;
 `;
 
+const PaginationWrapper = styled(Wrapper.BasicFlexWrapper)`
+  margin-top: 1.5rem;
+  justify-content: center;
+`;
+
+const PaginationItem = styled(Element.BasicButton)`
+  margin: 0 0.5rem;
+`;
+
 export default {
   LetterBoxWrapper,
   LetterItemWrapper,
@@ -43,4 +53,6 @@ export default {
   Content,
   MarginForm,
   TitleSpan,
+  PaginationWrapper,
+  PaginationItem,
 };

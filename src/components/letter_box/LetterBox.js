@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { listLetter } from '../../reducers/reducer.letter';
+import { getCount, listLetter } from '../../reducers/reducer.letter';
 
 // Components
 import Helmet from '../helmet/Helmet';
 
-// Stylec
+// Styled
 import Wrapper from '../../styled_base/Wrapper';
 import Styled from './LetterBox.styled';
 
@@ -18,12 +18,30 @@ class LetterBox extends React.Component {
     userId: 0,
   };
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (prevState.userId !== nextProps.match.params.userId) {
-      nextProps.getListLetter(nextProps.match.params.userId);
-      return { userId: nextProps.match.params.userId };
-    }
-    return null;
+  async componentDidMount() {
+    const { getC, getListLetter, match } = this.props;
+    await this.setState({ userId: match.params.userId });
+
+    const { userId } = this.state;
+    await getC(userId);
+    await getListLetter(userId, 1);
+
+    const paginationWrapper = document.getElementById('pagination');
+    const firstNode = paginationWrapper.childNodes[0];
+    firstNode.setAttribute('style', 'font-weight: bold');
+  }
+
+  async handleClick(pageNum, e) {
+    const clickedButton = e.target;
+    const allButtons = clickedButton.parentNode.childNodes;
+    _.forEach(allButtons, (button) => {
+      button.setAttribute('style', 'font-weight: normal');
+    });
+    clickedButton.setAttribute('style', 'font-weight: bold');
+
+    const { userId } = this.state;
+    const { getListLetter } = this.props;
+    await getListLetter(userId, pageNum);
   }
 
   renderItems() {
@@ -44,9 +62,33 @@ class LetterBox extends React.Component {
     });
   }
 
+  renderPagination() {
+    const { count } = this.props;
+    const maxPage = Math.ceil(count / 5);
+
+    if (maxPage <= 1) {
+      return (
+        <Styled.PaginationItem type="button" disabled>
+          1
+        </Styled.PaginationItem>
+      );
+    }
+
+    const pageArray = _.map([...Array(maxPage).keys()], i => i + 1);
+    return _.map(pageArray, i => (
+      <Styled.PaginationItem
+        key={i}
+        type="button"
+        onClick={e => this.handleClick(i, e)}
+      >
+        {i}
+      </Styled.PaginationItem>
+    ));
+  }
+
   render() {
     const { userId } = this.state;
-    const { length } = this.props;
+    const { count } = this.props;
     return (
       <Wrapper.FlexWrapper>
         <Helmet pageTitle="Letter Box" />
@@ -54,9 +96,12 @@ class LetterBox extends React.Component {
           <Styled.LetterItemWrapper>
             {this.renderItems()}
           </Styled.LetterItemWrapper>
+          <Styled.PaginationWrapper id="pagination">
+            {this.renderPagination()}
+          </Styled.PaginationWrapper>
           <Styled.NavigationWrapper>
             <Link to={`/user/${userId}/letter-box/send`}>Send Letter</Link>
-            <p>{`You have ${length} letters.`}</p>
+            <p>{`You have ${count} letters.`}</p>
           </Styled.NavigationWrapper>
         </Styled.LetterBoxWrapper>
       </Wrapper.FlexWrapper>
@@ -66,16 +111,17 @@ class LetterBox extends React.Component {
 
 LetterBox.propTypes = {
   items: PropTypes.arrayOf(PropTypes.object).isRequired,
-  length: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = state => ({
   items: state.letter.items,
-  length: state.letter.length,
+  count: state.letter.count,
 });
 
 const mapDispatchToProps = dispatch => ({
-  getListLetter: userId => dispatch(listLetter(userId)),
+  getC: userId => dispatch(getCount(userId)),
+  getListLetter: (userId, pageNum) => dispatch(listLetter(userId, pageNum)),
 });
 
 export default connect(
