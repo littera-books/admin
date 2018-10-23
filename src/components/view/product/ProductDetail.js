@@ -90,6 +90,7 @@ class ActiveProductDetail extends React.Component {
       months: item.months,
       price: item.price,
       description: item.description,
+      isVisible: item.is_visible,
     });
   }
 
@@ -147,6 +148,12 @@ class ActiveProductDetail extends React.Component {
             placeholder="설명"
             component={BasicFormField.PlaceholderFormField}
             validate={Validation.required}
+          />
+          <Field
+            type="checkbox"
+            name="isVisible"
+            placeholder="발행 여부"
+            component={BasicFormField.CheckboxFormField}
           />
           <div>
             <Element.BasicSmall>{error}</Element.BasicSmall>

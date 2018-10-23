@@ -101,6 +101,7 @@ class ProductList extends React.Component {
           <p>{`개월: ${item.months}`}</p>
           <p>{`가격: ${item.price}`}</p>
           <p>{`설명: ${item.description}`}</p>
+          <p>{`발행 여부: ${item.is_visible ? 'O' : 'X'}`}</p>
         </Link>
       </Styled.ProductItem>
     ));

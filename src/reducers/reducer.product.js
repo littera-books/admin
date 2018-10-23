@@ -16,7 +16,7 @@ export const ListProduct = async () => {
 
   try {
     response = await axiosInstance({
-      url: '/product',
+      url: '/product?all=true',
       method: 'get',
     });
   } catch (e) {
@@ -87,6 +87,7 @@ export const updateProduct = async (payload) => {
         months: payload.months,
         price: payload.price,
         description: payload.description,
+        is_visible: payload.isVisible,
       },
     });
   } catch (e) {
