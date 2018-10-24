@@ -74,6 +74,7 @@ const initialState = {
   item: {
     id: 0,
     content: '',
+    created_at: 0,
   },
   error: '',
 };

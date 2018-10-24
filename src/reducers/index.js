@@ -11,6 +11,7 @@ import product from './reducer.product';
 import promotion from './reducer.promotion';
 import user from './reducer.user';
 import letter from './reducer.letter';
+import resignSurvey from './reducer.resignSurvey';
 import popup from './reducer.popup';
 
 const rootReducer = combineReducers({
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   promotion,
   user,
   letter,
+  resignSurvey,
   popup,
 });
 

@@ -102,6 +102,11 @@ const ResignSurvey = Loadable({
   loading: Loading,
 });
 
+const ResignSurveyDetail = Loadable({
+  loader: () => import('./components/view/resign/ResignSurveyDetail'),
+  loading: Loading,
+});
+
 const SimplePopup = Loadable({
   loader: () => import('./components/structure/popup/SimplePopup'),
   loading: Loading,
@@ -132,6 +137,7 @@ export default {
   LetterBoxDetail,
   LetterBoxSend,
   ResignSurvey,
+  ResignSurveyDetail,
   SimplePopup,
   ConfirmPopup,
 };
