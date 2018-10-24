@@ -11,6 +11,7 @@ const Menu = () => (
     <Link to="/user">User</Link>
     <Link to="/product">Product</Link>
     <Link to="/survey">Survey</Link>
+    <Link to="/resign">Resign Survey</Link>
     <Link to="/sign-out">Sign Out</Link>
   </Styled.MenuWrapper>
 );
