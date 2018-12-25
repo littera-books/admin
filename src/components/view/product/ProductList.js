@@ -63,6 +63,13 @@ class ProductList extends React.Component {
         >
           <Field
             type="number"
+            name="books"
+            placeholder="책 수"
+            component={BasicFormField.PlaceholderFormField}
+            validate={[Validation.required, Validation.number]}
+          />
+          <Field
+            type="number"
             name="months"
             placeholder="개월 수"
             component={BasicFormField.PlaceholderFormField}
@@ -98,6 +105,7 @@ class ProductList extends React.Component {
     return _.map(items, item => (
       <Styled.ProductItem key={item.id}>
         <Link to={`${matchUrl}/${item.id}`}>
+          <p>{`책 수: ${item.books}`}</p>
           <p>{`개월: ${item.months}`}</p>
           <p>{`가격: ${item.price}`}</p>
           <p>{`설명: ${item.description}`}</p>

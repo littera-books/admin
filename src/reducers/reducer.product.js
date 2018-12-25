@@ -59,6 +59,7 @@ export const createProduct = async (payload) => {
       url: '/product',
       method: 'post',
       data: {
+        books: payload.books,
         months: payload.months,
         price: payload.price,
         description: payload.description,
@@ -84,6 +85,7 @@ export const updateProduct = async (payload) => {
       url: `/product/${payload.productId}`,
       method: 'put',
       data: {
+        books: payload.books,
         months: payload.months,
         price: payload.price,
         description: payload.description,
@@ -131,6 +133,7 @@ const initialState = {
   items: [],
   item: {
     id: 0,
+    books: 0,
     months: 0,
     price: 0,
     description: '',

@@ -87,6 +87,7 @@ class ActiveProductDetail extends React.Component {
     const { item, initialize } = this.props;
     initialize({
       productId,
+      books: item.books,
       months: item.months,
       price: item.price,
       description: item.description,
@@ -121,6 +122,7 @@ class ActiveProductDetail extends React.Component {
             </Element.BasicButton>
           </Styled.ButtonGroup>
         </Wrapper.BetweenWrapper>
+        <p>{`책 수: ${item.books}`}</p>
         <p>{`개월: ${item.months}`}</p>
         <p>{`가격: ${item.price}`}</p>
         <form
@@ -128,6 +130,13 @@ class ActiveProductDetail extends React.Component {
           action="post"
           onSubmit={handleSubmit(this.onUpdateProduct.bind(this))}
         >
+          <Field
+            type="number"
+            name="books"
+            placeholder="책 수"
+            component={BasicFormField.PlaceholderFormField}
+            validate={[Validation.required, Validation.number]}
+          />
           <Field
             type="number"
             name="months"
