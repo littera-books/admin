@@ -38,6 +38,8 @@ class ActiveProductDetail extends React.Component {
       popupFilter: false,
       updateForm: false,
       productId: 0,
+      file: '',
+      imagePreviewUrl: '',
     };
 
     this.cancelPopup = this.cancelPopup.bind(this);
@@ -57,9 +59,19 @@ class ActiveProductDetail extends React.Component {
   }
 
   async onUpdateProduct(payload) {
-    const { productId } = this.state;
+    const { productId, file } = this.state;
     const { update, getDetail, history } = this.props;
-    await update(payload);
+
+    const formData = new FormData();
+
+    formData.append('books', payload.books);
+    formData.append('months', payload.months);
+    formData.append('price', payload.price);
+    formData.append('description', payload.description);
+    formData.append('is_visible', payload.isVisible);
+    formData.append('thumbnail', file);
+
+    await update(productId, formData);
 
     const { error } = this.props;
     if (!error) {
@@ -99,8 +111,25 @@ class ActiveProductDetail extends React.Component {
     this.setState({ popupFilter: false });
   }
 
+  handleFileUpload(event) {
+    event.preventDefault();
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file,
+        imagePreviewUrl: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+
   render() {
-    const { popupFilter, updateForm, productId } = this.state;
+    const {
+      popupFilter, updateForm, productId, imagePreviewUrl,
+    } = this.state;
     const {
       history, handleSubmit, item, destroy, error,
     } = this.props;
@@ -125,6 +154,13 @@ class ActiveProductDetail extends React.Component {
         <p>{`책 수: ${item.books}`}</p>
         <p>{`개월: ${item.months}`}</p>
         <p>{`가격: ${item.price}`}</p>
+        {item.url && (
+          <Element.ResponsiveImg
+            width="120px"
+            src={dataConfig.baseUrl + item.url}
+            alt="product-thumbnail"
+          />
+        )}
         <form
           style={{ display: updateForm ? 'block' : 'none' }}
           action="post"
@@ -164,6 +200,19 @@ class ActiveProductDetail extends React.Component {
             placeholder="발행 여부"
             component={BasicFormField.CheckboxFormField}
           />
+          <input
+            id="thumbnailInput"
+            name="thumbnail"
+            type="file"
+            onChange={this.handleFileUpload.bind(this)}
+          />
+          {imagePreviewUrl && (
+            <Element.ResponsiveImg
+              width="120px"
+              src={imagePreviewUrl}
+              alt="product-thumbnail"
+            />
+          )}
           <div>
             <Element.BasicSmall>{error}</Element.BasicSmall>
           </div>
@@ -214,7 +263,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getDetail: productId => dispatch(detailProduct(productId)),
-  update: payload => dispatch(updateProduct(payload)),
+  update: (productId, formData) => dispatch(updateProduct(productId, formData)),
   destroy: productId => dispatch(destroyProduct(productId)),
   clear: () => dispatch(clearError()),
   setPopup: payload => dispatch(setPopupHeaderMessage(payload)),

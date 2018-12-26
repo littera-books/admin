@@ -50,7 +50,7 @@ export const detailProduct = async (productId) => {
   };
 };
 
-export const createProduct = async (payload) => {
+export const createProduct = async (formData) => {
   let response;
   let error;
 
@@ -58,12 +58,7 @@ export const createProduct = async (payload) => {
     response = await axiosInstance({
       url: '/product',
       method: 'post',
-      data: {
-        books: payload.books,
-        months: payload.months,
-        price: payload.price,
-        description: payload.description,
-      },
+      data: formData,
     });
   } catch (e) {
     error = e;
@@ -76,21 +71,15 @@ export const createProduct = async (payload) => {
   };
 };
 
-export const updateProduct = async (payload) => {
+export const updateProduct = async (productId, formData) => {
   let response;
   let error;
 
   try {
     response = await axiosInstance({
-      url: `/product/${payload.productId}`,
+      url: `/product/${productId}`,
       method: 'put',
-      data: {
-        books: payload.books,
-        months: payload.months,
-        price: payload.price,
-        description: payload.description,
-        is_visible: payload.isVisible,
-      },
+      data: formData,
     });
   } catch (e) {
     error = e;
@@ -137,6 +126,7 @@ const initialState = {
     months: 0,
     price: 0,
     description: '',
+    url: '',
   },
   error: '',
 };

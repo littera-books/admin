@@ -20,6 +20,8 @@ class ProductList extends React.Component {
     super(props);
     this.state = {
       createProductForm: false,
+      file: '',
+      imagePreviewUrl: '',
     };
 
     this.openCreateProductForm = this.openCreateProductForm.bind(this);
@@ -31,8 +33,18 @@ class ProductList extends React.Component {
   }
 
   async onCreateProduct(payload) {
+    const { file } = this.state;
     const { create } = this.props;
-    await create(payload);
+
+    const formData = new FormData();
+
+    formData.append('books', payload.books);
+    formData.append('months', payload.months);
+    formData.append('price', payload.price);
+    formData.append('description', payload.description);
+    formData.append('thumbnail', file);
+
+    await create(formData);
 
     const { error, getList, initialize } = this.props;
     if (!error) {
@@ -44,6 +56,21 @@ class ProductList extends React.Component {
     }
   }
 
+  handleFileUpload(event) {
+    event.preventDefault();
+    const reader = new FileReader();
+    const file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file,
+        imagePreviewUrl: reader.result,
+      });
+    };
+
+    reader.readAsDataURL(file);
+  }
+
   openCreateProductForm() {
     this.setState(state => ({
       createProductForm: !state.createProductForm,
@@ -51,6 +78,7 @@ class ProductList extends React.Component {
   }
 
   createProduct() {
+    const { imagePreviewUrl } = this.state;
     const { handleSubmit, error } = this.props;
     return (
       <Styled.ProductItem>
@@ -89,6 +117,20 @@ class ProductList extends React.Component {
             component={BasicFormField.PlaceholderFormField}
             validate={Validation.required}
           />
+          <input
+            id="thumbnailInput"
+            name="thumbnail"
+            type="file"
+            onChange={this.handleFileUpload.bind(this)}
+            required
+          />
+          {imagePreviewUrl && (
+            <Element.ResponsiveImg
+              width="120px"
+              src={imagePreviewUrl}
+              alt="product-thumbnail"
+            />
+          )}
           <div>
             <Element.BasicSmall>{error}</Element.BasicSmall>
           </div>
