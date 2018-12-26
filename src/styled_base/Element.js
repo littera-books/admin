@@ -1,5 +1,10 @@
 import styled from 'styled-components';
 
+const ResponsiveImg = styled.img`
+  width: ${props => (props.width ? props.width : '100%')};
+  height: auto;
+`;
+
 const BasicSmall = styled.small`
   display: block;
   font-size: 0.5rem;
@@ -53,6 +58,7 @@ const BasicHr = styled.hr`
 `;
 
 export default {
+  ResponsiveImg,
   BasicSmall,
   BasicButton,
   AlignLeftButton,
