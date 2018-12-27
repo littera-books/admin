@@ -1,29 +1,8 @@
-import styled, { injectGlobal } from 'styled-components';
-import RemingtonBoldWoff from '../assets/fonts/SilkRemington-Bold.woff';
-import RemingtonBoldWoff2 from '../assets/fonts/SilkRemington-Bold.woff2';
-import RemingtonRegularWoff from '../assets/fonts/SilkRemington-Regular.woff';
-import RemingtonRegularWoff2 from '../assets/fonts/SilkRemington-Regular.woff2';
-
-// eslint-disable-next-line no-unused-expressions
-injectGlobal`
-  @font-face {
-    font-family: 'Silk Remington';
-    font-weight: bold;
-    src: url(${RemingtonBoldWoff}) format('woff');
-    src: url(${RemingtonBoldWoff2}) format('woff2');
-  }
-  
-  @font-face {
-    font-family: 'Silk Remington';
-    font-weight: regular;
-    src: url(${RemingtonRegularWoff}) format('woff');
-    src: url(${RemingtonRegularWoff2}) format('woff2');
-  }
-`;
+import styled from 'styled-components';
 
 const App = styled.div`
-  font-family: 'Silk Remington', 'Nanum Myeongjo';
-  font-size: 1rem;
+  font-family: 'Nanum Myeongjo';
+  font-size: 0.75rem;
   line-height: 2;
   text-align: justify;
 
@@ -95,7 +74,7 @@ const ActiveDetailWrapper = styled(ColumnWrapper)`
 
 const QuillEditor = styled(BasicBlockWrapper)`
   .ql-editor {
-    font-family: 'Silk Remington', 'Nanum Myeongjo';
+    font-family: 'Nanum Myeongjo';
     font-size: 1rem;
     line-height: 2;
     margin-bottom: 1rem;

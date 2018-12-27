@@ -12,11 +12,11 @@ const BasicSmall = styled.small`
 `;
 
 const BasicButton = styled.button`
-  font-family: 'Silk Remington', 'Nanum Myeongjo';
+  font-family: 'Nanum Myeongjo';
   display: block;
   color: black;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.75rem;
   border: none;
   padding: 0;
   background-color: white;
@@ -37,7 +37,7 @@ const AlignRightButton = styled(BasicButton)`
 `;
 
 const BasicInput = styled.input`
-  font-family: 'Silk Remington', 'Nanum Myeongjo';
+  font-family: 'Nanum Myeongjo';
   font-size: 0.75rem;
   line-height: 2;
   width: 22rem;
@@ -48,7 +48,7 @@ const BasicInput = styled.input`
   }
 
   ::placeholder {
-    font-family: 'Silk Remington', 'Nanum Myeongjo';
+    font-family: 'Nanum Myeongjo';
     color: black;
   }
 `;
