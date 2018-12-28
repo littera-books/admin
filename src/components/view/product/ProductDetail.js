@@ -103,6 +103,7 @@ class ActiveProductDetail extends React.Component {
       books: item.books,
       months: item.months,
       price: item.price,
+      discountAmount: item.discount_amount,
       description: item.description,
       isVisible: item.is_visible,
     });
