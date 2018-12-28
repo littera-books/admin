@@ -67,6 +67,7 @@ class ActiveProductDetail extends React.Component {
     formData.append('books', payload.books);
     formData.append('months', payload.months);
     formData.append('price', payload.price);
+    formData.append('discount_amount', payload.discountAmount);
     formData.append('description', payload.description);
     formData.append('is_visible', payload.isVisible);
     formData.append('thumbnail', file);
@@ -154,6 +155,7 @@ class ActiveProductDetail extends React.Component {
         <p>{`책 수: ${item.books}`}</p>
         <p>{`개월: ${item.months}`}</p>
         <p>{`가격: ${item.price}`}</p>
+        <p>{`할인액: ${item.discount_amount}`}</p>
         {item.url && (
           <Element.ResponsiveImg
             width="120px"
@@ -184,6 +186,13 @@ class ActiveProductDetail extends React.Component {
             type="number"
             name="price"
             placeholder="가격"
+            component={BasicFormField.PlaceholderFormField}
+            validate={[Validation.required, Validation.number]}
+          />
+          <Field
+            type="number"
+            name="discountAmount"
+            placeholder="할인액"
             component={BasicFormField.PlaceholderFormField}
             validate={[Validation.required, Validation.number]}
           />
