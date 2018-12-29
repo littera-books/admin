@@ -3,6 +3,7 @@ import axiosInstance from './axios.instance';
 
 // Actions
 const LIST_SUBSCRIPTION = 'LIST_SUBSCRIPTION';
+const DETAIL_SUBSCRIPTION = 'DETAIL_SUBSCRIPTION';
 
 // Action Creators
 export const listSubscription = async (userId) => {
@@ -25,11 +26,36 @@ export const listSubscription = async (userId) => {
   };
 };
 
+export const detailSubscription = async (userId, subscriptionId) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/subscription/${userId}/${subscriptionId}`,
+      method: 'get',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: DETAIL_SUBSCRIPTION,
+    response,
+    error,
+  };
+};
+
 // Initial State
 const initialState = {
   length: 0,
   items: [],
-  item: {},
+  item: {
+    product: {
+      books: 0,
+      months: 0,
+    },
+  },
   error: '',
 };
 
@@ -49,11 +75,27 @@ const reducerListSubscription = (state, action) => {
   });
 };
 
+const reducerDetailSubscription = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.response.data.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    item: action.response.data,
+  });
+};
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LIST_SUBSCRIPTION:
       return reducerListSubscription(state, action);
+    case DETAIL_SUBSCRIPTION:
+      return reducerDetailSubscription(state, action);
     default:
       return state;
   }

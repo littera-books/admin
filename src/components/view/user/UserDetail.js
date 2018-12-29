@@ -68,7 +68,9 @@ class ActiveUserDetail extends React.Component {
         <Link to={`/user/${userId}/${item.id}`}>
           <strong>{determineProductName(item.product)}</strong>
           <span>&nbsp;|&nbsp;</span>
-          <span>{`start: ${moment(item.create_at).format('YYYY-MM-DD')}`}</span>
+          <span>{`started at: ${moment(item.create_at).format(
+            'YYYY-MM-DD',
+          )}`}</span>
         </Link>
       </li>
     ));
