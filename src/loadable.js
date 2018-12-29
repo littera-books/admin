@@ -102,6 +102,11 @@ const ConfirmPopup = Loadable({
   loading: Loading,
 });
 
+const Subscription = Loadable({
+  loader: () => import('./components/view/subscription/Subscription'),
+  loading: Loading,
+});
+
 export default {
   Header,
   SignIn,
@@ -122,4 +127,5 @@ export default {
   ResignSurveyDetail,
   SimplePopup,
   ConfirmPopup,
+  Subscription,
 };

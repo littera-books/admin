@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { detailUser } from '../../../reducers/reducer.user';
 import { listResult } from '../../../reducers/reducer.surveyResult';
 import { listSubscription } from '../../../reducers/reducer.subscription';
@@ -60,14 +61,15 @@ class ActiveUserDetail extends React.Component {
   }
 
   renderSubItems() {
+    const { userId } = this.state;
     const { subResult } = this.props;
     return _.map(subResult, (item, idx) => (
       <li key={idx}>
-        <p>
+        <Link to={`/user/${userId}/${item.id}`}>
           <strong>{determineProductName(item.product)}</strong>
           <span>&nbsp;|&nbsp;</span>
           <span>{`start: ${moment(item.create_at).format('YYYY-MM-DD')}`}</span>
-        </p>
+        </Link>
       </li>
     ));
   }

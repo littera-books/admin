@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Switch } from 'react-router-dom';
 import { PrivateRoute } from '../../../App';
 import dataConfig from '../../../dataConfig';
 
@@ -20,10 +21,16 @@ const User = ({ match }) => (
     <Wrapper.SectionInnerWrapper>
       <Loadable.UserList matchUrl={match.url} />
       <PrivateRoute exact path={`${match.url}`} component={DefaultUserDetail} />
-      <PrivateRoute
-        path={`${match.url}/:userId`}
-        component={Loadable.UserDetail}
-      />
+      <Switch>
+        <PrivateRoute
+          path={`${match.url}/:userId/:subscriptionId`}
+          component={Loadable.Subscription}
+        />
+        <PrivateRoute
+          path={`${match.url}/:userId`}
+          component={Loadable.UserDetail}
+        />
+      </Switch>
     </Wrapper.SectionInnerWrapper>
   </Wrapper.SectionWrapper>
 );
