@@ -35,7 +35,7 @@ const TitleSpan = styled.span`
 
 const SurveyResultUL = styled.ul`
   margin-left: 1.5rem;
-  list-style: decimal;
+  list-style-type: disc;
 `;
 
 export default {
