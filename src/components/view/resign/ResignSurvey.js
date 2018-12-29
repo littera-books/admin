@@ -14,7 +14,7 @@ import Helmet from '../../helmet/Helmet';
 
 // Styled
 import Wrapper from '../../../styled_base/Wrapper';
-import Styled from '../../letter_box/LetterBox.styled';
+import Styled from './ResignSurvey.styled';
 
 class ResignSurvey extends React.Component {
   async componentDidMount() {
