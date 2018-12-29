@@ -41,19 +41,6 @@ export class App extends React.PureComponent {
         <Wrapper.App className="App">
           <Loadable.Header visibility={isVisible} />
           <Switch>
-            <PrivateRoute
-              exact
-              path="/user/:userId/letter-box/send"
-              component={Loadable.LetterBoxSend}
-            />
-            <PrivateRoute
-              path="/user/:userId/letter-box/:id"
-              component={Loadable.LetterBoxDetail}
-            />
-            <PrivateRoute
-              path="/user/:userId/letter-box"
-              component={Loadable.LetterBox}
-            />
             <PrivateRoute path="/user" component={Loadable.User} />
             <PrivateRoute path="/product" component={Loadable.Product} />
             <PrivateRoute path="/survey" component={Loadable.Survey} />

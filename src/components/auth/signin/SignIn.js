@@ -7,11 +7,8 @@ import {
   setVisibilityFilter,
 } from '../../../reducers/reducer.controlHeader';
 import { initialize, signIn } from '../../../reducers/reducer.auth';
-import { setPopupHeaderMessage } from '../../../reducers/reducer.popup';
-import dataConfig from '../../../dataConfig';
 
 // Components
-import Loadable from '../../../loadable';
 import BasicFormField from '../../../form/FormField';
 import Validation from '../../../form/Validation';
 import Helmet from '../../helmet/Helmet';
@@ -22,10 +19,6 @@ import Element from '../../../styled_base/Element';
 import Styled from './SignIn.styled';
 
 export class SignIn extends React.Component {
-  state = {
-    popupFilter: false,
-  };
-
   componentDidMount() {
     const { init, filter } = this.props;
     init();
@@ -41,19 +34,14 @@ export class SignIn extends React.Component {
     const { logIn } = this.props;
     await logIn(payload);
 
-    const { error, setPopup } = this.props;
+    const { error, history } = this.props;
     if (!error) {
-      setPopup(dataConfig.popupMessage.signIn);
-      await this.setState({
-        popupFilter: true,
-      });
+      history.replace('/dashboard');
     }
   }
 
   render() {
-    const { popupFilter } = this.state;
-    const { handleSubmit, error, history } = this.props;
-
+    const { handleSubmit, error } = this.props;
     return (
       <Wrapper.FlexWrapper>
         <Helmet pageTitle="SignIn" />
@@ -79,14 +67,7 @@ export class SignIn extends React.Component {
             </div>
             <Styled.SignInButton type="submit">Sign In</Styled.SignInButton>
           </form>
-          <p>Forgot your password?</p>
         </Wrapper.ColumnWrapper>
-        {popupFilter ? (
-          <Loadable.SimplePopup
-            replace={history.replace}
-            destination="/dashboard"
-          />
-        ) : null}
       </Wrapper.FlexWrapper>
     );
   }
@@ -101,7 +82,6 @@ SignIn.propTypes = {
   history: PropTypes.shape({
     replace: PropTypes.func.isRequired,
   }).isRequired,
-  setPopup: PropTypes.func.isRequired,
 };
 
 export const mapStateToProps = state => ({
@@ -112,7 +92,6 @@ export const mapDispatchToProps = dispatch => ({
   init: () => dispatch(initialize()),
   logIn: payload => dispatch(signIn(payload)),
   filter: filter => dispatch(setVisibilityFilter(filter)),
-  setPopup: payload => dispatch(setPopupHeaderMessage(payload)),
 });
 
 export default reduxForm({

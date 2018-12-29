@@ -82,21 +82,6 @@ const UserDetail = Loadable({
   loading: Loading,
 });
 
-const LetterBox = Loadable({
-  loader: () => import('./components/letter_box/LetterBox'),
-  loading: Loading,
-});
-
-const LetterBoxDetail = Loadable({
-  loader: () => import('./components/letter_box/LetterBoxDetail'),
-  loading: Loading,
-});
-
-const LetterBoxSend = Loadable({
-  loader: () => import('./components/letter_box/LetterBoxSend'),
-  loading: Loading,
-});
-
 const ResignSurvey = Loadable({
   loader: () => import('./components/view/resign/ResignSurvey'),
   loading: Loading,
@@ -133,9 +118,6 @@ export default {
   User,
   UserList,
   UserDetail,
-  LetterBox,
-  LetterBoxDetail,
-  LetterBoxSend,
   ResignSurvey,
   ResignSurveyDetail,
   SimplePopup,
