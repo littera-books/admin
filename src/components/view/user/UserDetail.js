@@ -81,6 +81,7 @@ class ActiveUserDetail extends React.Component {
             </Styled.NameWrapper>
             <p>{item.phone}</p>
             <p>{item.address}</p>
+            <p>{item.extra_address}</p>
           </Styled.UserSectionWrapper>
           <Styled.UserSectionWrapper>
             <h3>
