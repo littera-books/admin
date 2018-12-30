@@ -107,6 +107,11 @@ const Subscription = Loadable({
   loading: Loading,
 });
 
+const Book = Loadable({
+  loader: () => import('./components/book/Book'),
+  loading: Loading,
+});
+
 export default {
   Header,
   SignIn,
@@ -128,4 +133,5 @@ export default {
   SimplePopup,
   ConfirmPopup,
   Subscription,
+  Book,
 };

@@ -13,6 +13,7 @@ import user from './reducer.user';
 import resignSurvey from './reducer.resignSurvey';
 import popup from './reducer.popup';
 import subscription from './reducer.subscription';
+import book from './reducer.book';
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   resignSurvey,
   popup,
   subscription,
+  book,
 });
 
 export default rootReducer;

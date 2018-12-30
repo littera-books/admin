@@ -8,6 +8,7 @@ import { detailSubscription } from '../../../reducers/reducer.subscription';
 import { determineProductName } from '../user/UserDetail';
 
 // Styled
+import Loadable from '../../../loadable';
 import Wrapper from '../../../styled_base/Wrapper';
 import Element from '../../../styled_base/Element';
 
@@ -58,6 +59,7 @@ class Subscription extends React.Component {
         <h2>
           <strong>Book Info</strong>
         </h2>
+        <Loadable.Book match={match} />
       </Wrapper.ActiveDetailWrapper>
     );
   }
