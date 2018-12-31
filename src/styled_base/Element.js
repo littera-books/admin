@@ -41,7 +41,7 @@ const BasicInput = styled.input`
   font-size: 0.75rem;
   line-height: 2;
   width: 22rem;
-  border: none;
+  border: 1px solid #eee;
 
   :focus {
     outline: none;

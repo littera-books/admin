@@ -140,6 +140,22 @@ const reducerListBook = (state, action) => {
     length: action.response.data.length,
     months: action.response.data.months,
     items: action.response.data.items,
+    error: '',
+  });
+};
+
+const reducerCRUDBook = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    item: action.response.data,
+    error: '',
   });
 };
 
@@ -148,6 +164,8 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case LIST_BOOK:
       return reducerListBook(state, action);
+    case CREATE_BOOK:
+      return reducerCRUDBook(state, action);
     default:
       return state;
   }

@@ -19,7 +19,7 @@ class Book extends React.Component {
     const { length, months, match } = this.props;
     return (
       <Fragment>
-        <p>
+        <p style={{ marginBottom: '1rem' }}>
           <span>You delivered {length} books.</span>
           <span>&nbsp;|&nbsp;</span>
           <span>
