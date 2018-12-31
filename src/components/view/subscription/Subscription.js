@@ -37,7 +37,9 @@ class Subscription extends React.Component {
         </h2>
         <h2>
           <span>Started at:&nbsp;</span>
-          <strong>{moment(subItem.create_at).format('YYYY-MM-DD')}</strong>
+          <strong>
+            {moment.unix(subItem.created_at).format('YYYY-MM-DD')}
+          </strong>
         </h2>
         <Element.BasicHr />
         <h2>

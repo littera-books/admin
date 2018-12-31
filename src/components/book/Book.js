@@ -3,17 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { listBook } from '../../reducers/reducer.book';
 
+// Component
+import BookList from './BookList';
+
 // Styled
 import Styled from './Book.styled';
 
 class Book extends React.Component {
   async componentDidMount() {
     const { getList, match } = this.props;
-    await getList(match.params.subscriptionId);
+    await getList(match.params.subscriptionId, 1);
   }
 
   render() {
-    const { length, months } = this.props;
+    const { length, months, match } = this.props;
     return (
       <Fragment>
         <p>
@@ -23,13 +26,18 @@ class Book extends React.Component {
             Total months: <strong>{months} months</strong>
           </span>
         </p>
-        <Styled.BookWrapper />
+        <Styled.BookWrapper>
+          <BookList subscriptionId={match.params.subscriptionId} />
+        </Styled.BookWrapper>
       </Fragment>
     );
   }
 }
 
 Book.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }).isRequired,
   length: PropTypes.number.isRequired,
   months: PropTypes.number.isRequired,
 };
@@ -41,7 +49,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getList: subscriptionId => dispatch(listBook(subscriptionId)),
+  getList: (subscriptionId, pageNum) => dispatch(listBook(subscriptionId, pageNum)),
 });
 
 export default connect(

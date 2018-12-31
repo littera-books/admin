@@ -9,13 +9,13 @@ const UPDATE_BOOK = 'UPDATE_BOOK';
 const DELETE_BOOK = 'DELETE_BOOK';
 
 // Action Creators
-export const listBook = async (subscriptionId) => {
+export const listBook = async (subscriptionId, pageNum) => {
   let response;
   let error;
 
   try {
     response = await axiosInstance({
-      url: `/book/${subscriptionId}`,
+      url: `/book/${subscriptionId}?page=${pageNum}`,
       method: 'get',
     });
   } catch (e) {
