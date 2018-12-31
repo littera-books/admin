@@ -166,6 +166,8 @@ export default function reducer(state = initialState, action) {
       return reducerListBook(state, action);
     case CREATE_BOOK:
       return reducerCRUDBook(state, action);
+    case DELETE_BOOK:
+      return reducerCRUDBook(state, action);
     default:
       return state;
   }

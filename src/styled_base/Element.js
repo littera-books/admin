@@ -13,13 +13,14 @@ const BasicSmall = styled.small`
 
 const BasicButton = styled.button`
   font-family: 'Nanum Myeongjo';
-  display: block;
+  display: ${props => (props.display ? props.display : 'block')};
   color: black;
   cursor: pointer;
   font-size: 0.75rem;
   border: none;
   padding: 0;
   background-color: white;
+  margin: ${props => (props.margin ? props.margin : 0)};
 
   :focus {
     outline: none;

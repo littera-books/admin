@@ -5,6 +5,12 @@ const BookWrapper = styled(Wrapper.BasicFlexWrapper)`
   width: 100%;
 `;
 
+const BookLi = styled.li`
+  width: 20rem;
+  display: flex;
+  justify-content: space-between;
+`;
+
 const PaginationWrapper = styled(Wrapper.BasicFlexWrapper)`
   margin-top: 1.5rem;
   justify-content: center;
@@ -13,4 +19,5 @@ const PaginationWrapper = styled(Wrapper.BasicFlexWrapper)`
 export default {
   BookWrapper,
   PaginationWrapper,
+  BookLi,
 };

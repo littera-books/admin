@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
-import { listBook, createBook } from '../../reducers/reducer.book';
+import { listBook, createBook, deleteBook } from '../../reducers/reducer.book';
 
 // Components
 import BasicFormField from '../../form/FormField';
@@ -14,6 +14,8 @@ import Validation from '../../form/Validation';
 import Wrapper from '../../styled_base/Wrapper';
 import Element from '../../styled_base/Element';
 import Styled from './Book.styled';
+
+import Close from '../../assets/images/cross-out.svg';
 
 class BookList extends React.Component {
   state = {
@@ -29,6 +31,15 @@ class BookList extends React.Component {
       await getList(subscriptionId, 1);
       await initialize();
       this.setState({ isOpen: false });
+    }
+  }
+
+  async onDelete(item) {
+    const { deleteItem, getList, subscriptionId } = this.props;
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm(`정말 삭제하시겠습니까? "${item.name}"`)) {
+      await deleteItem(subscriptionId, item.id);
+      await getList(subscriptionId, 1);
     }
   }
 
@@ -61,6 +72,7 @@ class BookList extends React.Component {
       <Element.BasicButton
         key={i}
         type="button"
+        margin="0 0.5rem"
         onClick={e => this.handleClick(i, e)}
       >
         {i}
@@ -71,17 +83,23 @@ class BookList extends React.Component {
   renderList() {
     const { items, months } = this.props;
     return _.map(items, item => (
-      <li key={item.id}>
+      <Styled.BookLi key={item.id}>
+        <span>{`${item.order}|${months}`}</span>
+        <span>{item.name}</span>
         <span>
-          {`${item.order}|${months}`}
-          &nbsp;
+          <span>{moment.unix(item.created_at).format('YYYY-MM-DD')}</span>
+          <span>&nbsp;&nbsp;</span>
+          <span>
+            <Element.BasicButton
+              type="button"
+              display="inline"
+              onClick={e => this.onDelete(item, e)}
+            >
+              <img src={Close} width="9px" height="9px" alt="close" />
+            </Element.BasicButton>
+          </span>
         </span>
-        <span>
-          {item.name}
-          &nbsp;
-        </span>
-        <span>{moment.unix(item.created_at).format('YYYY-MM-DD')}</span>
-      </li>
+      </Styled.BookLi>
     ));
   }
 
@@ -159,6 +177,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getList: (subscriptionId, pageNum) => dispatch(listBook(subscriptionId, pageNum)),
   create: (subscriptionId, payload) => dispatch(createBook(subscriptionId, payload)),
+  deleteItem: (subscriptionId, bookId) => dispatch(deleteBook(subscriptionId, bookId)),
 });
 
 export default reduxForm({
