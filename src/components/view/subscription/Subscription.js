@@ -43,7 +43,7 @@ class Subscription extends React.Component {
         </h2>
         <Element.BasicHr />
         <h2>
-          <strong>User Info</strong>
+          <strong>Address Info</strong>
         </h2>
         <p>
           <span>Name:&nbsp;</span>
