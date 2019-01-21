@@ -7,6 +7,12 @@ const UserItem = styled(Wrapper.ColumnWrapper)`
   border: 1px solid lightgray;
 `;
 
+const UserInfo = styled(Wrapper.BasicFlexWrapper)`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const UserDashboardWrapper = styled(Wrapper.BasicFlexWrapper)`
   flex-wrap: wrap;
 `;
@@ -40,6 +46,7 @@ const SurveyResultUL = styled.ul`
 
 export default {
   UserItem,
+  UserInfo,
   UserDashboardWrapper,
   UserSectionWrapper,
   NameWrapper,

@@ -78,11 +78,25 @@ class ActiveUserDetail extends React.Component {
 
   render() {
     const { item } = this.props;
+    console.log(item);
     return (
       <Wrapper.ActiveDetailWrapper>
-        <h2>
-          <strong>{item.email}</strong>
-        </h2>
+        <Styled.UserInfo>
+          <h2>
+            <strong>{item.email}</strong>
+          </h2>
+          <div>
+            <span>{`started at: ${moment(item.create_at).format(
+              'YYYY-MM-DD',
+            )}`}</span>
+            <span>&nbsp;|&nbsp;</span>
+            {item.is_active ? (
+              <span style={{ color: 'green' }}>Active</span>
+            ) : (
+              <span style={{ color: 'red' }}>Inactive</span>
+            )}
+          </div>
+        </Styled.UserInfo>
         <Element.BasicHr />
         <Styled.UserDashboardWrapper>
           <Styled.UserSectionWrapper>
@@ -121,7 +135,7 @@ class ActiveUserDetail extends React.Component {
 
 ActiveUserDetail.propTypes = {
   item: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
   ).isRequired,
   itemsResult: PropTypes.arrayOf(PropTypes.object).isRequired,
   subResult: PropTypes.arrayOf(PropTypes.object).isRequired,

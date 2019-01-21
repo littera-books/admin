@@ -20,7 +20,14 @@ class UserList extends React.Component {
     return _.map(items, item => (
       <Styled.UserItem key={item.id}>
         <Link to={`${matchUrl}/${item.id}`}>
-          <p>{item.email}</p>
+          <Styled.UserInfo>
+            <span>{item.email}</span>
+            {item.is_active ? (
+              <span style={{ color: 'green' }}>Active</span>
+            ) : (
+              <span style={{ color: 'red' }}>Inactive</span>
+            )}
+          </Styled.UserInfo>
         </Link>
       </Styled.UserItem>
     ));
