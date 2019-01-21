@@ -14,7 +14,7 @@ export const listBook = async (subscriptionId, pageNum) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/book/${subscriptionId}?page=${pageNum}`,
       method: 'get',
     });
@@ -34,7 +34,7 @@ export const createBook = async (subscriptionId, payload) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/book/${subscriptionId}`,
       method: 'post',
       data: {
@@ -58,7 +58,7 @@ export const detailBook = async (subscriptionId, bookId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/book/${subscriptionId}/${bookId}`,
       method: 'get',
     });
@@ -78,7 +78,7 @@ export const updateBook = async (subscriptionId, bookId, payload) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/book/${subscriptionId}/${bookId}`,
       method: 'put',
       data: {
@@ -102,7 +102,7 @@ export const deleteBook = async (subscriptionId, bookId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/book/${subscriptionId}/${bookId}`,
       method: 'delete',
     });

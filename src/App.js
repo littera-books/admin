@@ -4,6 +4,8 @@ import {
   BrowserRouter, Route, Switch, Redirect,
 } from 'react-router-dom';
 import { connect } from 'react-redux';
+import moment from 'moment';
+import dataConfig from './dataConfig';
 import './utils/webfontloader';
 
 // Components
@@ -15,22 +17,51 @@ import Wrapper from './styled_base/Wrapper';
 // Minireset.css
 import '../node_modules/minireset.css/minireset.min.css';
 
-export const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props => (sessionStorage.getItem('adminToken') ? (
-        <Component {...props} />
-    ) : (
-        <Redirect
-          to={{
-            pathname: '/sign-in',
-            state: { from: props.location },
-          }}
-        />
-    ))
-    }
-  />
-);
+export const PrivateRoute = ({ component: Component, ...rest }) => {
+  const token = sessionStorage.getItem('adminToken');
+
+  if (!token) {
+    return (
+      <Route
+        {...rest}
+        render={props => (
+          <Redirect
+            to={{
+              pathname: '/sign-in',
+              state: { from: props.location },
+            }}
+          />
+        )}
+      />
+    );
+  }
+
+  const base64Url = token.split('.')[1];
+  const decodedData = JSON.parse(window.atob(base64Url));
+  const now = moment.now();
+  const result = moment(moment(now).format()).isSameOrBefore(
+    moment.unix(decodedData.exp).format(),
+  );
+
+  if (!result) {
+    alert(dataConfig.tokenExpiredText);
+    return (
+      <Route
+        {...rest}
+        render={props => (
+          <Redirect
+            to={{
+              pathname: '/sign-in',
+              state: { from: props.location },
+            }}
+          />
+        )}
+      />
+    );
+  }
+
+  return <Route {...rest} render={props => <Component {...props} />} />;
+};
 
 export class App extends React.PureComponent {
   render() {

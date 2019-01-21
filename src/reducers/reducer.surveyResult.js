@@ -10,7 +10,7 @@ export const listResult = async (userId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/survey/result/${userId}`,
       method: 'get',
     });

@@ -13,7 +13,7 @@ export async function listQuestion() {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/survey/question',
       method: 'get',
     });
@@ -33,7 +33,7 @@ export async function detailQuestion(questionId) {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/survey/question/${questionId}`,
       method: 'get',
     });
@@ -53,7 +53,7 @@ export async function createQuestion(payload) {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/survey/question',
       method: 'post',
       data: {
@@ -77,7 +77,7 @@ export async function updateQuestion(payload) {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/survey/question/${payload.questionId}`,
       method: 'put',
       data: {
@@ -101,7 +101,7 @@ export async function destroyQuestion(questionId) {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/survey/question/${questionId}`,
       method: 'delete',
     });

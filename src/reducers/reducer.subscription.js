@@ -11,7 +11,7 @@ export const listSubscription = async (userId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/subscription/${userId}`,
       method: 'get',
     });
@@ -31,7 +31,7 @@ export const detailSubscription = async (userId, subscriptionId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/subscription/${userId}/${subscriptionId}`,
       method: 'get',
     });

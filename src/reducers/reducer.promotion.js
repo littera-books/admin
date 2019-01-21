@@ -13,7 +13,7 @@ export const createPromotion = async (payload) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/promotion',
       method: 'post',
       data: {
@@ -37,7 +37,7 @@ export const detailPromotion = async (productId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/product/${productId}/promotion`,
       method: 'get',
     });
@@ -57,7 +57,7 @@ export const updatePromotion = async (payload) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/product/${payload.productId}/promotion`,
       method: 'put',
       data: {
@@ -80,7 +80,7 @@ export const destroyPromotion = async (productId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/product/${productId}/promotion`,
       method: 'delete',
     });

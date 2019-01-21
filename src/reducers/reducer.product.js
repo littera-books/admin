@@ -15,7 +15,7 @@ export const ListProduct = async () => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/product?all=true',
       method: 'get',
     });
@@ -35,7 +35,7 @@ export const detailProduct = async (productId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/product/${productId}`,
       method: 'get',
     });
@@ -55,7 +55,7 @@ export const createProduct = async (formData) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/product',
       method: 'post',
       data: formData,
@@ -76,7 +76,7 @@ export const updateProduct = async (productId, formData) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/product/${productId}`,
       method: 'put',
       data: formData,
@@ -97,7 +97,7 @@ export const destroyProduct = async (productId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/product/${productId}`,
       method: 'delete',
     });

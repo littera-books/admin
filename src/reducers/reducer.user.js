@@ -12,7 +12,7 @@ export const listUser = async () => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/user',
       method: 'get',
     });
@@ -32,7 +32,7 @@ export const detailUser = async (userId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/user/${userId}`,
       method: 'get',
     });
@@ -52,7 +52,7 @@ export const toggleActive = async (userId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/user/toggle-active/${userId}`,
       method: 'patch',
     });

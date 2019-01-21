@@ -12,7 +12,7 @@ export const countResign = async () => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: '/survey/resign/count',
       method: 'get',
     });
@@ -32,7 +32,7 @@ export const listResign = async (pageNum) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/survey/resign?page=${pageNum}`,
       method: 'get',
     });
@@ -52,7 +52,7 @@ export const detailResign = async (surveyId) => {
   let error;
 
   try {
-    response = await axiosInstance({
+    response = await axiosInstance()({
       url: `/survey/resign/${surveyId}`,
       method: 'get',
     });

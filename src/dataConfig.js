@@ -12,6 +12,7 @@ export default {
   productTitle: '상품 관리',
   userTitle: '유저 관리',
   defaultDetailText: '좌측 리스트를 눌러 작업을 시작하세요.',
+  tokenExpiredText: 'Your access token is expired. Please login again.',
   popupMessage: {
     destroyQuestion: {
       header: '질문 삭제',

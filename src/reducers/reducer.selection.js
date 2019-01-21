@@ -13,7 +13,7 @@ export async function listSelection(questionId) {
   let error;
 
   try {
-    response = await AxiosInstance({
+    response = await AxiosInstance()({
       url: `/survey/question/${questionId}/selection`,
       method: 'get',
     });
@@ -33,7 +33,7 @@ export async function createSelection(payload) {
   let error;
 
   try {
-    response = await AxiosInstance({
+    response = await AxiosInstance()({
       url: `/survey/question/${payload.questionId}/selection`,
       method: 'post',
       data: {
@@ -56,7 +56,7 @@ export async function updateSelection(payload) {
   let error;
 
   try {
-    response = await AxiosInstance({
+    response = await AxiosInstance()({
       url: `/survey/question/${payload.questionId}/selection/${payload.id}`,
       method: 'put',
       data: {
@@ -80,7 +80,7 @@ export async function destroySelection(payload) {
   let error;
 
   try {
-    response = await AxiosInstance({
+    response = await AxiosInstance()({
       url: `/survey/question/${payload.questionId}/selection/${payload.id}`,
       method: 'delete',
     });
