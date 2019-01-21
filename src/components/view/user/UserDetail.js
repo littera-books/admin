@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { detailUser } from '../../../reducers/reducer.user';
+import { detailUser, toggleActive } from '../../../reducers/reducer.user';
 import { listResult } from '../../../reducers/reducer.surveyResult';
 import { listSubscription } from '../../../reducers/reducer.subscription';
 import dataConfig from '../../../dataConfig';
@@ -37,9 +37,14 @@ export const determineProductName = (item) => {
 };
 
 class ActiveUserDetail extends React.Component {
-  state = {
-    userId: 0,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: 0,
+    };
+
+    this.onToggleActive = this.onToggleActive.bind(this);
+  }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (prevState.userId !== nextProps.match.params.userId) {
@@ -49,6 +54,17 @@ class ActiveUserDetail extends React.Component {
       return { userId: nextProps.match.params.userId };
     }
     return null;
+  }
+
+  async onToggleActive() {
+    const { item, toggle } = this.props;
+    await toggle(item.id);
+
+    const { error, history } = this.props;
+    if (!error) {
+      history.replace('/user');
+      window.location.reload();
+    }
   }
 
   renderSurveyItems() {
@@ -78,24 +94,25 @@ class ActiveUserDetail extends React.Component {
 
   render() {
     const { item } = this.props;
-    console.log(item);
     return (
       <Wrapper.ActiveDetailWrapper>
         <Styled.UserInfo>
           <h2>
             <strong>{item.email}</strong>
           </h2>
-          <div>
+          <Styled.UserInfo>
             <span>{`started at: ${moment(item.create_at).format(
               'YYYY-MM-DD',
             )}`}</span>
             <span>&nbsp;|&nbsp;</span>
-            {item.is_active ? (
-              <span style={{ color: 'green' }}>Active</span>
-            ) : (
-              <span style={{ color: 'red' }}>Inactive</span>
-            )}
-          </div>
+            <Element.BasicButton onClick={this.onToggleActive}>
+              {item.is_active ? (
+                <span style={{ color: 'green' }}>Active</span>
+              ) : (
+                <span style={{ color: 'red' }}>Inactive</span>
+              )}
+            </Element.BasicButton>
+          </Styled.UserInfo>
         </Styled.UserInfo>
         <Element.BasicHr />
         <Styled.UserDashboardWrapper>
@@ -143,6 +160,7 @@ ActiveUserDetail.propTypes = {
 
 const mapStateToProps = state => ({
   item: state.user.item,
+  error: state.user.error,
   itemsResult: state.surveyResult.items,
   subResult: state.subscription.items,
 });
@@ -151,6 +169,7 @@ const mapDispatchToProps = dispatch => ({
   getDetail: userId => dispatch(detailUser(userId)),
   getListResult: userId => dispatch(listResult(userId)),
   getListSub: userId => dispatch(listSubscription(userId)),
+  toggle: userId => dispatch(toggleActive(userId)),
 });
 
 export default connect(

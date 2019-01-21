@@ -4,6 +4,7 @@ import axiosInstance from './axios.instance';
 // Actions
 const LIST_USER = 'LIST_USER';
 const DETAIL_USER = 'DETAIL_USER';
+const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
 
 // Action Creators
 export const listUser = async () => {
@@ -41,6 +42,26 @@ export const detailUser = async (userId) => {
 
   return {
     type: DETAIL_USER,
+    response,
+    error,
+  };
+};
+
+export const toggleActive = async (userId) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance({
+      url: `/user/toggle-active/${userId}`,
+      method: 'patch',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: TOGGLE_ACTIVE,
     response,
     error,
   };
@@ -86,6 +107,20 @@ const reducerDetailUser = (state, action) => {
   });
 };
 
+const reducerToggleActive = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    error: '',
+  });
+};
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -93,6 +128,8 @@ export default function reducer(state = initialState, action) {
       return reducerListUser(state, action);
     case DETAIL_USER:
       return reducerDetailUser(state, action);
+    case TOGGLE_ACTIVE:
+      return reducerToggleActive(state, action);
     default:
       return state;
   }
