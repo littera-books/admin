@@ -4,7 +4,11 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { detailUser, toggleActive } from '../../../reducers/reducer.user';
+import {
+  detailUser,
+  toggleActive,
+  deleteUser,
+} from '../../../reducers/reducer.user';
 import { listResult } from '../../../reducers/reducer.surveyResult';
 import { listSubscription } from '../../../reducers/reducer.subscription';
 import dataConfig from '../../../dataConfig';
@@ -44,6 +48,7 @@ class ActiveUserDetail extends React.Component {
     };
 
     this.onToggleActive = this.onToggleActive.bind(this);
+    this.deleteUser = this.deleteUser.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -62,6 +67,18 @@ class ActiveUserDetail extends React.Component {
 
     const { error, history } = this.props;
     if (!error) {
+      history.replace('/user');
+      window.location.reload();
+    }
+  }
+
+  async deleteUser() {
+    const { userId } = this.state;
+    const { item, deleteU, history } = this.props;
+    const answer = window.confirm(`Are you sure delete user: ${item.email}?`);
+
+    if (answer) {
+      await deleteU(userId);
       history.replace('/user');
       window.location.reload();
     }
@@ -114,6 +131,11 @@ class ActiveUserDetail extends React.Component {
             </Element.BasicButton>
           </Styled.UserInfo>
         </Styled.UserInfo>
+        <div style={{ margin: '0.5rem 0 0 auto' }}>
+          <Element.BasicButton onClick={this.deleteUser}>
+            <strong style={{ color: 'red' }}>Delete user</strong>
+          </Element.BasicButton>
+        </div>
         <Element.BasicHr />
         <Styled.UserDashboardWrapper>
           <Styled.UserSectionWrapper>
@@ -170,6 +192,7 @@ const mapDispatchToProps = dispatch => ({
   getListResult: userId => dispatch(listResult(userId)),
   getListSub: userId => dispatch(listSubscription(userId)),
   toggle: userId => dispatch(toggleActive(userId)),
+  deleteU: userId => dispatch(deleteUser(userId)),
 });
 
 export default connect(
