@@ -10,7 +10,10 @@ import {
   deleteUser,
 } from '../../../reducers/reducer.user';
 import { listResult } from '../../../reducers/reducer.surveyResult';
-import { listSubscription } from '../../../reducers/reducer.subscription';
+import {
+  listSubscription,
+  deleteSubscription,
+} from '../../../reducers/reducer.subscription';
 import dataConfig from '../../../dataConfig';
 
 // Styled
@@ -49,6 +52,7 @@ class ActiveUserDetail extends React.Component {
 
     this.onToggleActive = this.onToggleActive.bind(this);
     this.deleteUser = this.deleteUser.bind(this);
+    this.deleteSubscription = this.deleteSubscription.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -84,6 +88,20 @@ class ActiveUserDetail extends React.Component {
     }
   }
 
+  async deleteSubscription(e, subItem) {
+    const { userId } = this.state;
+    const { deleteS, getListSub } = this.props;
+    const startedAt = moment.unix(subItem.created_at).format('YYYY-MM-DD');
+    const answer = window.confirm(
+      `Are you sure delete subscription: ${startedAt}?`,
+    );
+
+    if (answer) {
+      await deleteS(userId, subItem.id);
+      await getListSub(userId);
+    }
+  }
+
   renderSurveyItems() {
     const { itemsResult } = this.props;
     return _.map(itemsResult, item => (
@@ -105,6 +123,9 @@ class ActiveUserDetail extends React.Component {
             .unix(item.created_at)
             .format('YYYY-MM-DD')}`}</span>
         </Link>
+        <Element.BasicButton onClick={e => this.deleteSubscription(e, item)}>
+          <strong style={{ color: 'red' }}>Delete</strong>
+        </Element.BasicButton>
       </li>
     ));
   }
@@ -193,6 +214,7 @@ const mapDispatchToProps = dispatch => ({
   getListSub: userId => dispatch(listSubscription(userId)),
   toggle: userId => dispatch(toggleActive(userId)),
   deleteU: userId => dispatch(deleteUser(userId)),
+  deleteS: (userId, subscriptionId) => dispatch(deleteSubscription(userId, subscriptionId)),
 });
 
 export default connect(

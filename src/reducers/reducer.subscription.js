@@ -4,6 +4,7 @@ import axiosInstance from './axios.instance';
 // Actions
 const LIST_SUBSCRIPTION = 'LIST_SUBSCRIPTION';
 const DETAIL_SUBSCRIPTION = 'DETAIL_SUBSCRIPTION';
+const DELETE_SUBSCRIPTION = 'DELETE_SUBSCRIPTION';
 
 // Action Creators
 export const listSubscription = async (userId) => {
@@ -41,6 +42,26 @@ export const detailSubscription = async (userId, subscriptionId) => {
 
   return {
     type: DETAIL_SUBSCRIPTION,
+    response,
+    error,
+  };
+};
+
+export const deleteSubscription = async (userId, subscriptionId) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance()({
+      url: `/subscription/${userId}/${subscriptionId}`,
+      method: 'delete',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: DELETE_SUBSCRIPTION,
     response,
     error,
   };
@@ -89,6 +110,20 @@ const reducerDetailSubscription = (state, action) => {
   });
 };
 
+const reducerDeleteSubscription = (state, action) => {
+  if (action.error) {
+    return _.assign({}, state, {
+      ...state,
+      error: action.error.response.data.message,
+    });
+  }
+
+  return _.assign({}, state, {
+    ...state,
+    error: '',
+  });
+};
+
 // Reducer
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -96,6 +131,8 @@ export default function reducer(state = initialState, action) {
       return reducerListSubscription(state, action);
     case DETAIL_SUBSCRIPTION:
       return reducerDetailSubscription(state, action);
+    case DELETE_SUBSCRIPTION:
+      return reducerDeleteSubscription(state, action);
     default:
       return state;
   }
