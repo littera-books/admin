@@ -8,6 +8,7 @@ import {
   detailUser,
   toggleActive,
   deleteUser,
+  checkUserLog,
 } from '../../../reducers/reducer.user';
 import { listResult } from '../../../reducers/reducer.surveyResult';
 import {
@@ -41,6 +42,17 @@ export const determineProductName = (item) => {
   }
 
   return `${item.books} books for ${item.months} months`;
+};
+
+const changeLogText = (log) => {
+  if (log === 'created_user') {
+    return '신규 가입 유저';
+  }
+  if (log === 'changed_user') {
+    return '유저 정보 변경';
+  }
+
+  return '';
 };
 
 class ActiveUserDetail extends React.Component {
@@ -102,6 +114,17 @@ class ActiveUserDetail extends React.Component {
     }
   }
 
+  async checkLogDefault() {
+    const { userId } = this.state;
+    const { checkLog } = this.props;
+    await checkLog(userId);
+
+    const { error } = this.props;
+    if (!error) {
+      window.location.reload();
+    }
+  }
+
   renderSurveyItems() {
     const { itemsResult } = this.props;
     return _.map(itemsResult, item => (
@@ -135,9 +158,19 @@ class ActiveUserDetail extends React.Component {
     return (
       <Wrapper.ActiveDetailWrapper>
         <Styled.UserInfo>
-          <h2>
-            <strong>{item.email}</strong>
-          </h2>
+          <Styled.UserInfo>
+            <h2>
+              <strong>{item.email}</strong>
+            </h2>
+            <span>&nbsp;</span>
+            {item.log ? (
+              <Styled.BadgeButton onClick={e => this.checkLogDefault(e)}>
+                <strong>{changeLogText(item.log)}</strong>
+                <span>&nbsp;|&nbsp;</span>
+                <span>확인하기</span>
+              </Styled.BadgeButton>
+            ) : null}
+          </Styled.UserInfo>
           <Styled.UserInfo>
             <span>{`started at: ${moment
               .unix(item.created_at)
@@ -213,6 +246,7 @@ const mapDispatchToProps = dispatch => ({
   getListResult: userId => dispatch(listResult(userId)),
   getListSub: userId => dispatch(listSubscription(userId)),
   toggle: userId => dispatch(toggleActive(userId)),
+  checkLog: userId => dispatch(checkUserLog(userId)),
   deleteU: userId => dispatch(deleteUser(userId)),
   deleteS: (userId, subscriptionId) => dispatch(deleteSubscription(userId, subscriptionId)),
 });

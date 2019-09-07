@@ -6,6 +6,7 @@ const LIST_USER = 'LIST_USER';
 const DETAIL_USER = 'DETAIL_USER';
 const TOGGLE_ACTIVE = 'TOGGLE_ACTIVE';
 const DELETE_USER = 'DELETE_USER';
+const CHECK_USER_LOG = 'CHECK_USER_LOG';
 
 // Action Creators
 export const listUser = async () => {
@@ -83,6 +84,26 @@ export const deleteUser = async (userId) => {
 
   return {
     type: DELETE_USER,
+    response,
+    error,
+  };
+};
+
+export const checkUserLog = async (useId) => {
+  let response;
+  let error;
+
+  try {
+    response = await axiosInstance()({
+      url: `/user/${useId}/check`,
+      method: 'post',
+    });
+  } catch (e) {
+    error = e;
+  }
+
+  return {
+    type: CHECK_USER_LOG,
     response,
     error,
   };
@@ -167,6 +188,8 @@ export default function reducer(state = initialState, action) {
       return reducerToggleActive(state, action);
     case DELETE_USER:
       return reducerDeleteUser(state, action);
+    case CHECK_USER_LOG:
+      return reducerToggleActive(state, action);
     default:
       return state;
   }

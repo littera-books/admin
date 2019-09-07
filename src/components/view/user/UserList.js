@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { listUser } from '../../../reducers/reducer.user';
+import NotiImg from '../../../assets/images/exclamation-circle-solid.svg';
 
 // Styled
 import Wrapper from '../../../styled_base/Wrapper';
@@ -21,7 +22,18 @@ class UserList extends React.Component {
       <Styled.UserItem key={item.id}>
         <Link to={`${matchUrl}/${item.id}`}>
           <Styled.UserInfo>
-            <span>{item.email}</span>
+            <Styled.UserInfo>
+              {item.log ? (
+                <img
+                  src={NotiImg}
+                  alt="notification"
+                  width="16px"
+                  height="16px"
+                  style={{ opacity: '0.5', marginRight: '0.5rem' }}
+                />
+              ) : null}
+              <span>{item.email}</span>
+            </Styled.UserInfo>
             {item.is_active ? (
               <span style={{ color: 'green' }}>Active</span>
             ) : (

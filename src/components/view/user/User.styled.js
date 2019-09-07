@@ -44,7 +44,14 @@ const SurveyResultUL = styled.ul`
   list-style-type: disc;
 `;
 
+const BadgeButton = styled(Element.BasicButton)`
+  border: 1px solid lightgray;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+`;
+
 export default {
+  BadgeButton,
   UserItem,
   UserInfo,
   UserDashboardWrapper,
