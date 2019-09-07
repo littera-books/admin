@@ -6,7 +6,7 @@ const BookWrapper = styled(Wrapper.BasicFlexWrapper)`
 `;
 
 const BookLi = styled.li`
-  width: 20rem;
+  width: 30rem;
   display: flex;
   justify-content: space-between;
 `;
