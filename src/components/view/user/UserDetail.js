@@ -45,14 +45,18 @@ export const determineProductName = (item) => {
 };
 
 const changeLogText = (log) => {
-  if (log === 'created_user') {
-    return '신규 가입 유저';
+  switch (log) {
+    case 'created_user':
+      return '신규 가입 유저';
+    case 'changed_user':
+      return '유저 정보 변경';
+    case 'add_subscription':
+      return '구독 추가';
+    case 'add_survey':
+      return '설문 추가';
+    default:
+      return '';
   }
-  if (log === 'changed_user') {
-    return '유저 정보 변경';
-  }
-
-  return '';
 };
 
 class ActiveUserDetail extends React.Component {
